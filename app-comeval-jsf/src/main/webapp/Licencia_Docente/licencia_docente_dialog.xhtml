@@ -1,0 +1,91 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <p:dialog id="ComevalLicenciaDocenteDialog" header="Licencia-Docente" widgetVar="ComevalLicenciaDocenteDialogVar" modal="true" appendTo="@(body)" resizable="false" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ComevalLicenciaDocenteForm">
+            <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+            
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Licencia_Docente.cbxTipoSolicitud}" value="#{Bean_Comeval_Licencia_Docente.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Licencia_Docente.lst_tipo_solicitud}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Licencia_Docente.cbxEstadoSolicitud}" value="#{Bean_Comeval_Licencia_Docente.id_estado_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Licencia_Docente.lst_estado_solicitud}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Código-Docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtCodigoDocente" readonly="#{Bean_Comeval_Licencia_Docente.txtCodigoDocente}" value="#{Bean_Comeval_Licencia_Docente.codigo_docente}" style="width: 214px; font-size:10px;">
+                    <p:ajax event="blur" listener="#{Bean_Comeval_Licencia_Docente.datos_docente}" update="txtNombreDocente,pklPlazas"/>
+                </p:inputText>
+                <p:outputLabel value="Nombre del docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtNombreDocente" readonly="#{Bean_Comeval_Licencia_Docente.txtNombreDocente}" value="#{Bean_Comeval_Licencia_Docente.nombre_docente}" style="width: 440px; font-size:10px; background-color: yellow; color: blue;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Motivo licencia" style="font-size:10px; font-weight:bold;"/>
+                <p:selectOneMenu id="cbxMotivoLicencia" disabled="#{Bean_Comeval_Licencia_Docente.cbxMotivoLicencia}" value="#{Bean_Comeval_Licencia_Docente.id_motivo_licencia}" style="width: 426px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Licencia_Docente.lst_motivo_licencia}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Tipo licencia" style="font-size:10px; font-weight:bold;"/>
+                <p:outputLabel value="¿Con goce de suelto?" style="font-size:10px; font-weight:bold;"/>
+                <p:selectOneMenu id="cbxTipoLicencia" disabled="#{Bean_Comeval_Licencia_Docente.cbxTipoLicencia}" value="#{Bean_Comeval_Licencia_Docente.id_tipo_licencia}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Licencia_Docente.lst_tipo_licencia}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu id="cbxGoceSueldo" disabled="#{Bean_Comeval_Licencia_Docente.cbxGoceSueldo}" value="#{Bean_Comeval_Licencia_Docente.goce_sueldo}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Licencia_Docente.lst_goce_sueldo}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Fecha inicio licencia" style="font-size:10px; font-weight:bold;"/>
+                <p:outputLabel value="Fecha fin licencia" style="font-size:10px; font-weight:bold;"/>
+                <p:calendar id="calFechaInicioLicencia" disabled="#{Bean_Comeval_Licencia_Docente.calFechaInicioLicencia}" value="#{Bean_Comeval_Licencia_Docente.fecha_inicio_licencia}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
+                <p:calendar id="calFechaFinalLicencia" disabled="#{Bean_Comeval_Licencia_Docente.calFechaFinalLicencia}" value="#{Bean_Comeval_Licencia_Docente.fecha_final_licencia}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="3">
+                <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Licencia_Docente.chxRechazado}" value="#{Bean_Comeval_Licencia_Docente.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;"/>
+                <p:selectBooleanCheckbox id="chxVistoBuenoDirector" disabled="#{Bean_Comeval_Licencia_Docente.chxVistoBuenoDirector}" value="#{Bean_Comeval_Licencia_Docente.visto_bueno_director_form}" itemLabel="Visto bueno director" style="font-size:10px; font-weight:bold;"/>
+                <p:selectBooleanCheckbox id="chxIngresoSiifTraslado" disabled="#{Bean_Comeval_Licencia_Docente.chxIngresoSiifTraslado}" value="#{Bean_Comeval_Licencia_Docente.ingreso_siif_traslado_form}" itemLabel="Ingreso SIIF/Traslado" style="font-size:10px; font-weight:bold;"/>
+                <p:selectBooleanCheckbox id="chxConfirmarTraslado" disabled="#{Bean_Comeval_Licencia_Docente.chxConfirmarTraslado}" value="#{Bean_Comeval_Licencia_Docente.confirmar_traslado_form}" itemLabel="Confirmar traslado" style="font-size:10px; font-weight:bold;"/>
+                <p:selectBooleanCheckbox id="chxAsignarTipoLicencia" disabled="#{Bean_Comeval_Licencia_Docente.chxAsignarTipoLicencia}" value="#{Bean_Comeval_Licencia_Docente.asignar_tipo_licencia_form}" itemLabel="Asignar tipo licencia" style="font-size:10px; font-weight:bold;"/>
+                <p:selectBooleanCheckbox id="chxAprobacionDecanatura" disabled="#{Bean_Comeval_Licencia_Docente.chxAprobacionDecanatura}" value="#{Bean_Comeval_Licencia_Docente.aprobacion_decanatura_form}" itemLabel="Aprueba decanatura" style="font-size:10px; font-weight:bold;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:selectBooleanCheckbox id="chxNotificacionTesoreria" disabled="#{Bean_Comeval_Licencia_Docente.chxNotificacionTesoreria}" value="#{Bean_Comeval_Licencia_Docente.notificacion_tesoreria_form}" itemLabel="Notificación tesorería" style="font-size:10px; font-weight:bold;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Observación del docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputTextarea id="areObservacionDocente" readonly="#{Bean_Comeval_Licencia_Docente.areObservacionDocente}" value="#{Bean_Comeval_Licencia_Docente.descripcion_solicitud}" rows="6" autoResize="false" scrollHeight="6" style="width: 440px; font-size:10px;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:pickList id="pklPlazas" disabled="#{Bean_Comeval_Licencia_Docente.pklPlazas}" value="#{Bean_Comeval_Licencia_Docente.plazas}" var="plazas" itemLabel="#{plazas}" itemValue="#{plazas}"/>
+            </h:panelGrid>
+            
+            <div align="right">
+                <p:commandButton id="btnAceptar" disabled="#{Bean_Comeval_Licencia_Docente.btnAceptar}" value="Aceptar" actionListener="#{Bean_Comeval_Licencia_Docente.aceptar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Bean_Comeval_Licencia_Docente.usuario, Bean_Comeval_Licencia_Docente.id_estado_solicitud, Bean_Comeval_Licencia_Docente.id_tipo_solicitud)}" update=":formMensaje:mensaje2,:formContenido" style="font-size:10px; font-weight:bold;">
+                    <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="btnCancelar" disabled="#{Bean_Comeval_Licencia_Docente.btnCancelar}" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('ComevalLicenciaDocenteDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+                <p:confirmDialog global="true" style="font-size:10px; font-weight:bold;">
+                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px;"/>
+                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px;"/>
+                </p:confirmDialog>
+            </div>
+        </h:form>
+    </p:dialog>
+</ui:composition>

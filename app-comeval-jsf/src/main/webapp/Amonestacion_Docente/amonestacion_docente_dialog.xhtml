@@ -1,0 +1,53 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <p:dialog id="ComevalAmonestacionDocenteDialog" header="Amonestación-Docente" widgetVar="ComevalAmonestacionDocenteDialogVar" modal="true" appendTo="@(body)" resizable="false" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ComevalAmonestacionDocenteForm">
+            <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+            
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Amonestacion_Docente.cbxTipoSolicitud}" value="#{Bean_Comeval_Amonestacion_Docente.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Amonestacion_Docente.lst_tipo_solicitud}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Amonestacion_Docente.cbxEstadoSolicitud}" value="#{Bean_Comeval_Amonestacion_Docente.id_estado_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Amonestacion_Docente.lst_estado_solicitud}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Código-Docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtCodigoDocente" readonly="#{Bean_Comeval_Amonestacion_Docente.txtCodigoDocente}" value="#{Bean_Comeval_Amonestacion_Docente.codigo_docente}" style="width: 214px; font-size:10px;">
+                    <p:ajax event="blur" listener="#{Bean_Comeval_Amonestacion_Docente.datos_docente}" update="txtNombreDocente"/>
+                </p:inputText>
+                <p:outputLabel value="Nombre del docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtNombreDocente" readonly="#{Bean_Comeval_Amonestacion_Docente.txtNombreDocente}" value="#{Bean_Comeval_Amonestacion_Docente.nombre_docente}" style="width: 440px; font-size:10px; background-color: yellow; color: blue;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="3">
+                <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Amonestacion_Docente.chxRechazado}" value="#{Bean_Comeval_Amonestacion_Docente.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;"/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Observación del docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputTextarea id="areObservacionDocente" readonly="#{Bean_Comeval_Amonestacion_Docente.areObservacionDocente}" value="#{Bean_Comeval_Amonestacion_Docente.descripcion_solicitud}" rows="6" autoResize="false" scrollHeight="6" style="width: 440px; font-size:10px;"/>
+            </h:panelGrid>
+            
+            <div align="right">
+                <p:commandButton id="btnAceptar" disabled="#{Bean_Comeval_Amonestacion_Docente.btnAceptar}" value="Aceptar" actionListener="#{Bean_Comeval_Amonestacion_Docente.aceptar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{Bean_Lst_Comeval_Amonestacion_Docente.cargar_datos(Bean_Comeval_Amonestacion_Docente.usuario, Bean_Comeval_Amonestacion_Docente.id_estado_solicitud, Bean_Comeval_Amonestacion_Docente.id_tipo_solicitud)}" update=":formMensaje:mensaje2,:formContenido" style="font-size:10px; font-weight:bold;">
+                    <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="btnCancelar" disabled="#{Bean_Comeval_Amonestacion_Docente.btnCancelar}" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('ComevalAmonestacionDocenteDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+                <p:confirmDialog global="true" style="font-size:10px; font-weight:bold;">
+                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px;"/>
+                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px;"/>
+                </p:confirmDialog>
+            </div>
+        </h:form>
+    </p:dialog>
+</ui:composition>

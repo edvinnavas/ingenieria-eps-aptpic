@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale=1.0" http-equiv="Content-Type"/>
+            <title>.:COMEVAL:.</title>
+        </f:facet>
+    </h:head>
+    <h:body onload="#{Menu.onload(Index.usuario)}">
+        <h:form id="formMensaje" style="font-size:10px; font-weight:bold;">
+            <link href="css/style_growl.css" rel="stylesheet" type="text/css"/>
+            <p:growl id="mensaje2" showDetail="true"/>
+        </h:form>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="190" resizable="false" closable="false" collapsible="false" style="text-align:left; padding-left: 5px;">
+                <h:form id="formPerfil">
+                    <h:panelGrid columns="2">
+                        <img src="imagenes/logo_fiusac_1.png" alt="LogoUSAC"/>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Usuario:" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="#{Menu.id_usuario}" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="Nombre:" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="#{Menu.nombre_usuario}" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="Rol:" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="#{Menu.rol_usuario}" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="Unidad:" style="font-size:10px; color:blue;"/>
+                            <p:outputLabel value="#{Menu.unidad_usuario}" style="font-size:10px; color:blue;"/>
+                            <f:facet name="footer">
+                                <p:commandButton id="btnSalir" value="Salir" ajax="false" actionListener="#{Menu.Salir}" style="font-size:10px; font-weight:bold;"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" header="COMEVAL" size="251px" collapsible="true" style="color: blue;">
+                <h:form id="formMenu">
+                    <p:panelMenu style="width:250px">
+                        <p:submenu label="Promoción docente" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuPromocionDocente1" rendered="#{Menu.mostrar_menu('MENU-PROMOCION-DOCENTE-1')}" value="Ingreso solicitud (Docente)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Promocion_Docente/promocion_docente')}" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Menu.usuario, 1, 1)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuPromocionDocente2" rendered="#{Menu.mostrar_menu('MENU-PROMOCION-DOCENTE-2')}" value="Ingreso solicitud (COMEVAL)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Promocion_Docente/promocion_docente')}" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Menu.usuario, 2, 1)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuPromocionDocente3" rendered="#{Menu.mostrar_menu('MENU-PROMOCION-DOCENTE-3')}" value="Ingreso solicitud (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Promocion_Docente/promocion_docente')}" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Menu.usuario, 3, 1)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuPromocionDocente4" rendered="#{Menu.mostrar_menu('MENU-PROMOCION-DOCENTE-4')}" value="Revisión (COMEVAL)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Promocion_Docente/promocion_docente')}" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Menu.usuario, 4, 1)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuPromocionDocente5" rendered="#{Menu.mostrar_menu('MENU-PROMOCION-DOCENTE-5')}" value="Revisión (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Promocion_Docente/promocion_docente')}" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Menu.usuario, 5, 1)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                        <p:submenu label="Licencia docente" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuLicenciaDocente1" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-1')}" value="Ingreso solicitud (Docente)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 1, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente2" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-2')}" value="Visto bueno (Director escuela)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 2, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente3" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-3')}" value="Ingreso SIIF/Traslado (Escuela)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 3, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente4" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-4')}" value="Confirmar traslado (Director de escuela)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 4, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente5" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-5')}" value="Tipo licencia (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 5, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente6" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-6')}" value="Acuerdo (Decanatura)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 6, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuLicenciaDocente7" rendered="#{Menu.mostrar_menu('MENU-LICENCIA-DOCENTE-7')}" value="Notificación (Tesorería)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Licencia_Docente/licencia_docente')}" action="#{Bean_Lst_Comeval_Licencia_Docente.cargar_datos(Menu.usuario, 8, 2)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                        <p:submenu label="Amonestación docente" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuAmonestacionDocente1" rendered="#{Menu.mostrar_menu('MENU-AMONESTACION-DOCENTE-1')}" value="Ingreso solicitud (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Amonestacion_Docente/amonestacion_docente')}" action="#{Bean_Lst_Comeval_Amonestacion_Docente.cargar_datos(Menu.usuario, 1, 3)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                        <p:submenu label="Cambio de horario" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuCambioHorario1" rendered="#{Menu.mostrar_menu('MENU-CAMBIO-HORARIO-1')}" value="Ingreso solicitud (Docente)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Cambio_Horario/cambio_horario')}" action="#{Bean_Lst_Comeval_Cambio_Horario.cargar_datos(Menu.usuario, 1, 4)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuCambioHorario2" rendered="#{Menu.mostrar_menu('MENU-CAMBIO-HORARIO-2')}" value="Visto bueno (Director escuela)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Cambio_Horario/cambio_horario')}" action="#{Bean_Lst_Comeval_Cambio_Horario.cargar_datos(Menu.usuario, 2, 4)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuCambioHorario3" rendered="#{Menu.mostrar_menu('MENU-CAMBIO-HORARIO-3')}" value="Visto bueno (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Cambio_Horario/cambio_horario')}" action="#{Bean_Lst_Comeval_Cambio_Horario.cargar_datos(Menu.usuario, 3, 4)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                        <p:submenu label="Ampliación de horario" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuAmpliacionHorario1" rendered="#{Menu.mostrar_menu('MENU-AMPLIACION-HORARIO-1')}" value="Ingreso solicitud (Docente)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Ampliacion_Horario/ampliacion_horario')}" action="#{Bean_Lst_Comeval_Ampliacion_Horario.cargar_datos(Menu.usuario, 1, 5)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuAmpliacionHorario2" rendered="#{Menu.mostrar_menu('MENU-AMPLIACION-HORARIO-2')}" value="Visto bueno (Director escuela)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Ampliacion_Horario/ampliacion_horario')}" action="#{Bean_Lst_Comeval_Ampliacion_Horario.cargar_datos(Menu.usuario, 2, 5)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuAmpliacionHorario3" rendered="#{Menu.mostrar_menu('MENU-AMPLIACION-HORARIO-3')}" value="Visto bueno (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Ampliacion_Horario/ampliacion_horario')}" action="#{Bean_Lst_Comeval_Ampliacion_Horario.cargar_datos(Menu.usuario, 3, 5)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                            <p:menuitem id="menuAmpliacionHorario4" rendered="#{Menu.mostrar_menu('MENU-AMPLIACION-HORARIO-4')}" value="Notificación (Tesorería)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Ampliacion_Horario/ampliacion_horario')}" action="#{Bean_Lst_Comeval_Ampliacion_Horario.cargar_datos(Menu.usuario, 5, 4)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                        <p:submenu label="Carga eval. docente" style="font-size:12px; font-weight:bold;">
+                            <p:menuitem id="menuCargaEvalDocente1" rendered="#{Menu.mostrar_menu('MENU-CARGA-EVAL-DOCENTE-1')}" value="Carga eval. docente (Secretario académico)" ajax="false" actionListener="#{Menu.setPagina_seleccionada('Carga_Eval_Docente/carga_eval_docente')}" action="#{Bean_Lst_Comeval_Carga_Eval_Comeval.cargar_datos(Menu.usuario, 1, 6)}" update=":formContenido" style="font-size:12px; font-weight:bold;"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+                <h:form id="formContenido">
+                    <ui:include id="ui1" src="#{Menu.pagina_seleccionada}"/>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+    <ui:include src="Promocion_Docente/promocion_docente_dialog.xhtml"/>
+    <ui:include src="Licencia_Docente/licencia_docente_dialog.xhtml"/>
+    <ui:include src="Amonestacion_Docente/amonestacion_docente_dialog.xhtml"/>
+    <ui:include src="Cambio_Horario/cambio_horario_dialog.xhtml"/>
+    <ui:include src="Ampliacion_Horario/ampliacion_horario_dialog.xhtml"/>
+    <ui:include src="Carga_Eval_Docente/carga_eval_docente_dialog.xhtml"/>
+
+</html>

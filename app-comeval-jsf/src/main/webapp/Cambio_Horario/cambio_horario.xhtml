@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:panel id="ComevalCambioHorarioPanel" header="Comeval-Cambio-Horario" style="font-size:12px; font-weight:bold;">
+        <h:panelGrid columns="6">
+            <p:commandButton id="btnCrear" disabled="#{Bean_Lst_Comeval_Cambio_Horario.btnCrear}" value="Crear" actionListener="#{Bean_Comeval_Cambio_Horario.mostrar_crear_cambio_horario(Bean_Lst_Comeval_Cambio_Horario.usuario, Bean_Lst_Comeval_Cambio_Horario.id_estado_solicitud, Bean_Lst_Comeval_Cambio_Horario.id_tipo_solicitud)}" icon="ui-icon-plus" update="ComevalCambioHorarioDialog,:ComevalCambioHorarioForm,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;"/>
+
+            <p:commandButton id="btnRechazar" value="Rechazar" actionListener="#{Bean_Lst_Comeval_Cambio_Horario.rechazar_cambio_horario}" icon="ui-icon-close" update="tblComevalCambioHorario,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
+                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+            <p:commandButton id="btnEnviar" value="Enviar" actionListener="#{Bean_Lst_Comeval_Cambio_Horario.siguiente_estado_solicitud}" icon="ui-icon-check" update="tblComevalCambioHorario,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
+                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+            <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-calculator" style="font-size:10px; font-weight:bold;">
+                <p:dataExporter type="csv" target="tblComevalCambioHorario" fileName="Comeval_Cambio_Horario" pageOnly="true"/>
+            </p:commandButton>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px; font-weight:bold;"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px; font-weight:bold;"/>
+            </p:confirmDialog>
+        </h:panelGrid>
+        <p:dataTable
+            id="tblComevalCambioHorario"
+            var="comeval_cambio_horario"
+            widgetVar="varTblComevalCambioHorario"
+            value="#{Bean_Lst_Comeval_Cambio_Horario.lst_comeval_cambio_horario}"
+            selectionMode="single"
+            selection="#{Bean_Lst_Comeval_Cambio_Horario.sel_comeval_cambio_horario}"
+            rowKey="#{comeval_cambio_horario.id_comeval_cambio_horario}"
+            paginator="true"
+            rows="10"
+            rowsPerPageTemplate="10,20,30"
+            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+            style="font-size:10px;">
+            
+            <p:ajax event="rowDblselect" listener="#{Bean_Comeval_Cambio_Horario.mostrar_modificar_cambio_horario(Bean_Lst_Comeval_Cambio_Horario.usuario, Bean_Lst_Comeval_Cambio_Horario.sel_comeval_cambio_horario.id_comeval_cambio_horario, Bean_Lst_Comeval_Cambio_Horario.id_estado_solicitud, Bean_Lst_Comeval_Cambio_Horario.id_tipo_solicitud)}" update="ComevalCambioHorarioDialog,:ComevalCambioHorarioForm,:formMensaje:mensaje2" global="false"/>
+            
+            <p:column headerText="Id" sortBy="#{comeval_cambio_horario.id_comeval_cambio_horario}" filterBy="#{comeval_cambio_horario.id_comeval_cambio_horario}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_cambio_horario.id_comeval_cambio_horario}"/>
+            </p:column>
+            <p:column headerText="Id-Docente" sortBy="#{comeval_cambio_horario.id_docente}" filterBy="#{comeval_cambio_horario.id_docente}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_cambio_horario.id_docente}"/>
+            </p:column>
+            <p:column headerText="Fecha-Ingreso" sortBy="#{comeval_cambio_horario.fecha_ingreso}" filterBy="#{comeval_cambio_horario.fecha_ingreso}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_cambio_horario.fecha_ingreso}">
+                    <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Estado-Solicitud" sortBy="#{comeval_cambio_horario.estado_solicitud}" filterBy="#{comeval_cambio_horario.estado_solicitud}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_cambio_horario.estado_solicitud}"/>
+            </p:column>
+            <p:column headerText="Tipo-Solicitud" sortBy="#{comeval_cambio_horario.tipo_solicitud}" filterBy="#{comeval_cambio_horario.tipo_solicitud}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_cambio_horario.tipo_solicitud}"/>
+            </p:column>
+        </p:dataTable>
+        <p:outputLabel value="Doble click sobre la fila para modificar." style="font-size:10px;"/>
+        <br/>
+        <br/>
+        <p:outputLabel value="- Para avanzar la solicitud al siguiente estado utilice el botón ENVIAR." style="font-size:20px; color:red;"/>
+    </p:panel>
+</ui:composition>

@@ -1,0 +1,83 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="ComevalCargaEvalComevalDialog" header="Carg-Eval-Docente-Docente" widgetVar="ComevalCargaEvalComevalDialogVar" modal="true" appendTo="@(body)" resizable="false" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ComevalCargaEvalComevalForm">
+            <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
+                <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Carga_Eval_Comeval.cbxTipoSolicitud}" value="#{Bean_Comeval_Carga_Eval_Comeval.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Carga_Eval_Comeval.lst_tipo_solicitud}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Carga_Eval_Comeval.cbxEstadoSolicitud}" value="#{Bean_Comeval_Carga_Eval_Comeval.id_estado_solicitud}" style="width: 200px; font-size:10px;">
+                    <f:selectItems value="#{Bean_Comeval_Carga_Eval_Comeval.lst_estado_solicitud}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Observación del docente" style="font-size:10px; font-weight:bold;"/>
+                <p:inputTextarea id="areObservacionDocente" readonly="#{Bean_Comeval_Carga_Eval_Comeval.areObservacionDocente}" value="#{Bean_Comeval_Carga_Eval_Comeval.descripcion_solicitud}" rows="6" autoResize="false" scrollHeight="6" style="width: 440px; font-size:10px;"/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="3">
+                <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Carga_Eval_Comeval.chxRechazado}" value="#{Bean_Comeval_Carga_Eval_Comeval.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;"/>
+            </h:panelGrid>
+
+            <h:panelGrid columns="1">
+                <p:fileUpload id="fupExcel" disabled="#{Bean_Comeval_Carga_Eval_Comeval.fupExcel}" listener="#{Bean_Comeval_Carga_Eval_Comeval.handleFileUpload}" auto="true" mode="advanced" allowTypes="/(\.|\/)(pdf)$/" accept=".pdf" update=":formMensaje:mensaje2,tblArchivos" style="font-size:10px; font-weight:bold;"/>
+                <p:dataTable
+                    id="tblArchivos"
+                    var="archivos"
+                    widgetVar="varTblArchivos"
+                    value="#{Bean_Comeval_Carga_Eval_Comeval.lst_archivo_rest}"
+                    selectionMode="single"
+                    selection="#{Bean_Comeval_Carga_Eval_Comeval.sel_archivo_rest}"
+                    rowKey="#{archivos.id_archivo}"
+                    paginator="true"
+                    rows="3"
+                    rowsPerPageTemplate="3"
+                    paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                    style="width: 450px; font-size:10px;">
+
+                    <p:ajax event="rowDblselect" listener="#{Bean_Comeval_Carga_Eval_Comeval.mostrar_adjunto}" update="ArchivoAdjuntoDialogA,:ArchivoAdjuntoFormA,:formMensaje:mensaje2" global="false"/>
+
+                    <p:column headerText="Id" sortBy="#{archivos.id_archivo}" filterBy="#{archivos.id_archivo}" filterMatchMode="contains">
+                        <h:outputText value="#{archivos.id_archivo}"/>
+                    </p:column>
+                    <p:column headerText="nombre" sortBy="#{archivos.nombre_archivo}" filterBy="#{archivos.nombre_archivo}" filterMatchMode="contains">
+                        <h:outputText value="#{archivos.nombre_archivo}"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="btnEliminarArchivo" disabled="#{Bean_Comeval_Carga_Eval_Comeval.btnEliminarArchivo}" value="Eliminar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Carga_Eval_Comeval.eliminar_archivo}" update=":formMensaje:mensaje2,tblArchivos" style="font-size:10px; font-weight:bold;"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:panelGrid>
+
+            <div align="right">
+                <p:commandButton id="btnAceptar" disabled="#{Bean_Comeval_Carga_Eval_Comeval.btnAceptar}" value="Aceptar" actionListener="#{Bean_Comeval_Carga_Eval_Comeval.aceptar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{Bean_Lst_Comeval_Carga_Eval_Comeval.cargar_datos(Bean_Comeval_Carga_Eval_Comeval.usuario, Bean_Comeval_Carga_Eval_Comeval.id_estado_solicitud, Bean_Comeval_Carga_Eval_Comeval.id_tipo_solicitud)}" update=":formMensaje:mensaje2,:formContenido" style="font-size:10px; font-weight:bold;">
+                    <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="btnCancelar" disabled="#{Bean_Comeval_Carga_Eval_Comeval.btnCancelar}" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('ComevalCargaEvalComevalDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+                <p:confirmDialog global="true" style="font-size:10px; font-weight:bold;">
+                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px;"/>
+                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px;"/>
+                </p:confirmDialog>
+            </div>
+        </h:form>
+    </p:dialog>
+
+    <p:dialog id="ArchivoAdjuntoDialogA" header="Archivo-Adjunto" widgetVar="ArchivoAdjuntoDialogVarA" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ArchivoAdjuntoFormA">
+            <p:media id="mediaPDF" value="/home/edvin/comeval/archivo_temporal.pdf" player="pdf" width="100%" height="90%">
+                Your browser can't display pdf, <h:outputLink value="/home/edvin/comeval/archivo_temporal.pdf">click</h:outputLink> to download pdf instead.
+            </p:media>
+        </h:form>
+    </p:dialog>
+</ui:composition>

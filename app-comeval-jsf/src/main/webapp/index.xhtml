@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta name="viewport" content="text/html; charset=UTF-8; width=device-width; initial-scale:1.0" http-equiv="Content-Type"/>
+            <title>.:COMEVAL:.</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+        <h:form id="formIndex" style="font-size: 12px; font-weight: bold;">
+            <link href="css/style.css" rel="stylesheet" type="text/css"/>
+            <p:growl id="msgMensaje" keepAlive="true" showDetail="true"/>
+            <div align="center">
+                <br/>
+                <br/>
+                <br/>
+                <img src="imagenes/logo_fiusac.png" alt="LogoUSAC" height="180" width="550"/>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="Procesos COMEVAL" style="font-size: 12px; font-weight: bold; color: blue;"/>
+                    </f:facet>
+                    <p:outputLabel value="Usuario:" style="font-size: 12px; font-weight: bold;"/>
+                    <p:inputText id="txtUsuario" value="#{Index.txt_usuario}" autocomplete="off" style="font-size: 12px; width: 200px;"/>
+                    <p:outputLabel value="Contraseña:" style="font-size: 12px; font-weight: bold;"/>
+                    <p:password id="passContrasena" value="#{Index.txt_contrasena}" autocomplete="off" style="font-size: 12px; width: 200px;"/>
+                    <p:outputLabel value="Rol:" style="font-size: 12px; font-weight: bold;"/>
+                    <p:selectOneMenu id="cbxRol" value="#{Index.id_rol}" style="font-size: 12px; width: 185px;">
+                        <f:selectItems value="#{Index.lst_rol}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Unidad:" style="font-size: 12px; font-weight: bold;"/>
+                    <p:selectOneMenu id="cbxUnidad" value="#{Index.id_unidad}" style="font-size: 12px; width: 185px;">
+                        <f:selectItems value="#{Index.lst_unidad}"/>
+                    </p:selectOneMenu>
+                    <f:facet name="footer">
+                        <p:commandButton id="btnLogIn" value="Entrar" action="#{Index.login}" update="msgMensaje" style="font-size: 12px; font-weight: bold;"/>
+                    </f:facet>
+                </p:panelGrid>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

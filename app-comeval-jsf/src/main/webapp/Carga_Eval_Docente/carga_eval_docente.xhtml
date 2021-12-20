@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <p:panel id="ComevalCargaEvalComevalPanel" header="Carga-Evaluación-Comeval" style="font-size:12px; font-weight:bold;">
+        <h:panelGrid columns="6">
+            <p:commandButton id="btnCrear" disabled="#{Bean_Lst_Comeval_Carga_Eval_Comeval.btnCrear}" value="Crear" actionListener="#{Bean_Comeval_Carga_Eval_Comeval.mostrar_crear_carga_eval_comeval(Bean_Lst_Comeval_Carga_Eval_Comeval.usuario, Bean_Lst_Comeval_Carga_Eval_Comeval.id_estado_solicitud, Bean_Lst_Comeval_Carga_Eval_Comeval.id_tipo_solicitud)}" icon="ui-icon-plus" update="ComevalCargaEvalComevalDialog,:ComevalCargaEvalComevalForm,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;"/>
+
+            <p:commandButton id="btnRechazar" value="Rechazar" actionListener="#{Bean_Lst_Comeval_Carga_Eval_Comeval.rechazar_carga_eval_comeval}" icon="ui-icon-close" update="tblComevalCargaEvalComeval,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
+                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+            <p:commandButton id="btnEnviar" value="Enviar" actionListener="#{Bean_Lst_Comeval_Carga_Eval_Comeval.siguiente_estado_solicitud}" icon="ui-icon-check" update="tblComevalCargaEvalComeval,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
+                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+            <p:commandButton id="btnExcel" value="Excel" ajax="false" icon="ui-icon-calculator" style="font-size:10px; font-weight:bold;">
+                <p:dataExporter type="csv" target="tblComevalCargaEvalComeval" fileName="Comeval_Carga_Eval_Comeval" pageOnly="true"/>
+            </p:commandButton>
+
+            <p:confirmDialog global="true">
+                <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px; font-weight:bold;"/>
+                <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px; font-weight:bold;"/>
+            </p:confirmDialog>
+        </h:panelGrid>
+        <p:dataTable
+            id="tblComevalCargaEvalComeval"
+            var="comeval_carga_eval_comeval"
+            widgetVar="varTblComevalCargaEvalComeval"
+            value="#{Bean_Lst_Comeval_Carga_Eval_Comeval.lst_comeval_carga_eval_comeval}"
+            selectionMode="single"
+            selection="#{Bean_Lst_Comeval_Carga_Eval_Comeval.sel_comeval_carga_eval_comeval}"
+            rowKey="#{comeval_carga_eval_comeval.id_comeval_carga_eval_comeval}"
+            paginator="true"
+            rows="10"
+            rowsPerPageTemplate="10,20,30"
+            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+            style="font-size:10px;">
+
+            <p:ajax event="rowDblselect" listener="#{Bean_Comeval_Carga_Eval_Comeval.mostrar_modificar_carga_eval_comeval(Bean_Lst_Comeval_Carga_Eval_Comeval.usuario, Bean_Lst_Comeval_Carga_Eval_Comeval.sel_comeval_carga_eval_comeval.id_comeval_carga_eval_comeval, Bean_Lst_Comeval_Carga_Eval_Comeval.id_estado_solicitud, Bean_Lst_Comeval_Carga_Eval_Comeval.id_tipo_solicitud)}" update="ComevalCargaEvalComevalDialog,:ComevalCargaEvalComevalForm,:formMensaje:mensaje2" global="false"/>
+
+            <p:column headerText="Id" sortBy="#{comeval_carga_eval_comeval.id_comeval_carga_eval_comeval}" filterBy="#{comeval_carga_eval_comeval.id_comeval_carga_eval_comeval}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_carga_eval_comeval.id_comeval_carga_eval_comeval}"/>
+            </p:column>
+            <p:column headerText="Fecha-Ingreso" sortBy="#{comeval_carga_eval_comeval.fecha_ingreso}" filterBy="#{comeval_carga_eval_comeval.fecha_ingreso}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_carga_eval_comeval.fecha_ingreso}">
+                    <f:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Estado-Solicitud" sortBy="#{comeval_carga_eval_comeval.estado_solicitud}" filterBy="#{comeval_carga_eval_comeval.estado_solicitud}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_carga_eval_comeval.estado_solicitud}"/>
+            </p:column>
+            <p:column headerText="Tipo-Solicitud" sortBy="#{comeval_carga_eval_comeval.tipo_solicitud}" filterBy="#{comeval_carga_eval_comeval.tipo_solicitud}" filterMatchMode="contains">
+                <h:outputText value="#{comeval_carga_eval_comeval.tipo_solicitud}"/>
+            </p:column>
+        </p:dataTable>
+        <p:outputLabel value="Doble click sobre la fila para modificar." style="font-size:10px;"/>
+        <br/>
+        <br/>
+        <p:outputLabel value="- Para avanzar la solicitud al siguiente estado utilice el botón ENVIAR." style="font-size:20px; color:red;"/>
+    </p:panel>
+</ui:composition>

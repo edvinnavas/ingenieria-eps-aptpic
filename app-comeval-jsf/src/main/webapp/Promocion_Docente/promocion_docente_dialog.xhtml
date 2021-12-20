@@ -1,0 +1,182 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="ComevalPromocionDocenteDialog" header="Promoción-Docente" widgetVar="ComevalPromocionDocenteDialogVar" modal="true" appendTo="@(body)" resizable="false" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ComevalPromocionDocenteForm">
+            <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+            <p:tabView id="tabView1">
+                <p:tab id="tab1" title="Solicitud">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Promocion_Docente.cbxTipoSolicitud}" value="#{Bean_Comeval_Promocion_Docente.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipo_solicitud}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Promocion_Docente.cbxEstadoSolicitud}" value="#{Bean_Comeval_Promocion_Docente.id_estado_solicitud}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_estado_solicitud}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Código-Docente" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Titularidad actual" style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtCodigoDocente" readonly="#{Bean_Comeval_Promocion_Docente.txtCodigoDocente}" value="#{Bean_Comeval_Promocion_Docente.codigo_docente}" style="width: 214px; font-size:10px;">
+                            <p:ajax event="blur" listener="#{Bean_Comeval_Promocion_Docente.datos_docente}" update="txtNombreDocente,txtTitularidadActual,cbxTipoTitularidad,fupExcel,tblArchivos,tblArchivos:btnEliminarArchivo,tblObservaciones,tblObservaciones:btnAgregarObservacion,tblObservaciones:btnEliminarObservacion"/>
+                        </p:inputText>
+                        <p:inputText id="txtTitularidadActual" readonly="#{Bean_Comeval_Promocion_Docente.txtTitularidadActual}" value="#{Bean_Comeval_Promocion_Docente.titularidad_actual}" style="width: 214px; font-size:10px; background-color: yellow; color: blue;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="Nombre del docente" style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtNombreDocente" readonly="#{Bean_Comeval_Promocion_Docente.txtNombreDocente}" value="#{Bean_Comeval_Promocion_Docente.nombre_docente}" style="width: 440px; font-size:10px; background-color: yellow; color: blue;"/>
+                        <p:outputLabel value="Razón de titularidad" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxRazonTitularidad" disabled="#{Bean_Comeval_Promocion_Docente.cbxRazonTitularidad}" value="#{Bean_Comeval_Promocion_Docente.tipoascenso}" style="width: 426px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipoascenso}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Tipo de titularidad" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoTitularidad" disabled="#{Bean_Comeval_Promocion_Docente.cbxTipoTitularidad}" value="#{Bean_Comeval_Promocion_Docente.puesto}" style="width: 426px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_puesto}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Fecha de promoción" style="font-size:10px; font-weight:bold;"/>
+                        <p:calendar id="calFechaPromueve" disabled="#{Bean_Comeval_Promocion_Docente.calFechaPromueve}" value="#{Bean_Comeval_Promocion_Docente.fecha_promueve}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Nota Ref. COMEVAL" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Fecha Nota Ref. COMEVAL" style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtNotaRefComeval" readonly="#{Bean_Comeval_Promocion_Docente.txtNotaRefComeval}" value="#{Bean_Comeval_Promocion_Docente.nota_ref_comeval}" style="width: 214px; font-size:10px;"/>
+                        <p:calendar id="calFechaNotaRefComeval" disabled="#{Bean_Comeval_Promocion_Docente.calFechaNotaRefComeval}" value="#{Bean_Comeval_Promocion_Docente.fecha_nota_ref_comeval}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Promocion_Docente.chxRechazado}" value="#{Bean_Comeval_Promocion_Docente.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;">
+                            <p:ajax update="cbxEstadoSolicitudRechazado" listener="#{Bean_Comeval_Promocion_Docente.check_cambio_valor}"/>
+                        </p:selectBooleanCheckbox>
+                        <p:selectBooleanCheckbox id="chxRevisionComeval" disabled="#{Bean_Comeval_Promocion_Docente.chxRevisionComeval}" value="#{Bean_Comeval_Promocion_Docente.revision_comeval_form}" itemLabel="Revisión COMEVAL" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxRevisionSecretarioAcademico" disabled="#{Bean_Comeval_Promocion_Docente.chxRevisionSecretarioAcademico}" value="#{Bean_Comeval_Promocion_Docente.revision_secretario_academico_form}" itemLabel="Revisión secretario académico" style="font-size:10px; font-weight:bold;"/>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="1">
+                        <p:selectOneMenu id="cbxTipoArchivo" value="#{Bean_Comeval_Promocion_Docente.tipo_adjunto}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipo_adjunto}"/>
+                            <p:ajax event="itemSelect" listener="#{Bean_Comeval_Promocion_Docente.cambiar_tipo_archivo}"/>
+                        </p:selectOneMenu>
+                        <p:fileUpload id="fupExcel" disabled="#{Bean_Comeval_Promocion_Docente.fupExcel}" listener="#{Bean_Comeval_Promocion_Docente.handleFileUpload}" auto="true" mode="advanced" allowTypes="/(\.|\/)(docx)$/" accept=".docx" update=":formMensaje:mensaje2,tblArchivos" style="font-size:10px; font-weight:bold;"/>
+                        <p:dataTable
+                            id="tblArchivos"
+                            var="archivos"
+                            widgetVar="varTblArchivos"
+                            value="#{Bean_Comeval_Promocion_Docente.lst_archivo_rest}"
+                            selectionMode="single"
+                            selection="#{Bean_Comeval_Promocion_Docente.sel_archivo_rest}"
+                            rowKey="#{archivos.id_archivo}"
+                            paginator="true"
+                            rows="3"
+                            rowsPerPageTemplate="3"
+                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                            style="width: 450px; font-size:10px;">
+                            
+                            <p:ajax event="rowDblselect" listener="#{Bean_Comeval_Promocion_Docente.mostrar_adjunto}" update="ArchivoDialog,:ArchivoForm,:formMensaje:mensaje2" global="false"/>
+                            
+                            <p:column headerText="Id" sortBy="#{archivos.id_archivo}" filterBy="#{archivos.id_archivo}" filterMatchMode="contains">
+                                <h:outputText value="#{archivos.id_archivo}"/>
+                            </p:column>
+                            <p:column headerText="Nombre" sortBy="#{archivos.nombre_archivo_real}" filterBy="#{archivos.nombre_archivo_real}" filterMatchMode="contains">
+                                <h:outputText value="#{archivos.nombre_archivo_real}"/>
+                            </p:column>
+                            
+                            <f:facet name="footer">
+                                <p:commandButton id="btnEliminarArchivo" disabled="#{Bean_Comeval_Promocion_Docente.btnEliminarArchivo}" value="Eliminar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Promocion_Docente.eliminar_archivo}" update=":formMensaje:mensaje2,tblArchivos" style="font-size:10px; font-weight:bold;"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab id="tab2" title="Observaciones">
+                    <h:panelGrid columns="1">
+                        <p:dataTable
+                            id="tblObservaciones"
+                            var="observaciones"
+                            widgetVar="varTblObservaciones"
+                            value="#{Bean_Comeval_Promocion_Docente.lst_observaciones}"
+                            selectionMode="single"
+                            selection="#{Bean_Comeval_Promocion_Docente.sel_observaciones}"
+                            rowKey="#{observaciones.id_observacion}"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10"
+                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                            style="width: 450px; font-size:10px;">
+                            
+                            <p:column headerText="Dependencia" sortBy="#{observaciones.dependencia}" filterBy="#{observaciones.dependencia}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.dependencia}"/>
+                            </p:column>
+                            <p:column headerText="Fecha-Hora" sortBy="#{observaciones.fecha_hora}" filterBy="#{observaciones.fecha_hora}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.fecha_hora}"/>
+                            </p:column>
+                            <p:column headerText="Observación" sortBy="#{observaciones.observacion}" filterBy="#{observaciones.observacion}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.observacion}"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="btnAgregarObservacion" disabled="#{Bean_Comeval_Promocion_Docente.btnAgregarObservacion}" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion}" icon="ui-icon-plus" update="ObservacionDialog,:ObservacionesForm" style="font-size:10px; font-weight:bold;"/>
+                                <p:commandButton id="btnEliminarObservacion" disabled="#{Bean_Comeval_Promocion_Docente.btnEliminarObservacion}" value="Eliminar" actionListener="#{Bean_Comeval_Promocion_Docente.eliminar_observacion}" icon="ui-icon-trash" update="tblObservaciones" style="font-size:10px; font-weight:bold;"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab id="tab3" title="Rechazado">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Tipo solicitud rechazado" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Estado solicitud  rechazado" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoSolicitudRechazado" disabled="#{Bean_Comeval_Promocion_Docente.cbxTipoSolicitudRechazado}" value="#{Bean_Comeval_Promocion_Docente.id_tipo_solicitud_rechazado}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipo_solicitud_rechazado}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cbxEstadoSolicitudRechazado" disabled="#{Bean_Comeval_Promocion_Docente.cbxEstadoSolicitudRechazado}" value="#{Bean_Comeval_Promocion_Docente.id_estado_solicitud_rechazado}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_estado_solicitud_rechazado}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+
+            <div align="right">
+                <p:commandButton id="btnAceptar" disabled="#{Bean_Comeval_Promocion_Docente.btnAceptar}" value="Aceptar" actionListener="#{Bean_Comeval_Promocion_Docente.aceptar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{Bean_Lst_Comeval_Promocion_Docente.cargar_datos(Bean_Comeval_Promocion_Docente.usuario, Bean_Comeval_Promocion_Docente.id_estado_solicitud, Bean_Comeval_Promocion_Docente.id_tipo_solicitud)}" update=":formMensaje:mensaje2,:formContenido" style="font-size:10px; font-weight:bold;">
+                    <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="btnCancelar" disabled="#{Bean_Comeval_Promocion_Docente.btnCancelar}" value="Cancelar" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('ComevalPromocionDocenteDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+                <p:confirmDialog global="true" style="font-size:10px; font-weight:bold;">
+                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px;"/>
+                    <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px;"/>
+                </p:confirmDialog>
+            </div>
+        </h:form>
+    </p:dialog>
+
+    <p:dialog id="ObservacionDialog" header="Observaciones" widgetVar="ObservacionesDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ObservacionesForm">
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Dependencia" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtTitularidadActual" readonly="true" value="#{Bean_Comeval_Promocion_Docente.dependencia_observaciones}" style="width: 214px; font-size:10px; background-color: yellow; color: blue;"/>
+                <p:outputLabel value="Observación" style="font-size:10px; font-weight:bold;"/>
+                <p:inputTextarea id="areObservacion" value="#{Bean_Comeval_Promocion_Docente.observacion}" style="width: 214px; font-size:10px;"/>
+            </h:panelGrid>
+            
+            <div align="right">
+                <p:commandButton id="btnAgregarObservacion" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion_dialog}" icon="ui-icon-check" update=":ComevalPromocionDocenteForm" style="font-size:10px; font-weight:bold;"/>
+                <p:commandButton id="btnCancelarObservacion" value="Cancelar" oncomplete="PF('ObservacionesDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+            </div>
+        </h:form>
+    </p:dialog>
+    
+    <p:dialog id="ArchivoDialog" header="Descarga" widgetVar="ArchivoDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="ArchivoForm">
+            <p:commandButton value="Descargar" icon="ui-icon-document" ajax="false">
+                <p:fileDownload value="#{Bean_Comeval_Promocion_Docente.file}"/>
+            </p:commandButton>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
