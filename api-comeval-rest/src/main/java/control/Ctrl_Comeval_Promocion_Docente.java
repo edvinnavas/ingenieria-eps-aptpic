@@ -1145,25 +1145,39 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "usuario='" + lst_comeval_promocion_docente.get(i).getUsuario() + "', "
                             + "rechazado=0, "
                             + "id_estado_solicitud_rechazado=null, "
-                            + "id_tipo_solicitud_rechazado=null "
+                            + "id_tipo_solicitud_rechazado=null, "
+                            + "revision_comeval=0, "
+                            + "revision_secretario_academico=0 "
                             + "where id_comeval_promocion_docente=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
                     stmt.close();
 
+                    Long max_id_workflow = Long.parseLong("0");
+                    cadenasql = "select coalesce(max(t.id_workflow) + 1, 1) max_id from solicitud_workflow_historial t where t.id_solicitud=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
+                    stmt = this.conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        max_id_workflow = rs.getLong(1);
+                    }
+                    rs.close();
+                    stmt.close();
+                    
                     Date fecha_actual = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     cadenasql = "insert into solicitud_workflow_historial ("
                             + "id_solicitud, "
                             + "id_estado_solicitud, "
                             + "id_tipo_solicitud, "
+                            + "id_workflow, "
                             + "usuario, "
                             + "fecha, "
                             + "rechazado, "
                             + "fecha_rechazado) values ("
-                            + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente() + ", "
+                            + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente() + ","
                             + lst_comeval_promocion_docente.get(i).getId_estado_solicitud_rechazado() + ","
-                            + lst_comeval_promocion_docente.get(i).getId_tipo_solicitud_rechazado() + ",'"
+                            + lst_comeval_promocion_docente.get(i).getId_tipo_solicitud_rechazado() + ","
+                            + max_id_workflow + ",'"
                             + lst_comeval_promocion_docente.get(i).getUsuario() + "','"
                             + dateFormat.format(fecha_actual) + "',"
                             + lst_comeval_promocion_docente.get(i).getRechazado() + ",'"
@@ -1399,10 +1413,22 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "usuario='" + lst_comeval_promocion_docente.get(i).getUsuario() + "', "
                             + "rechazado=0, "
                             + "id_estado_solicitud_rechazado=null, "
-                            + "id_tipo_solicitud_rechazado=null "
+                            + "id_tipo_solicitud_rechazado=null, "
+                            + "revision_comeval=0, "
+                            + "revision_secretario_academico=0 "
                             + "where id_comeval_promocion_docente=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
+                    stmt.close();
+                    
+                    Long max_id_workflow = Long.parseLong("0");
+                    cadenasql = "select coalesce(max(t.id_workflow) + 1, 1) max_id from solicitud_workflow_historial t where t.id_solicitud=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
+                    stmt = this.conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        max_id_workflow = rs.getLong(1);
+                    }
+                    rs.close();
                     stmt.close();
 
                     Date fecha_actual = new Date();
@@ -1411,13 +1437,15 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "id_solicitud, "
                             + "id_estado_solicitud, "
                             + "id_tipo_solicitud, "
+                            + "id_workflow, "
                             + "usuario, "
                             + "fecha, "
                             + "rechazado, "
                             + "fecha_rechazado) values ("
-                            + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente() + ", "
+                            + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente() + ","
                             + lst_comeval_promocion_docente.get(i).getId_estado_solicitud_rechazado() + ","
-                            + lst_comeval_promocion_docente.get(i).getId_tipo_solicitud_rechazado() + ",'"
+                            + lst_comeval_promocion_docente.get(i).getId_tipo_solicitud_rechazado() + ","
+                            + max_id_workflow + ",'"
                             + lst_comeval_promocion_docente.get(i).getUsuario() + "','"
                             + dateFormat.format(fecha_actual) + "',"
                             + lst_comeval_promocion_docente.get(i).getRechazado() + ",'"

@@ -51,7 +51,6 @@ public class Bean_Lst_Comeval_Promocion_Docente implements Serializable {
                     + "left join estado_solicitud_comeval es on (cpd.id_estado_solicitud = es.id_estado_solicitud and cpd.id_tipo_solicitud = es.id_tipo_solicitud) "
                     + "left join tipo_solicitud_comeval ts on (es.id_tipo_solicitud = ts.id_tipo_solicitud) "
                     + "where "
-                    + "cpd.rechazado=0 and "
                     + "cpd.id_estado_solicitud=" + this.id_estado_solicitud + " and "
                     + "cpd.id_tipo_solicitud=" + this.id_tipo_solicitud + " "
                     + "order by "
@@ -99,6 +98,8 @@ public class Bean_Lst_Comeval_Promocion_Docente implements Serializable {
                         + "t.id_estado_solicitud, "
                         + "t.id_tipo_solicitud, "
                         + "t.rechazado, "
+                        + "coalesce(t.id_estado_solicitud_rechazado,1) id_estado_solicitud_rechazado, "
+                        + "coalesce(t.id_tipo_solicitud_rechazado,1) id_tipo_solicitud_rechazado, "
                         + "t.revision_comeval, "
                         + "t.revision_secretario_academico "
                         + "from "
@@ -127,10 +128,10 @@ public class Bean_Lst_Comeval_Promocion_Docente implements Serializable {
                             Long.parseLong(col[8]),
                             Long.parseLong(col[9]),
                             Long.parseLong(col[10]),
-                            Long.parseLong(col[8]), // id_estado_solicitud_rechazado
-                            Long.parseLong(col[9]), // id_tipo_solicitud_rechazado
                             Long.parseLong(col[11]),
                             Long.parseLong(col[12]),
+                            Long.parseLong(col[13]),
+                            Long.parseLong(col[14]),
                             null,
                             null,
                             null);

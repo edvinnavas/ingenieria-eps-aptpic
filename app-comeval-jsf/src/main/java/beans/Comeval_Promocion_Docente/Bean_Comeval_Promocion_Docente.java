@@ -193,28 +193,40 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                 this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.tipo_adjunto = "exp";
                 this.calFechaPromueve = true;
+                this.txtNotaRefComeval = true;
+                this.calFechaNotaRefComeval = true;
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("2"))) {
                 this.dependencia_observaciones = "COMEVAL";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "hrl";
                 this.calFechaPromueve = false;
+                this.txtNotaRefComeval = false;
+                this.calFechaNotaRefComeval = false;
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("3"))) {
                 this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "cpd";
                 this.calFechaPromueve = false;
+                this.txtNotaRefComeval = false;
+                this.calFechaNotaRefComeval = false;
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("4"))) {
                 this.dependencia_observaciones = "COMEVAL";
                 this.calFechaPromueve = false;
+                this.txtNotaRefComeval = false;
+                this.calFechaNotaRefComeval = false;
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("5"))) {
                 this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
                 this.calFechaPromueve = false;
+                this.txtNotaRefComeval = false;
+                this.calFechaNotaRefComeval = false;
             }
 
             this.lst_archivo_rest = new ArrayList<>();
@@ -226,8 +238,6 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             this.txtNombreDocente = true;
             this.txtTitularidadActual = true;
             this.calFechaPromueve = true;
-            this.txtNotaRefComeval = true;
-            this.calFechaNotaRefComeval = true;
             this.cbxRazonTitularidad = false;
             this.cbxTipoTitularidad = false;
             this.fupExcel = false;
@@ -303,10 +313,10 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             this.lst_tipo_solicitud_rechazado = this.lst_tipo_solicitud;
 
             this.lst_estado_solicitud_rechazado = new ArrayList<>();
-            cadenasql = "select swh.id_estado_solicitud, esc.nombre "
+            cadenasql = "select distinct swh.id_estado_solicitud, esc.nombre "
                     + "from solicitud_workflow_historial swh "
                     + "left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud) "
-                    + "where swh.id_solicitud=1 and swh.id_estado_solicitud < " + id_estado_solicitud;
+                    + "where swh.id_solicitud=" + id_comeval_promocion_docente + " and swh.id_estado_solicitud < " + id_estado_solicitud;
             cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
             jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
             listType = new TypeToken<ArrayList<String>>() {
@@ -437,6 +447,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("2"))) {
                 this.dependencia_observaciones = "COMEVAL";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "hrl";
@@ -444,12 +455,14 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("3"))) {
                 this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "cpd";
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("4"))) {
                 this.dependencia_observaciones = "COMEVAL";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "hrl";
@@ -457,6 +470,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             }
             if (this.id_estado_solicitud.equals(Long.parseLong("5"))) {
                 this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
+                this.lst_tipo_adjunto.add(new SelectItem("exp", "Expediente Docente"));
                 this.lst_tipo_adjunto.add(new SelectItem("hrl", "Hoja Relación Laboral"));
                 this.lst_tipo_adjunto.add(new SelectItem("cpd", "Cuadro Promoción Docente"));
                 this.tipo_adjunto = "cpd";
@@ -502,7 +516,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                 this.chxRevisionComeval = true;
                 this.chxRevisionSecretarioAcademico = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = false;
+                this.cbxEstadoSolicitudRechazado = true;
                 this.btnEliminarArchivo = false;
                 this.btnAgregarObservacion = false;
                 this.btnEliminarObservacion = false;
@@ -645,7 +659,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                             this.tipoascenso,
                             this.puesto,
                             dateFormat.format(this.fecha_promueve),
-                            this.nota_ref_comeval,
+                            this.nota_ref_comeval.trim(),
                             dateFormat.format(this.fecha_nota_ref_comeval),
                             this.usuario.getUsuario(),
                             dateFormat.format(new Date()),
@@ -757,7 +771,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                             this.tipoascenso,
                             this.puesto,
                             fecha_promueve_temp,
-                            this.nota_ref_comeval,
+                            this.nota_ref_comeval.trim(),
                             fecha_nota_ref_comeval_temp,
                             this.usuario.getUsuario(),
                             dateFormat.format(new Date()),

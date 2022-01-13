@@ -40,8 +40,6 @@ SELECT cas.* FROM comeval_acta_solicitud cas ORDER BY cas.id_tipo_solicitud, cas
 SELECT cso.* FROM comeval_solicitud_observacion cso ORDER BY cso.id_tipo_solicitud, cso.id_solicitud, cso.id_observacion;
  
 -- SEGUIMIENTOS CAMBIO DE ESTADOS EN LAS SOLICITUDES.
-SELECT swh.* FROM solicitud_workflow_historial swh;
-
 SELECT swh.id_solicitud, swh.id_workflow ,es.nombre estado_solicitud, ts.nombre tipo_solicitud, swh.usuario, swh.fecha, swh.rechazado, swh.fecha_rechazado 
 FROM solicitud_workflow_historial swh 
 	 LEFT JOIN estado_solicitud_comeval es ON (swh.id_estado_solicitud = es.id_estado_solicitud AND swh.id_tipo_solicitud = es.id_tipo_solicitud) 
@@ -58,12 +56,13 @@ SELECT d.* FROM personal d WHERE d.nombre ILIKE '%david estuardo%' AND d.apellid
 -- PLAZA PERSONAL.
 SELECT p.* FROM plazapuesto p WHERE p.puesto='210121';
 SELECT p.* FROM plazapersonal p WHERE p.personal = '000018150' ORDER BY p.anio, p.periodo;
+
 -- PLAZAPARTIDA.
 SELECT p.* FROM plazapartida p WHERE (p.plaza, p.subpartida, p.renglon) IN (SELECT pp.plaza, pp.subpartida, pp.renglon 
                                                                             FROM plazapersonal pp 
                                                                             WHERE pp.personal = '000018150');
 -- PLAZA POR PERSONA.
-select ppp.* from plaza ppp where ppp.plaza in (SELECT p.plaza 
+SELECT ppp.* FROM plaza ppp WHERE ppp.plaza IN (SELECT p.plaza 
                                                 FROM plazapartida p 
                                                 WHERE (p.plaza, p.subpartida, p.renglon) IN (SELECT pp.plaza, pp.subpartida, pp.renglon 
                                                                                              FROM plazapersonal pp 
@@ -84,67 +83,32 @@ SELECT t.* FROM titularidad t WHERE t.personal='000018150';
 -- VALUES ('000017976','210170',1,'2021-10-01 17:38:02.728', true, null, 1);
 -- ACTUALIZAR PUESTO EN LA TABLA PLAZAPERSONAL.
 
-SELECT a.* FROM acta a;
-SELECT p.* FROM puesto p;
-SELECT t.* FROM tipoplaza t;
 
+-- EXTREAER LA PLAZA ACTUAL DEL DOCENTE.
+SELECT p.* 
+FROM plaza p 
+WHERE p.plaza in (SELECT p1.plaza 
+                  FROM plazapartida p1 WHERE (p1.plaza, p1.subpartida, p1.renglon) in (SELECT p2.plaza, p2.subpartida, p2.renglon 
+                                                                                       FROM plazapersonal p2 
+                                                                                       WHERE p2.personal = '000018150' AND p2.anio=(EXTRACT(YEAR FROM CURRENT_DATE)-1) AND p2.periodo=(CASE WHEN EXTRACT(MONTH FROM CURRENT_DATE)<=6 THEN 1 ELSE 2 END)));
+
+                                                                                      
 -- REPORTE HOJA RELACION LABORAL.
-SELECT 
-	pp.fechainicio, 
-	pp.anio, 
-	pp.periodo, 
-	p.nombre
-FROM 
-	plazapersonal pp 
-	LEFT JOIN puesto p ON (pp.puesto = p.puesto) 
-WHERE 
-	pp.personal = '000018150' 
-ORDER BY 
-	pp.anio, 
-	pp.periodo;
-
+SELECT pp.fechainicio, pp.anio, pp.periodo, p.nombre
+FROM plazapersonal pp LEFT JOIN puesto p ON (pp.puesto = p.puesto) 
+WHERE pp.personal = '000018150' 
+ORDER BY pp.anio, pp.periodo;
 
 SELECT t.* FROM titularidadhistorial t WHERE t.personal='000018150';
 SELECT l.* FROM licencia l WHERE l.personal='000018150';
 
+SELECT EXTRACT(YEAR FROM t.fechaascenso) ANIO, EXTRACT(MONTH FROM t.fechaascenso) MES, t.personal REGISTRO_PERSONAL, p.nombre || ' ' || p.apellido NOMBRE, CASE WHEN t.titular THEN 'TITULAR' ELSE '-'  END CATEGORIA, t.* 
+FROM titularidadhistorial t LEFT JOIN personal p ON (t.personal = p.personal)
+WHERE t.personal = '000006182' 
+ORDER BY ANIO, MES;
 
-SELECT 
-	EXTRACT(YEAR FROM t.fechaascenso) ANIO,
-	EXTRACT(MONTH FROM t.fechaascenso) MES,
-	t.personal REGISTRO_PERSONAL,
-	p.nombre || ' ' || p.apellido NOMBRE,
-	CASE WHEN t.titular THEN 'TITULAR' ELSE '-'  END CATEGORIA,
-	t.* 
-FROM 
-	titularidadhistorial t 
-	left join personal p on (t.personal = p.personal)
-WHERE 
-	t.personal = '000006182' 
-ORDER BY 
-	ANIO,
-	MES;
-
-
-select
-t.id_comeval_promocion_docente,
-t.personal,
-t.tipoascenso,
-t.puesto,
-coalesce(t.fecha_promueve, now()) fecha_promueve,
-coalesce(t.nota_ref_comeval, '-') nota_ref_comeval,
-coalesce(t.fecha_nota_ref_comeval, now()) fecha_nota_ref_comeval,
-t.fecha_ingreso,
-t.id_estado_solicitud,
-t.id_tipo_solicitud,
-t.rechazado,
-t.revision_comeval,
-t.revision_secretario_academico,
-coalesce(t.id_estado_solicitud_rechazado, 1) id_estado_solicitud_rechazado,
-coalesce(t.id_tipo_solicitud_rechazado, 1) id_tipo_solicitud_rechazado
-from
-comeval_promocion_docente t
-where
-t.id_comeval_promocion_docente=1;
-
--- COMENTARIO DE PRUEBA.
+SELECT DISTINCT swh.id_estado_solicitud, esc.nombre
+FROM solicitud_workflow_historial swh
+LEFT JOIN estado_solicitud_comeval esc ON (swh.id_tipo_solicitud=esc.id_tipo_solicitud AND swh.id_estado_solicitud=esc.id_estado_solicitud)
+WHERE swh.id_solicitud=1 AND swh.id_estado_solicitud < 4;
 
