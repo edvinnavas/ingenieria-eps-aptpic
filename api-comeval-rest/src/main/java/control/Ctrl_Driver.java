@@ -376,146 +376,7 @@ public class Ctrl_Driver implements Serializable {
 
             Boolean validado = false;
             String mensaje_no_valido = "";
-
-            // WORKFLOW LICENCIA DOCENTE.
-            if (id_tipo_solicitud_actual == Long.parseLong("2")) {
-                if (id_estado_solicitud_actual == Long.parseLong("1")) {
-                    validado = true;
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("2")) {
-                    String cadenasql = "select cld.visto_bueno_director "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer visto_bueno_director = 0;
-                    while (rs.next()) {
-                        visto_bueno_director = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (visto_bueno_director == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Visto bueno director en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("3")) {
-                    String cadenasql = "select cld.ingreso_siif_traslado "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer ingreso_siif_traslado = 0;
-                    while (rs.next()) {
-                        ingreso_siif_traslado = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (ingreso_siif_traslado == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Ingreso SIIF/Traslado en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("4")) {
-                    String cadenasql = "select cld.confirmar_traslado "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer confirmar_traslado = 0;
-                    while (rs.next()) {
-                        confirmar_traslado = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (confirmar_traslado == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Confirmar traslado en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("5")) {
-                    String cadenasql = "select cld.asignar_tipo_licencia "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer asignar_tipo_licencia = 0;
-                    while (rs.next()) {
-                        asignar_tipo_licencia = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (asignar_tipo_licencia == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Asignar tipo licencia en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("6")) {
-                    String cadenasql = "select cld.aprobacion_decanatura "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer aprobacion_decanatura = 0;
-                    while (rs.next()) {
-                        aprobacion_decanatura = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (aprobacion_decanatura == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Aprueba decanatura en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-
-                if (id_estado_solicitud_actual == Long.parseLong("8")) {
-                    String cadenasql = "select cld.notificacion_tesoreria "
-                            + "from comeval_licencia_docente cld "
-                            + "where "
-                            + "cld.id_comeval_licencia_docente=" + id_solicitud;
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(cadenasql);
-                    Integer notificacion_tesoreria = 0;
-                    while (rs.next()) {
-                        notificacion_tesoreria = rs.getInt(1);
-                    }
-                    rs.close();
-                    stmt.close();
-
-                    if (notificacion_tesoreria == 0) {
-                        validado = false;
-                        mensaje_no_valido = "Debe marcar la casilla Notificación tesorería en el formulario.";
-                    } else {
-                        validado = true;
-                    }
-                }
-            }
-
+            
             // WORKFLOW AMONESTACION DOCENTE.
             if (id_tipo_solicitud_actual == Long.parseLong("3")) {
                 if (id_estado_solicitud_actual == Long.parseLong("1")) {
@@ -832,14 +693,15 @@ public class Ctrl_Driver implements Serializable {
         return resultado;
     }
 
-    public Long insertar_solictid_db_actas(entidad.Solicitud_Acta solicitud_acta, String personal, String nombre_solicitante, String id_archivo_personal2) {
+    public Long insertar_solictid_db_actas(entidad.Solicitud_Acta solicitud_acta, String personal, String nombre_solicitante, String id_archivo_personal2, Long id_asunto) {
         Long resultado = Long.parseLong("0");
 
         try {
             this.Abrir_Conexion();
             this.conn.setAutoCommit(false);
 
-            String cadenasql = "select nextval('seq_solicitud')";
+            // String cadenasql = "select nextval('seq_solicitud')";
+            String cadenasql = "select coalesce(max(s.solicitud) + 1, 1) max_id_solicitud from solicitud s";
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery(cadenasql);
             Long max_id_solicitud = Long.parseLong("0");
@@ -850,7 +712,7 @@ public class Ctrl_Driver implements Serializable {
             stmt.close();
             solicitud_acta.setId_solicitud(max_id_solicitud);
             solicitud_acta.setEstado(Long.parseLong("0"));
-            solicitud_acta.setAsunto(Long.parseLong("43"));
+            solicitud_acta.setAsunto(id_asunto);
             solicitud_acta.setFacultadorigen("FACULTAD DE INGENIERÍA");
             solicitud_acta.setFacultaddestino("FACULTAD DE INGENIERÍA");
             solicitud_acta.setUniversidadorigen("USAC");
@@ -864,18 +726,21 @@ public class Ctrl_Driver implements Serializable {
                 periodo_actual_temp = 2;
             }
 
-            servicio.cliente.Cliente_RestHeart_API_1 cliente_restheart_api_1 = new servicio.cliente.Cliente_RestHeart_API_1("admin", "changeit");
-            InputStream inputstream = cliente_restheart_api_1.descargar_adjunto_binary(id_archivo_personal2);
+            String id_archivo = "";
+            if(id_asunto.equals(Long.parseLong("43"))) {
+                servicio.cliente.Cliente_RestHeart_API_1 cliente_restheart_api_1 = new servicio.cliente.Cliente_RestHeart_API_1("admin", "changeit");
+                InputStream inputstream = cliente_restheart_api_1.descargar_adjunto_binary(id_archivo_personal2);
 
-            File archivo_rest = File.createTempFile("archivo_temporal", "tmp");
-            archivo_rest.deleteOnExit();
-            FileUtils.copyInputStreamToFile(inputstream, archivo_rest);
+                File archivo_rest = File.createTempFile("archivo_temporal", "tmp");
+                archivo_rest.deleteOnExit();
+                FileUtils.copyInputStreamToFile(inputstream, archivo_rest);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddkkmmss");
-            String id_archivo = "spd_" + dateFormat.format(new Date());
-            servicio.cliente.Cliente_RestHeart_API cliente_restheart_api = new servicio.cliente.Cliente_RestHeart_API("admin", "changeit");
-            cliente_restheart_api.cargar_archivo(archivo_rest, id_archivo);
-
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddkkmmss");
+                id_archivo = "spd_" + dateFormat.format(new Date());
+                servicio.cliente.Cliente_RestHeart_API cliente_restheart_api = new servicio.cliente.Cliente_RestHeart_API("admin", "changeit");
+                cliente_restheart_api.cargar_archivo(archivo_rest, id_archivo);
+            }
+            
             solicitud_acta.setId_archivo(id_archivo);
             solicitud_acta.setAnio(Long.parseLong(anio_actual_temp.toString()));
             solicitud_acta.setPeriodo(Long.parseLong(periodo_actual_temp.toString()));
@@ -1004,7 +869,7 @@ public class Ctrl_Driver implements Serializable {
                         + "inner join contenido contenido_padre on (contenido_padre.contenido = contenido_hijo.contenidopadre) "
                         + "inner join solicitud_contenido sc on (sc.contenido = contenido_hijo.contenido) "
                         + "where "
-                        + "sc.solicitud =" + resultado.getContenido();
+                        + "sc.solicitud =" + id_solicitud_acta;
                 stmt = this.conn.createStatement();
                 rs = stmt.executeQuery(cadenasql);
                 Long tipoacta = Long.parseLong("0");
@@ -1017,7 +882,7 @@ public class Ctrl_Driver implements Serializable {
                 }
                 rs.close();
                 stmt.close();
-
+                
                 cadenasql = "select r.acuerdo, r.aprobado from resolucion r where r.contenido=" + resultado.getContenido();
                 stmt = this.conn.createStatement();
                 rs = stmt.executeQuery(cadenasql);

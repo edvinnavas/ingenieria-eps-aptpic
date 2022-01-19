@@ -7,37 +7,45 @@
 SELECT c.* FROM asunto c WHERE c.asunto IN (31, 37, 42, 43, 50);
 SELECT es.* FROM estado_solicitud es;
 
+-- SELECT coalesce(max(s.solicitud) + 1, 1) max_id_solicitud FROM solicitud s;
 -- select nextval('seq_solicitud');
-SELECT s.* FROM solicitud s WHERE s.solicitud in (21538, 21540, 21541, 21542, 21543, 21546, 21547);
-SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (21538, 21540, 21541, 21542, 21543, 21546, 21547);
+-- SELECT s.* FROM solicitud s WHERE s.solicitud in (21538, 21540, 21541, 21542, 21543, 21546, 21547, 23889, 23890);
+-- SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (21538, 21540, 21541, 21542, 21543, 21546, 21547, 23889);
+SELECT s.* FROM solicitud s WHERE s.solicitud in (23889, 23890, 23892);
+SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (23889, 23890);
+'Se recibió nota de Ref. COMEVAL REF-NO-002 de fecha 14 de enero de 2022, 
+ presentada por el/la Ing/Inga. EDVIN FRANCISCO NAVAS MEJIA, usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, 
+ quien presenta el cuadro de promoción docente del ingeniero/a EVEREST DARWIN MEDINILLA RODRIGUEZ con registro de personal No. 000018150, 
+ quien promueve de TITULAR II a TITULAR III a partir del 18 de enero de 2022.'
 
-SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud = 21547; -- SOLICITUD = 19241
-SELECT c.* FROM contenido c WHERE c.contenido = 31351;
+'Se recibió solicitud de licencia sin goce de sueldo del Ing(a). OSMAR BERNAL GODINEZ VELÁSQUEZ, 
+Profesor(a) AUXILIAR DE CATEDRA I de la ESCUELA TECNICA, registro de personal No. 000930066, 
+plaza No. 25. Dicha licencia la solicita por tener asuntos personales que no le permiten atender su curso durante el presente semestre. 
+Dicha licencia tiene vigencia del 01 de enero al 31 de diciembre de 2022.'
+
+SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud = 23891; -- SOLICITUD = 21547
+SELECT c.* FROM contenido c WHERE c.contenido = 31352;
 SELECT c.* FROM contenido c WHERE c.contenido = 31350;
-SELECT r.* FROM resolucion r WHERE r.contenido = 31351;
-
+SELECT r.* FROM resolucion r WHERE r.contenido = 31352;
+-- 'LA JUNTA DIRECTIVA DICE
+-- PRIMER: FELICITAR AL DOCENTE
+-- SEGUNDO: efectuar la promocion docente'
 
 SELECT a.* FROM acta a WHERE a.numero = 1 AND a.anio = 2021 AND a.tipoacta = 2;
 SELECT s.* FROM sesion s WHERE s.sesion = 362;
 
-select
+SELECT
 coalesce(contenido_hijo.numeroacta,0) no_acta,
 coalesce(contenido_hijo.anioacta,0) anio_acta,
 coalesce(contenido_padre.numero,0) punto,
 coalesce(contenido_hijo.numero,0) inciso,
 coalesce(contenido_hijo.tipoacta ,0) tipoacta 
-from
+FROM
 contenido contenido_hijo
-inner join contenido contenido_padre on (contenido_padre.contenido = contenido_hijo.contenidopadre)
-inner join solicitud_contenido sc on (sc.contenido = contenido_hijo.contenido)
-where
+INNER JOIN contenido contenido_padre on (contenido_padre.contenido = contenido_hijo.contenidopadre)
+INNER JOIN solicitud_contenido sc on (sc.contenido = contenido_hijo.contenido)
+WHERE
 sc.solicitud = 21547;
-
-select coalesce(s.fecha, current_date) fecha_acta
-from acta a
-left join sesion s on (a.sesion=s.sesion)
-where a.numero = 1 and a.anio = 2021 and a.tipoacta = 2;
-
 
 -- RESOLUCION.
 -- a) Aprobar lo informado con respecto al Ingeniero Julio Cesar Solares Peñate , informando a donde corresponda, b) 
@@ -70,8 +78,6 @@ where a.numero = 1 and a.anio = 2021 and a.tipoacta = 2;
 -- Debe decir:
 -- De 18:00 a 20:00 horas.
 
--- NOMBRE-SOLICITANTE: EDVIN FRANCISCO NAVAS MEJIA, CÓDIGO-PERSONAL: 200112864
-
 -- Se recibió nota de Ref. COMEVAL ###-##.#### de fecha ## de #MES# de ####, 
 -- presentada por el/la Ing/Inga (TABLA TITULO o "docente"). EDVIN FRANCISCO NAVAS MEJIA, 
 -- usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, 
@@ -81,3 +87,4 @@ where a.numero = 1 and a.anio = 2021 and a.tipoacta = 2;
 -- a) Aprobar lo informado con respecto al Ingeniero Julio Cesar Solares Peñate , informando a donde corresponda, 
 -- b) Felicitar al Ingeniero Solares Peñate la promoción adquirida tomando en cuenta los resultados de su correspondiente evaluación, 
 -- incentivándolo a continuar su preparación en beneficio de la academia y de su superación como docente de nuestra unidad académica.
+

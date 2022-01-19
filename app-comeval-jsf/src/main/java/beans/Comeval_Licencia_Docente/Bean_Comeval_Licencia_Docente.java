@@ -30,33 +30,23 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
     private String codigo_docente;
     private String nombre_docente;
     private Long id_motivo_licencia;
-    private Long id_tipo_licencia;        
+    private Long id_tipo_licencia;
     private String goce_sueldo;
     private Date fecha_inicio_licencia;
     private Date fecha_final_licencia;
-    private String descripcion_solicitud;
-    private Long id_solicitud_acta;
-    private String no_acta;
-    private String anio_acta;
-    private String punto_acta;
-    private String inciso_acta;
-    private Date fecha_acta;
-    private String resolucion_acta;
     private Date fecha_ingreso;
     private Long id_estado_solicitud;
     private Long id_tipo_solicitud;
     private Long rechazado;
+    private Long id_estado_solicitud_rechazado;
+    private Long id_tipo_solicitud_rechazado;
     private Boolean rechazado_form;
-    private Long visto_bueno_director;
-    private Boolean visto_bueno_director_form;
-    private Long ingreso_siif_traslado;
-    private Boolean ingreso_siif_traslado_form;
-    private Long confirmar_traslado;
-    private Boolean confirmar_traslado_form;
-    private Long asignar_tipo_licencia;
-    private Boolean asignar_tipo_licencia_form;
-    private Long aprobacion_decanatura;
-    private Boolean aprobacion_decanatura_form;
+    private Long ingreso_siif_visto_bueno_escuela;
+    private Boolean ingreso_siif_visto_bueno_escuela_form;
+    private Long tipo_licencia_secretario_academico;
+    private Boolean tipo_licencia_secretario_academico_form;
+    private Long acuerdo_decanatura;
+    private Boolean acuerdo_decanatura_form;
     private Long notificacion_tesoreria;
     private Boolean notificacion_tesoreria_form;
     
@@ -65,10 +55,18 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
     private List<SelectItem> lst_goce_sueldo;
     private List<SelectItem> lst_estado_solicitud;
     private List<SelectItem> lst_tipo_solicitud;
+    private List<SelectItem> lst_estado_solicitud_rechazado;
+    private List<SelectItem> lst_tipo_solicitud_rechazado;
     
     private String opcion;
     private DualListModel<String> plazas;
-   
+    
+    private String dependencia_observaciones;
+    private String observacion;
+    
+    private List<lista_observaciones> lst_observaciones;
+    private lista_observaciones sel_observaciones;
+    
     private Boolean cbxTipoSolicitud;
     private Boolean cbxEstadoSolicitud;
     private Boolean txtCodigoDocente;
@@ -78,15 +76,16 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
     private Boolean cbxGoceSueldo;
     private Boolean calFechaInicioLicencia;
     private Boolean calFechaFinalLicencia;
-    private Boolean areObservacionDocente;
     private Boolean chxRechazado;
-    private Boolean chxVistoBuenoDirector;
-    private Boolean chxIngresoSiifTraslado;
-    private Boolean chxConfirmarTraslado;
-    private Boolean chxAsignarTipoLicencia;
-    private Boolean chxAprobacionDecanatura;
+    private Boolean chxIngresoSiif_VistoBuenoEscuela;
+    private Boolean chxTipoLicencia;
+    private Boolean chxAcuerdoDecanatura;
     private Boolean chxNotificacionTesoreria;
+    private Boolean cbxTipoSolicitudRechazado;
+    private Boolean cbxEstadoSolicitudRechazado;
     private Boolean pklPlazas;
+    private Boolean btnAgregarObservacion;
+    private Boolean btnEliminarObservacion;
     private Boolean btnAceptar;
     private Boolean btnCancelar;
     
@@ -97,10 +96,14 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
             this.lst_goce_sueldo = new ArrayList<>();
             this.lst_estado_solicitud = new ArrayList<>();
             this.lst_tipo_solicitud = new ArrayList<>();
+            this.lst_estado_solicitud_rechazado = new ArrayList<>();
+            this.lst_tipo_solicitud_rechazado = new ArrayList<>();
             
             List<String> plazas_fuente = new ArrayList<>();
             List<String> plazas_destino = new ArrayList<>();
             this.plazas = new DualListModel<>(plazas_fuente, plazas_destino);
+            
+            this.lst_observaciones = new ArrayList<>();
         } catch(Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: Bean_Comeval_Licencia_Docente ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
@@ -166,60 +169,77 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.lst_tipo_licencia.add(new SelectItem(Long.parseLong(rol[0]), rol[1]));
             }
             
+            this.lst_tipo_solicitud_rechazado = this.lst_tipo_solicitud;
+            this.id_tipo_solicitud_rechazado = Long.parseLong("1");
+
+            this.lst_estado_solicitud_rechazado = this.lst_estado_solicitud;
+            this.id_estado_solicitud_rechazado = Long.parseLong("1");
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            // Valores iniciales del formulario.
+            
             this.id_comeval_licencia_docente = Long.parseLong("0");
             this.personal = "0";
             this.codigo_docente = this.usuario.getUsuario();
             this.nombre_docente = "-";
             this.datos_docente();
+            
             this.id_motivo_licencia = Long.parseLong("1");
             this.id_tipo_licencia = Long.parseLong("1");
             this.goce_sueldo = "SI";
             this.fecha_inicio_licencia = new Date();
             this.fecha_final_licencia = new Date();
-            this.descripcion_solicitud = "-";
-            this.id_solicitud_acta = Long.parseLong("0");
-            this.no_acta = "-";
-            this.anio_acta = "-";
-            this.punto_acta = "-";
-            this.inciso_acta = "-";
-            this.fecha_acta = dateFormat.parse("1900-01-01 00:00:00");
-            this.resolucion_acta = "-";
             this.fecha_ingreso = dateFormat.parse("1900-01-01 00:00:00");
+            
             this.rechazado = Long.parseLong("0");
-            this.visto_bueno_director = Long.parseLong("0");
-            this.ingreso_siif_traslado = Long.parseLong("0");
-            this.confirmar_traslado = Long.parseLong("0");
-            this.asignar_tipo_licencia = Long.parseLong("0");
-            this.aprobacion_decanatura = Long.parseLong("0");
+            
+            this.ingreso_siif_visto_bueno_escuela = Long.parseLong("0");
+            this.tipo_licencia_secretario_academico = Long.parseLong("0");
+            this.acuerdo_decanatura = Long.parseLong("0");
             this.notificacion_tesoreria = Long.parseLong("0");
+            
             this.rechazado_form = false;
-            this.visto_bueno_director_form = false;
-            this.ingreso_siif_traslado_form = false;
-            this.confirmar_traslado_form = false;
-            this.asignar_tipo_licencia_form = false;
-            this.aprobacion_decanatura_form = false;
+            this.ingreso_siif_visto_bueno_escuela_form = false;
+            this.tipo_licencia_secretario_academico_form = false;
+            this.acuerdo_decanatura_form = false;
             this.notificacion_tesoreria_form = false;
+            
+            if (this.id_estado_solicitud.equals(Long.parseLong("1"))) {
+                this.dependencia_observaciones = "DOCENTE";
+            }
+            if (this.id_estado_solicitud.equals(Long.parseLong("2"))) {
+                this.dependencia_observaciones = "ESCUELA";
+            }
+            if (this.id_estado_solicitud.equals(Long.parseLong("3"))) {
+                this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
+            }
+            if (this.id_estado_solicitud.equals(Long.parseLong("4"))) {
+                this.dependencia_observaciones = "DECANATURA";
+            }
+            if (this.id_estado_solicitud.equals(Long.parseLong("6"))) {
+                this.dependencia_observaciones = "TESORERÍA";
+            }
+            
+            this.lst_observaciones = new ArrayList<>();
             
             this.cbxTipoSolicitud = true;
             this.cbxEstadoSolicitud = true;
             this.txtCodigoDocente = false;
             this.txtNombreDocente = true;
             this.cbxMotivoLicencia = false;
-            this.cbxTipoLicencia = false;
+            this.cbxTipoLicencia = true;
             this.cbxGoceSueldo = false;
             this.calFechaInicioLicencia = false;
             this.calFechaFinalLicencia = false;
-            this.areObservacionDocente = false;
             this.chxRechazado = true;
-            this.chxVistoBuenoDirector = true;
-            this.chxIngresoSiifTraslado = true;
-            this.chxConfirmarTraslado = true;
-            this.chxAsignarTipoLicencia = true;
-            this.chxAprobacionDecanatura = true;
+            this.chxIngresoSiif_VistoBuenoEscuela = true;
+            this.chxTipoLicencia = true;
+            this.chxAcuerdoDecanatura = true;
             this.chxNotificacionTesoreria = true;
+            this.cbxTipoSolicitudRechazado = true;
+            this.cbxEstadoSolicitudRechazado = true;
             this.pklPlazas = false;
+            this.btnAgregarObservacion = false;
+            this.btnEliminarObservacion = false;
             this.btnAceptar = false;
             this.btnCancelar = false;
             
@@ -289,6 +309,23 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.lst_tipo_licencia.add(new SelectItem(Long.parseLong(rol[0]), rol[1]));
             }
             
+            this.lst_tipo_solicitud_rechazado = this.lst_tipo_solicitud;
+
+            this.lst_estado_solicitud_rechazado = new ArrayList<>();
+            cadenasql = "select distinct swh.id_estado_solicitud, esc.nombre "
+                    + "from solicitud_workflow_historial swh "
+                    + "left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud) "
+                    + "where swh.id_solicitud=" + id_comeval_licencia_docente + " and swh.id_estado_solicitud < " + id_estado_solicitud;
+            cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
+            jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
+            listType = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            lista_drive = new Gson().fromJson(jsonString, listType);
+            for (Integer i = 1; i < lista_drive.size(); i++) {
+                String[] rol = lista_drive.get(i).split("♣");
+                this.lst_estado_solicitud_rechazado.add(new SelectItem(Long.parseLong(rol[0]), rol[1]));
+            }
+            
             cadenasql = "select "
                     + "t.id_comeval_licencia_docente, "
                     + "t.personal, "
@@ -297,24 +334,16 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                     + "t.goce_sueldo, "
                     + "t.fecha_inicio_licencia, "
                     + "t.fecha_final_licencia, "
-                    + "t.descripcion_solicitud, "
-                    + "t.id_solicitud_acta, "
-                    + "t.no_acta, "
-                    + "t.anio_acta, "
-                    + "t.punto_acta, "
-                    + "t.inciso_acta, "
-                    + "t.fecha_acta, "
-                    + "t.resolucion_acta, "
                     + "t.fecha_ingreso, "
                     + "t.id_estado_solicitud, "
                     + "t.id_tipo_solicitud, "
                     + "t.rechazado, "
-                    + "t.visto_bueno_director, "
-                    + "t.ingreso_siif_traslado, "
-                    + "t.confirmar_traslado, "
-                    + "t.asignar_tipo_licencia, "
-                    + "t.aprobacion_decanatura, "
-                    + "t.notificacion_tesoreria "
+                    + "t.ingreso_siif_visto_bueno_escuela, "
+                    + "t.tipo_licencia_secretario_academico, "
+                    + "t.acuerdo_decanatura, "
+                    + "t.notificacion_tesoreria, "
+                    + "coalesce(t.id_estado_solicitud_rechazado, 1) id_estado_solicitud_rechazado, "
+                    + "coalesce(t.id_tipo_solicitud_rechazado, 1) id_tipo_solicitud_rechazado "
                     + "from "
                     + "comeval_licencia_docente t "
                     + "where "
@@ -336,54 +365,34 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.goce_sueldo = col[4];
                 this.fecha_inicio_licencia = dateFormat.parse(col[5]);
                 this.fecha_final_licencia = dateFormat.parse(col[6]);
-                this.descripcion_solicitud =col[7];
-                this.id_solicitud_acta = Long.parseLong(col[8]);
-                this.no_acta = col[9];
-                this.anio_acta = col[10];
-                this.punto_acta = col[11];
-                this.inciso_acta = col[12];
-                this.fecha_acta = dateFormat.parse(col[13]);
-                this.resolucion_acta = col[14];
-                this.fecha_ingreso = dateFormat.parse(col[15]);
-                this.id_estado_solicitud = Long.parseLong(col[16]);
-                this.id_tipo_solicitud = Long.parseLong(col[17]);
-                this.rechazado = Long.parseLong(col[18]);
+                this.fecha_ingreso = dateFormat.parse(col[7]);
+                this.id_estado_solicitud = Long.parseLong(col[8]);
+                this.id_tipo_solicitud = Long.parseLong(col[9]);
+                this.rechazado = Long.parseLong(col[10]);
                 if (this.rechazado == Long.parseLong("0")) {
                     this.rechazado_form = false;
                 } else {
                     this.rechazado_form = true;
                 }
-                this.visto_bueno_director = Long.parseLong(col[19]);
-                if (this.visto_bueno_director == Long.parseLong("0")) {
-                    this.visto_bueno_director_form = false;
+                this.ingreso_siif_visto_bueno_escuela = Long.parseLong(col[11]);
+                if (this.ingreso_siif_visto_bueno_escuela == Long.parseLong("0")) {
+                    this.ingreso_siif_visto_bueno_escuela_form = false;
                 } else {
-                    this.visto_bueno_director_form = true;
+                    this.ingreso_siif_visto_bueno_escuela_form = true;
                 }
-                this.ingreso_siif_traslado = Long.parseLong(col[20]);
-                if (this.ingreso_siif_traslado == Long.parseLong("0")) {
-                    this.ingreso_siif_traslado_form = false;
+                this.tipo_licencia_secretario_academico = Long.parseLong(col[12]);
+                if (this.tipo_licencia_secretario_academico == Long.parseLong("0")) {
+                    this.tipo_licencia_secretario_academico_form = false;
                 } else {
-                    this.ingreso_siif_traslado_form = true;
+                    this.tipo_licencia_secretario_academico_form = true;
                 }
-                this.confirmar_traslado = Long.parseLong(col[21]);
-                if (this.confirmar_traslado == Long.parseLong("0")) {
-                    this.confirmar_traslado_form = false;
+                this.acuerdo_decanatura = Long.parseLong(col[13]);
+                if (this.acuerdo_decanatura == Long.parseLong("0")) {
+                    this.acuerdo_decanatura_form = false;
                 } else {
-                    this.confirmar_traslado_form = true;
+                    this.acuerdo_decanatura_form = true;
                 }
-                this.asignar_tipo_licencia = Long.parseLong(col[22]);
-                if (this.asignar_tipo_licencia == Long.parseLong("0")) {
-                    this.asignar_tipo_licencia_form = false;
-                } else {
-                    this.asignar_tipo_licencia_form = true;
-                }
-                this.aprobacion_decanatura = Long.parseLong(col[23]);
-                if (this.aprobacion_decanatura == Long.parseLong("0")) {
-                    this.aprobacion_decanatura_form = false;
-                } else {
-                    this.aprobacion_decanatura_form = true;
-                }
-                this.notificacion_tesoreria = Long.parseLong(col[24]);
+                this.notificacion_tesoreria = Long.parseLong(col[14]);
                 if (this.notificacion_tesoreria == Long.parseLong("0")) {
                     this.notificacion_tesoreria_form = false;
                 } else {
@@ -391,29 +400,56 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 }
             }
             
+            this.lst_observaciones = new ArrayList<>();
+            cadenasql = "select "
+                    + "t.id_observacion, "
+                    + "t.dependencia, "
+                    + "t.fecha_hora, "
+                    + "t.observacion "
+                    + "from "
+                    + "comeval_solicitud_observacion t "
+                    + "where "
+                    + "t.id_solicitud=" + this.id_comeval_licencia_docente + " and "
+                    + "t.id_tipo_solicitud=" + this.id_tipo_solicitud + " "
+                    + "order by "
+                    + "t.id_observacion";
+            cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
+            jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
+            listType = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            lista_drive = new Gson().fromJson(jsonString, listType);
+            for (Integer i = 1; i < lista_drive.size(); i++) {
+                String[] col = lista_drive.get(i).split("♣");
+                lista_observaciones observacion_temp = new lista_observaciones(Long.parseLong(col[0]), col[1], col[2], col[3]);
+                this.lst_observaciones.add(observacion_temp);
+            }
+            
             if (this.id_estado_solicitud == Long.parseLong("1")) {
+                this.dependencia_observaciones = "DOCENTE";
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
-                this.txtCodigoDocente = true;
+                this.txtCodigoDocente = false;
                 this.txtNombreDocente = true;
                 this.cbxMotivoLicencia = false;
-                this.cbxTipoLicencia = false;
+                this.cbxTipoLicencia = true;
                 this.cbxGoceSueldo = false;
                 this.calFechaInicioLicencia = false;
                 this.calFechaFinalLicencia = false;
-                this.areObservacionDocente = false;
                 this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = true;
+                this.chxIngresoSiif_VistoBuenoEscuela = true;
+                this.chxTipoLicencia = true;
+                this.chxAcuerdoDecanatura = true;
                 this.chxNotificacionTesoreria = true;
+                this.cbxTipoSolicitudRechazado = true;
+                this.cbxEstadoSolicitudRechazado = true;
                 this.pklPlazas = false;
+                this.btnAgregarObservacion = false;
+                this.btnEliminarObservacion = false;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
             }
             if (this.id_estado_solicitud == Long.parseLong("2")) {
+                this.dependencia_observaciones = "ESCUELA";
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.txtCodigoDocente = true;
@@ -423,85 +459,81 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.cbxGoceSueldo = true;
                 this.calFechaInicioLicencia = true;
                 this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = false;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = true;
+                this.chxRechazado = false;
+                this.chxIngresoSiif_VistoBuenoEscuela = false;
+                this.chxTipoLicencia = true;
+                this.chxAcuerdoDecanatura = true;
                 this.chxNotificacionTesoreria = true;
+                this.cbxTipoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.pklPlazas = true;
+                this.btnAgregarObservacion = false;
+                this.btnEliminarObservacion = false;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
             }
             if (this.id_estado_solicitud == Long.parseLong("3")) {
-                this.cbxTipoSolicitud = true;
-                this.cbxEstadoSolicitud = true;
-                this.txtCodigoDocente = true;
-                this.txtNombreDocente = true;
-                this.cbxMotivoLicencia = true;
-                this.cbxTipoLicencia = true;
-                this.cbxGoceSueldo = true;
-                this.calFechaInicioLicencia = true;
-                this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = false;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = true;
-                this.chxNotificacionTesoreria = true;
-                this.pklPlazas = true;
-                this.btnAceptar = false;
-                this.btnCancelar = false;
-            }
-            if (this.id_estado_solicitud == Long.parseLong("4")) {
-                this.cbxTipoSolicitud = true;
-                this.cbxEstadoSolicitud = true;
-                this.txtCodigoDocente = true;
-                this.txtNombreDocente = true;
-                this.cbxMotivoLicencia = true;
-                this.cbxTipoLicencia = true;
-                this.cbxGoceSueldo = true;
-                this.calFechaInicioLicencia = true;
-                this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = false;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = true;
-                this.chxNotificacionTesoreria = true;
-                this.pklPlazas = true;
-                this.btnAceptar = false;
-                this.btnCancelar = false;
-            }
-            if (this.id_estado_solicitud == Long.parseLong("5")) {
+                this.dependencia_observaciones = "SECRETARIO ACADÉMICO";
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.txtCodigoDocente = true;
                 this.txtNombreDocente = true;
                 this.cbxMotivoLicencia = true;
                 this.cbxTipoLicencia = false;
+                this.cbxGoceSueldo = false;
+                this.calFechaInicioLicencia = true;
+                this.calFechaFinalLicencia = true;
+                this.chxRechazado = false;
+                this.chxIngresoSiif_VistoBuenoEscuela = true;
+                this.chxTipoLicencia = false;
+                this.chxAcuerdoDecanatura = true;
+                this.chxNotificacionTesoreria = true;
+                this.cbxTipoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
+                this.pklPlazas = true;
+                this.btnAgregarObservacion = false;
+                this.btnEliminarObservacion = false;
+                this.btnAceptar = false;
+                this.btnCancelar = false;
+            }
+            if (this.id_estado_solicitud == Long.parseLong("4")) {
+                this.dependencia_observaciones = "DECANATURA";
+                this.cbxTipoSolicitud = true;
+                this.cbxEstadoSolicitud = true;
+                this.txtCodigoDocente = true;
+                this.txtNombreDocente = true;
+                this.cbxMotivoLicencia = true;
+                this.cbxTipoLicencia = true;
                 this.cbxGoceSueldo = true;
                 this.calFechaInicioLicencia = true;
                 this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = false;
-                this.chxAprobacionDecanatura = true;
+                this.chxRechazado = false;
+                this.chxIngresoSiif_VistoBuenoEscuela = true;
+                this.chxTipoLicencia = true;
+                this.chxAcuerdoDecanatura = false;
                 this.chxNotificacionTesoreria = true;
+                this.cbxTipoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.pklPlazas = true;
+                this.btnAgregarObservacion = false;
+                this.btnEliminarObservacion = false;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
             }
             if (this.id_estado_solicitud == Long.parseLong("6")) {
+                this.dependencia_observaciones = "TESORERÍA";
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.txtCodigoDocente = true;
@@ -511,37 +543,20 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.cbxGoceSueldo = true;
                 this.calFechaInicioLicencia = true;
                 this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = false;
-                this.chxNotificacionTesoreria = true;
-                this.pklPlazas = true;
-                this.btnAceptar = false;
-                this.btnCancelar = false;
-            }
-            if (this.id_estado_solicitud == Long.parseLong("8")) {
-                this.cbxTipoSolicitud = true;
-                this.cbxEstadoSolicitud = true;
-                this.txtCodigoDocente = true;
-                this.txtNombreDocente = true;
-                this.cbxMotivoLicencia = true;
-                this.cbxTipoLicencia = true;
-                this.cbxGoceSueldo = true;
-                this.calFechaInicioLicencia = true;
-                this.calFechaFinalLicencia = true;
-                this.areObservacionDocente = false;
-                this.chxRechazado = true;
-                this.chxVistoBuenoDirector = true;
-                this.chxIngresoSiifTraslado = true;
-                this.chxConfirmarTraslado = true;
-                this.chxAsignarTipoLicencia = true;
-                this.chxAprobacionDecanatura = true;
+                this.chxRechazado = false;
+                this.chxIngresoSiif_VistoBuenoEscuela = true;
+                this.chxTipoLicencia = true;
+                this.chxAcuerdoDecanatura = true;
                 this.chxNotificacionTesoreria = false;
+                this.cbxTipoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.pklPlazas = true;
+                this.btnAgregarObservacion = false;
+                this.btnEliminarObservacion = false;
                 this.btnAceptar = false;
                 this.btnCancelar = false;
             }
@@ -581,34 +596,22 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                         this.rechazado = Long.parseLong("0");
                     }
 
-                    if (this.visto_bueno_director_form) {
-                        this.visto_bueno_director = Long.parseLong("1");
+                    if (this.ingreso_siif_visto_bueno_escuela_form) {
+                        this.ingreso_siif_visto_bueno_escuela = Long.parseLong("1");
                     } else {
-                        this.visto_bueno_director = Long.parseLong("0");
+                        this.ingreso_siif_visto_bueno_escuela = Long.parseLong("0");
                     }
 
-                    if (this.ingreso_siif_traslado_form) {
-                        this.ingreso_siif_traslado = Long.parseLong("1");
+                    if (this.tipo_licencia_secretario_academico_form) {
+                        this.tipo_licencia_secretario_academico = Long.parseLong("1");
                     } else {
-                        this.ingreso_siif_traslado = Long.parseLong("0");
+                        this.tipo_licencia_secretario_academico = Long.parseLong("0");
                     }
 
-                    if (this.confirmar_traslado_form) {
-                        this.confirmar_traslado = Long.parseLong("1");
+                    if (this.acuerdo_decanatura_form) {
+                        this.acuerdo_decanatura = Long.parseLong("1");
                     } else {
-                        this.confirmar_traslado = Long.parseLong("0");
-                    }
-
-                    if (this.asignar_tipo_licencia_form) {
-                        this.asignar_tipo_licencia = Long.parseLong("1");
-                    } else {
-                        this.asignar_tipo_licencia = Long.parseLong("0");
-                    }
-
-                    if (this.aprobacion_decanatura_form) {
-                        this.aprobacion_decanatura = Long.parseLong("1");
-                    } else {
-                        this.aprobacion_decanatura = Long.parseLong("0");
+                        this.acuerdo_decanatura = Long.parseLong("0");
                     }
 
                     if (this.notificacion_tesoreria_form) {
@@ -642,6 +645,20 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                             lst_plazas.add(comeval_licencia_docente_plaza);
                         }
                     }
+                    
+                    entidad.Comeval_Acta_Solicitud comeval_acta_solicitud = null;
+
+                    List<entidad.Comeval_Solicitud_Observacion> lst_observaciones_rest = new ArrayList<>();
+                    for (Integer i = 0; i < this.lst_observaciones.size(); i++) {
+                        entidad.Comeval_Solicitud_Observacion observacion_temp = new entidad.Comeval_Solicitud_Observacion();
+                        observacion_temp.setId_solicitud(this.id_comeval_licencia_docente);
+                        observacion_temp.setId_tipo_solicitud(this.id_tipo_solicitud);
+                        observacion_temp.setId_observacion(this.lst_observaciones.get(i).getId_observacion());
+                        observacion_temp.setDependencia(this.lst_observaciones.get(i).getDependencia());
+                        observacion_temp.setFecha_hora(this.lst_observaciones.get(i).getFecha_hora());
+                        observacion_temp.setObservacion(this.lst_observaciones.get(i).getObservacion());
+                        lst_observaciones_rest.add(observacion_temp);
+                    }
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     entidad.Comeval_Licencia_Docente comeval_licencia_docente = new entidad.Comeval_Licencia_Docente(
@@ -652,31 +669,26 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                             this.goce_sueldo,
                             dateFormat.format(this.fecha_inicio_licencia),
                             dateFormat.format(this.fecha_final_licencia),
-                            this.descripcion_solicitud,
-                            this.id_solicitud_acta,
-                            this.no_acta,
-                            this.anio_acta,
-                            this.punto_acta,
-                            this.inciso_acta,
-                            dateFormat.format(this.fecha_acta), // FECHA ACTA.
-                            this.resolucion_acta,
-                            dateFormat.format(new Date()), // FECHA INGRESO.
+                            this.usuario.getUsuario(),
+                            dateFormat.format(new Date()),
                             this.id_estado_solicitud,
                             this.id_tipo_solicitud,
                             this.rechazado,
-                            this.visto_bueno_director,
-                            this.ingreso_siif_traslado,
-                            this.confirmar_traslado,
-                            this.asignar_tipo_licencia,
-                            this.aprobacion_decanatura,
+                            this.id_estado_solicitud_rechazado,
+                            this.id_tipo_solicitud_rechazado,
+                            this.ingreso_siif_visto_bueno_escuela,
+                            this.tipo_licencia_secretario_academico,
+                            this.acuerdo_decanatura,
                             this.notificacion_tesoreria,
-                            lst_plazas);
+                            lst_plazas,
+                            comeval_acta_solicitud,
+                            lst_observaciones_rest);
 
                     List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente = new ArrayList<>();
                     lst_comeval_licencia_docente.add(comeval_licencia_docente);
 
                     servicio.cliente.Cliente_Api_Comeval_Rest cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
-                    String resultado = cliente_api_comeval_rest.crear_licencia_docente(lst_comeval_licencia_docente);
+                    String resultado = cliente_api_comeval_rest.licencia_docente_ingresar(lst_comeval_licencia_docente);
 
                     PrimeFaces.current().executeScript("PF('ComevalLicenciaDocenteDialogVar').hide();");
                     // PrimeFaces.current().executeScript("PF('varTblComevalLicenciaDocente').clearFilters();");
@@ -710,34 +722,22 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                         this.rechazado = Long.parseLong("0");
                     }
 
-                    if (this.visto_bueno_director_form) {
-                        this.visto_bueno_director = Long.parseLong("1");
+                    if (this.ingreso_siif_visto_bueno_escuela_form) {
+                        this.ingreso_siif_visto_bueno_escuela = Long.parseLong("1");
                     } else {
-                        this.visto_bueno_director = Long.parseLong("0");
+                        this.ingreso_siif_visto_bueno_escuela = Long.parseLong("0");
                     }
 
-                    if (this.ingreso_siif_traslado_form) {
-                        this.ingreso_siif_traslado = Long.parseLong("1");
+                    if (this.tipo_licencia_secretario_academico_form) {
+                        this.tipo_licencia_secretario_academico = Long.parseLong("1");
                     } else {
-                        this.ingreso_siif_traslado = Long.parseLong("0");
+                        this.tipo_licencia_secretario_academico = Long.parseLong("0");
                     }
 
-                    if (this.confirmar_traslado_form) {
-                        this.confirmar_traslado = Long.parseLong("1");
+                    if (this.acuerdo_decanatura_form) {
+                        this.acuerdo_decanatura = Long.parseLong("1");
                     } else {
-                        this.confirmar_traslado = Long.parseLong("0");
-                    }
-
-                    if (this.asignar_tipo_licencia_form) {
-                        this.asignar_tipo_licencia = Long.parseLong("1");
-                    } else {
-                        this.asignar_tipo_licencia = Long.parseLong("0");
-                    }
-
-                    if (this.aprobacion_decanatura_form) {
-                        this.aprobacion_decanatura = Long.parseLong("1");
-                    } else {
-                        this.aprobacion_decanatura = Long.parseLong("0");
+                        this.acuerdo_decanatura = Long.parseLong("0");
                     }
 
                     if (this.notificacion_tesoreria_form) {
@@ -771,6 +771,20 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                             lst_plazas.add(comeval_licencia_docente_plaza);
                         }
                     }
+                    
+                    entidad.Comeval_Acta_Solicitud comeval_acta_solicitud = null;
+
+                    List<entidad.Comeval_Solicitud_Observacion> lst_observaciones_rest = new ArrayList<>();
+                    for (Integer i = 0; i < this.lst_observaciones.size(); i++) {
+                        entidad.Comeval_Solicitud_Observacion observacion_temp = new entidad.Comeval_Solicitud_Observacion();
+                        observacion_temp.setId_solicitud(this.id_comeval_licencia_docente);
+                        observacion_temp.setId_tipo_solicitud(this.id_tipo_solicitud);
+                        observacion_temp.setId_observacion(this.lst_observaciones.get(i).getId_observacion());
+                        observacion_temp.setDependencia(this.lst_observaciones.get(i).getDependencia());
+                        observacion_temp.setFecha_hora(this.lst_observaciones.get(i).getFecha_hora());
+                        observacion_temp.setObservacion(this.lst_observaciones.get(i).getObservacion());
+                        lst_observaciones_rest.add(observacion_temp);
+                    }
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     entidad.Comeval_Licencia_Docente comeval_licencia_docente = new entidad.Comeval_Licencia_Docente(
@@ -781,31 +795,26 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                             this.goce_sueldo,
                             dateFormat.format(this.fecha_inicio_licencia),
                             dateFormat.format(this.fecha_final_licencia),
-                            this.descripcion_solicitud,
-                            this.id_solicitud_acta,
-                            this.no_acta,
-                            this.anio_acta,
-                            this.punto_acta,
-                            this.inciso_acta,
-                            dateFormat.format(this.fecha_acta), // FECHA ACTA.
-                            this.resolucion_acta,
-                            dateFormat.format(this.fecha_ingreso), // FECHA INGRESO.
+                            this.usuario.getUsuario(),
+                            dateFormat.format(new Date()),
                             this.id_estado_solicitud,
                             this.id_tipo_solicitud,
                             this.rechazado,
-                            this.visto_bueno_director,
-                            this.ingreso_siif_traslado,
-                            this.confirmar_traslado,
-                            this.asignar_tipo_licencia,
-                            this.aprobacion_decanatura,
+                            this.id_estado_solicitud_rechazado,
+                            this.id_tipo_solicitud_rechazado,
+                            this.ingreso_siif_visto_bueno_escuela,
+                            this.tipo_licencia_secretario_academico,
+                            this.acuerdo_decanatura,
                             this.notificacion_tesoreria,
-                            lst_plazas);
+                            lst_plazas,
+                            comeval_acta_solicitud,
+                            lst_observaciones_rest);
 
                     List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente = new ArrayList<>();
                     lst_comeval_licencia_docente.add(comeval_licencia_docente);
 
                     servicio.cliente.Cliente_Api_Comeval_Rest cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
-                    String resultado = cliente_api_comeval_rest.modificar_licencia_docente(lst_comeval_licencia_docente);
+                    String resultado = cliente_api_comeval_rest.licencia_docente_modificar(lst_comeval_licencia_docente);
 
                     PrimeFaces.current().executeScript("PF('ComevalLicenciaDocenteDialogVar').hide();");
                     // PrimeFaces.current().executeScript("PF('varTblComevalLicenciaDocente').clearFilters();");
@@ -870,6 +879,9 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 periodo_actual = 2;
             }
             
+            // BORRAR ESTA LINEA EN PRODUCCION, SOLO FUNCIONA PARA PRUEBAS.
+            anio_actual = 2021; 
+            
             List<String> plazas_fuente = new ArrayList<>();
             cadenasql = "select (pp.anio || '-' || pp.periodo || '-' || p.numero || '-' || pp.subpartida) id_plaza "
                     + "from "
@@ -896,6 +908,69 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
             this.plazas = new DualListModel<>(plazas_fuente, plazas_destino);
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: datos_docente ERROR: " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+    
+    public void agregar_observacion() {
+        try {
+            this.observacion = "";
+            PrimeFaces.current().executeScript("PF('LicenciaObservacionesDialogVar').show();");
+        } catch (Exception ex) {
+            System.out.println("CLASE: " + this.getClass().getName() + " METODO: agregar_observacion ERROR: " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+
+    public void eliminar_observacion() {
+        try {
+            if (this.sel_observaciones != null) {
+                this.lst_observaciones.remove(this.sel_observaciones);
+
+                for (Integer i = 0; i < this.lst_observaciones.size(); i++) {
+                    Integer j = i + 1;
+                    this.lst_observaciones.get(i).setId_observacion(Long.parseLong(j.toString()));
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("CLASE: " + this.getClass().getName() + " METODO: eliminar_observacion ERROR: " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+
+    public void agregar_observacion_dialog() {
+        try {
+            Integer id_observacion = lst_observaciones.size();
+            id_observacion++;
+            beans.Comeval_Licencia_Docente.lista_observaciones observacion_dialog = new beans.Comeval_Licencia_Docente.lista_observaciones();
+            observacion_dialog.setId_observacion(Long.parseLong(id_observacion.toString()));
+            observacion_dialog.setDependencia(this.dependencia_observaciones);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            observacion_dialog.setFecha_hora(dateFormat.format(new Date()));
+            observacion_dialog.setObservacion(this.observacion);
+            this.lst_observaciones.add(observacion_dialog);
+
+            for (Integer i = 0; i < this.lst_observaciones.size(); i++) {
+                Integer j = i + 1;
+                this.lst_observaciones.get(i).setId_observacion(Long.parseLong(j.toString()));
+            }
+
+            PrimeFaces.current().executeScript("PF('LicenciaObservacionesDialogVar').hide();");
+        } catch (Exception ex) {
+            System.out.println("CLASE: " + this.getClass().getName() + " METODO: agregar_observacion_dialog ERROR: " + ex.toString());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
+        }
+    }
+    
+    public void check_cambio_valor() {
+        try {
+            if (this.rechazado_form) {
+                this.cbxEstadoSolicitudRechazado = false;
+            } else {
+                this.cbxEstadoSolicitudRechazado = true;
+            }
+        } catch (Exception ex) {
+            System.out.println("CLASE: " + this.getClass().getName() + " METODO: check_cambio_valor ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
         }
     }
@@ -980,70 +1055,6 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.fecha_final_licencia = fecha_final_licencia;
     }
 
-    public String getDescripcion_solicitud() {
-        return descripcion_solicitud;
-    }
-
-    public void setDescripcion_solicitud(String descripcion_solicitud) {
-        this.descripcion_solicitud = descripcion_solicitud;
-    }
-
-    public Long getId_solicitud_acta() {
-        return id_solicitud_acta;
-    }
-
-    public void setId_solicitud_acta(Long id_solicitud_acta) {
-        this.id_solicitud_acta = id_solicitud_acta;
-    }
-
-    public String getNo_acta() {
-        return no_acta;
-    }
-
-    public void setNo_acta(String no_acta) {
-        this.no_acta = no_acta;
-    }
-
-    public String getAnio_acta() {
-        return anio_acta;
-    }
-
-    public void setAnio_acta(String anio_acta) {
-        this.anio_acta = anio_acta;
-    }
-
-    public String getPunto_acta() {
-        return punto_acta;
-    }
-
-    public void setPunto_acta(String punto_acta) {
-        this.punto_acta = punto_acta;
-    }
-
-    public String getInciso_acta() {
-        return inciso_acta;
-    }
-
-    public void setInciso_acta(String inciso_acta) {
-        this.inciso_acta = inciso_acta;
-    }
-
-    public Date getFecha_acta() {
-        return fecha_acta;
-    }
-
-    public void setFecha_acta(Date fecha_acta) {
-        this.fecha_acta = fecha_acta;
-    }
-
-    public String getResolucion_acta() {
-        return resolucion_acta;
-    }
-
-    public void setResolucion_acta(String resolucion_acta) {
-        this.resolucion_acta = resolucion_acta;
-    }
-
     public Date getFecha_ingreso() {
         return fecha_ingreso;
     }
@@ -1076,6 +1087,22 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.rechazado = rechazado;
     }
 
+    public Long getId_estado_solicitud_rechazado() {
+        return id_estado_solicitud_rechazado;
+    }
+
+    public void setId_estado_solicitud_rechazado(Long id_estado_solicitud_rechazado) {
+        this.id_estado_solicitud_rechazado = id_estado_solicitud_rechazado;
+    }
+
+    public Long getId_tipo_solicitud_rechazado() {
+        return id_tipo_solicitud_rechazado;
+    }
+
+    public void setId_tipo_solicitud_rechazado(Long id_tipo_solicitud_rechazado) {
+        this.id_tipo_solicitud_rechazado = id_tipo_solicitud_rechazado;
+    }
+
     public Boolean getRechazado_form() {
         return rechazado_form;
     }
@@ -1084,84 +1111,52 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.rechazado_form = rechazado_form;
     }
 
-    public Long getVisto_bueno_director() {
-        return visto_bueno_director;
+    public Long getIngreso_siif_visto_bueno_escuela() {
+        return ingreso_siif_visto_bueno_escuela;
     }
 
-    public void setVisto_bueno_director(Long visto_bueno_director) {
-        this.visto_bueno_director = visto_bueno_director;
+    public void setIngreso_siif_visto_bueno_escuela(Long ingreso_siif_visto_bueno_escuela) {
+        this.ingreso_siif_visto_bueno_escuela = ingreso_siif_visto_bueno_escuela;
     }
 
-    public Boolean getVisto_bueno_director_form() {
-        return visto_bueno_director_form;
+    public Boolean getIngreso_siif_visto_bueno_escuela_form() {
+        return ingreso_siif_visto_bueno_escuela_form;
     }
 
-    public void setVisto_bueno_director_form(Boolean visto_bueno_director_form) {
-        this.visto_bueno_director_form = visto_bueno_director_form;
+    public void setIngreso_siif_visto_bueno_escuela_form(Boolean ingreso_siif_visto_bueno_escuela_form) {
+        this.ingreso_siif_visto_bueno_escuela_form = ingreso_siif_visto_bueno_escuela_form;
     }
 
-    public Long getIngreso_siif_traslado() {
-        return ingreso_siif_traslado;
+    public Long getTipo_licencia_secretario_academico() {
+        return tipo_licencia_secretario_academico;
     }
 
-    public void setIngreso_siif_traslado(Long ingreso_siif_traslado) {
-        this.ingreso_siif_traslado = ingreso_siif_traslado;
+    public void setTipo_licencia_secretario_academico(Long tipo_licencia_secretario_academico) {
+        this.tipo_licencia_secretario_academico = tipo_licencia_secretario_academico;
     }
 
-    public Boolean getIngreso_siif_traslado_form() {
-        return ingreso_siif_traslado_form;
+    public Boolean getTipo_licencia_secretario_academico_form() {
+        return tipo_licencia_secretario_academico_form;
     }
 
-    public void setIngreso_siif_traslado_form(Boolean ingreso_siif_traslado_form) {
-        this.ingreso_siif_traslado_form = ingreso_siif_traslado_form;
+    public void setTipo_licencia_secretario_academico_form(Boolean tipo_licencia_secretario_academico_form) {
+        this.tipo_licencia_secretario_academico_form = tipo_licencia_secretario_academico_form;
     }
 
-    public Long getConfirmar_traslado() {
-        return confirmar_traslado;
+    public Long getAcuerdo_decanatura() {
+        return acuerdo_decanatura;
     }
 
-    public void setConfirmar_traslado(Long confirmar_traslado) {
-        this.confirmar_traslado = confirmar_traslado;
+    public void setAcuerdo_decanatura(Long acuerdo_decanatura) {
+        this.acuerdo_decanatura = acuerdo_decanatura;
     }
 
-    public Boolean getConfirmar_traslado_form() {
-        return confirmar_traslado_form;
+    public Boolean getAcuerdo_decanatura_form() {
+        return acuerdo_decanatura_form;
     }
 
-    public void setConfirmar_traslado_form(Boolean confirmar_traslado_form) {
-        this.confirmar_traslado_form = confirmar_traslado_form;
-    }
-
-    public Long getAsignar_tipo_licencia() {
-        return asignar_tipo_licencia;
-    }
-
-    public void setAsignar_tipo_licencia(Long asignar_tipo_licencia) {
-        this.asignar_tipo_licencia = asignar_tipo_licencia;
-    }
-
-    public Boolean getAsignar_tipo_licencia_form() {
-        return asignar_tipo_licencia_form;
-    }
-
-    public void setAsignar_tipo_licencia_form(Boolean asignar_tipo_licencia_form) {
-        this.asignar_tipo_licencia_form = asignar_tipo_licencia_form;
-    }
-
-    public Long getAprobacion_decanatura() {
-        return aprobacion_decanatura;
-    }
-
-    public void setAprobacion_decanatura(Long aprobacion_decanatura) {
-        this.aprobacion_decanatura = aprobacion_decanatura;
-    }
-
-    public Boolean getAprobacion_decanatura_form() {
-        return aprobacion_decanatura_form;
-    }
-
-    public void setAprobacion_decanatura_form(Boolean aprobacion_decanatura_form) {
-        this.aprobacion_decanatura_form = aprobacion_decanatura_form;
+    public void setAcuerdo_decanatura_form(Boolean acuerdo_decanatura_form) {
+        this.acuerdo_decanatura_form = acuerdo_decanatura_form;
     }
 
     public Long getNotificacion_tesoreria() {
@@ -1220,6 +1215,22 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.lst_tipo_solicitud = lst_tipo_solicitud;
     }
 
+    public List<SelectItem> getLst_estado_solicitud_rechazado() {
+        return lst_estado_solicitud_rechazado;
+    }
+
+    public void setLst_estado_solicitud_rechazado(List<SelectItem> lst_estado_solicitud_rechazado) {
+        this.lst_estado_solicitud_rechazado = lst_estado_solicitud_rechazado;
+    }
+
+    public List<SelectItem> getLst_tipo_solicitud_rechazado() {
+        return lst_tipo_solicitud_rechazado;
+    }
+
+    public void setLst_tipo_solicitud_rechazado(List<SelectItem> lst_tipo_solicitud_rechazado) {
+        this.lst_tipo_solicitud_rechazado = lst_tipo_solicitud_rechazado;
+    }
+
     public String getOpcion() {
         return opcion;
     }
@@ -1234,6 +1245,38 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
 
     public void setPlazas(DualListModel<String> plazas) {
         this.plazas = plazas;
+    }
+
+    public String getDependencia_observaciones() {
+        return dependencia_observaciones;
+    }
+
+    public void setDependencia_observaciones(String dependencia_observaciones) {
+        this.dependencia_observaciones = dependencia_observaciones;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public List<lista_observaciones> getLst_observaciones() {
+        return lst_observaciones;
+    }
+
+    public void setLst_observaciones(List<lista_observaciones> lst_observaciones) {
+        this.lst_observaciones = lst_observaciones;
+    }
+
+    public lista_observaciones getSel_observaciones() {
+        return sel_observaciones;
+    }
+
+    public void setSel_observaciones(lista_observaciones sel_observaciones) {
+        this.sel_observaciones = sel_observaciones;
     }
 
     public Boolean getCbxTipoSolicitud() {
@@ -1308,14 +1351,6 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.calFechaFinalLicencia = calFechaFinalLicencia;
     }
 
-    public Boolean getAreObservacionDocente() {
-        return areObservacionDocente;
-    }
-
-    public void setAreObservacionDocente(Boolean areObservacionDocente) {
-        this.areObservacionDocente = areObservacionDocente;
-    }
-
     public Boolean getChxRechazado() {
         return chxRechazado;
     }
@@ -1324,44 +1359,28 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.chxRechazado = chxRechazado;
     }
 
-    public Boolean getChxVistoBuenoDirector() {
-        return chxVistoBuenoDirector;
+    public Boolean getChxIngresoSiif_VistoBuenoEscuela() {
+        return chxIngresoSiif_VistoBuenoEscuela;
     }
 
-    public void setChxVistoBuenoDirector(Boolean chxVistoBuenoDirector) {
-        this.chxVistoBuenoDirector = chxVistoBuenoDirector;
+    public void setChxIngresoSiif_VistoBuenoEscuela(Boolean chxIngresoSiif_VistoBuenoEscuela) {
+        this.chxIngresoSiif_VistoBuenoEscuela = chxIngresoSiif_VistoBuenoEscuela;
     }
 
-    public Boolean getChxIngresoSiifTraslado() {
-        return chxIngresoSiifTraslado;
+    public Boolean getChxTipoLicencia() {
+        return chxTipoLicencia;
     }
 
-    public void setChxIngresoSiifTraslado(Boolean chxIngresoSiifTraslado) {
-        this.chxIngresoSiifTraslado = chxIngresoSiifTraslado;
+    public void setChxTipoLicencia(Boolean chxTipoLicencia) {
+        this.chxTipoLicencia = chxTipoLicencia;
     }
 
-    public Boolean getChxConfirmarTraslado() {
-        return chxConfirmarTraslado;
+    public Boolean getChxAcuerdoDecanatura() {
+        return chxAcuerdoDecanatura;
     }
 
-    public void setChxConfirmarTraslado(Boolean chxConfirmarTraslado) {
-        this.chxConfirmarTraslado = chxConfirmarTraslado;
-    }
-
-    public Boolean getChxAsignarTipoLicencia() {
-        return chxAsignarTipoLicencia;
-    }
-
-    public void setChxAsignarTipoLicencia(Boolean chxAsignarTipoLicencia) {
-        this.chxAsignarTipoLicencia = chxAsignarTipoLicencia;
-    }
-
-    public Boolean getChxAprobacionDecanatura() {
-        return chxAprobacionDecanatura;
-    }
-
-    public void setChxAprobacionDecanatura(Boolean chxAprobacionDecanatura) {
-        this.chxAprobacionDecanatura = chxAprobacionDecanatura;
+    public void setChxAcuerdoDecanatura(Boolean chxAcuerdoDecanatura) {
+        this.chxAcuerdoDecanatura = chxAcuerdoDecanatura;
     }
 
     public Boolean getChxNotificacionTesoreria() {
@@ -1372,12 +1391,44 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
         this.chxNotificacionTesoreria = chxNotificacionTesoreria;
     }
 
+    public Boolean getCbxTipoSolicitudRechazado() {
+        return cbxTipoSolicitudRechazado;
+    }
+
+    public void setCbxTipoSolicitudRechazado(Boolean cbxTipoSolicitudRechazado) {
+        this.cbxTipoSolicitudRechazado = cbxTipoSolicitudRechazado;
+    }
+
+    public Boolean getCbxEstadoSolicitudRechazado() {
+        return cbxEstadoSolicitudRechazado;
+    }
+
+    public void setCbxEstadoSolicitudRechazado(Boolean cbxEstadoSolicitudRechazado) {
+        this.cbxEstadoSolicitudRechazado = cbxEstadoSolicitudRechazado;
+    }
+
     public Boolean getPklPlazas() {
         return pklPlazas;
     }
 
     public void setPklPlazas(Boolean pklPlazas) {
         this.pklPlazas = pklPlazas;
+    }
+
+    public Boolean getBtnAgregarObservacion() {
+        return btnAgregarObservacion;
+    }
+
+    public void setBtnAgregarObservacion(Boolean btnAgregarObservacion) {
+        this.btnAgregarObservacion = btnAgregarObservacion;
+    }
+
+    public Boolean getBtnEliminarObservacion() {
+        return btnEliminarObservacion;
+    }
+
+    public void setBtnEliminarObservacion(Boolean btnEliminarObservacion) {
+        this.btnEliminarObservacion = btnEliminarObservacion;
     }
 
     public Boolean getBtnAceptar() {

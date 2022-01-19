@@ -40,29 +40,32 @@ INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solic
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (5, 'Revisión (Secretario académico)', 1, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (6, 'Acta (Junta directiva)', 1, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (7, 'DB Centro de Cálculo', 1, 0);
+
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Docente)', 2, 1);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Visto bueno (Director escuela)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'Ingreso SIIF/Traslado (Escuela)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (4, 'Confirmar traslado (Director de escuela)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (5, 'Tipo licencia (Secretario académico)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (6, 'Acuerdo (Decanatura)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (7, 'Acta (Junta directiva)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (8, 'Notificación (Tesorería)', 2, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (9, 'DB Centro de Cálculo', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Ingreso SIIF/Visto bueno (Escuela)', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'Tipo licencia (Secretario académico)', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (4, 'Acuerdo (Decanatura)', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (5, 'Acta (Junta directiva)', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (6, 'Notificación (Tesorería)', 2, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (7, 'DB Centro de Cálculo', 2, 0);
+
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Secretario académico)', 3, 1);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Acta (Junta directiva)', 3, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'DB Centro de Cálculo', 3, 0);
+
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Docente)', 4, 1);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Visto bueno (Director escuela)', 4, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'Visto bueno (Secretario académico)', 4, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (4, 'Acta (Junta directiva)', 4, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (5, 'DB Centro de Cálculo', 4, 0);
+
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Docente)', 5, 1);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Visto bueno (Director escuela)', 5, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'Visto bueno (Secretario académico)', 5, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (4, 'Acta (Junta directiva)', 5, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (5, 'Notificación (Tesorería)', 5, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (6, 'DB Centro de Cálculo', 5, 0);
+
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Carga eval. docente (Secretario académico)', 6, 1);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Acta (Junta directiva)', 6, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'DB Centro de Cálculo', 6, 0);
@@ -84,26 +87,31 @@ INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_ac
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (4, 1, 5, 1);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (5, 1, 6, 1);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (6, 1, 7, 1);
+
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 2, 2, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 2, 3, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (3, 2, 4, 2);
-INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (4, 2, 5, 2);
+INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (3, 2, 5, 2);
+INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (4, 2, 6, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (5, 2, 6, 2);
-INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (5, 2, 7, 2);
-INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (6, 2, 8, 2);
+INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (6, 2, 7, 2);
+
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (7, 2, 8, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (8, 2, 9, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 3, 2, 3);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 3, 3, 3);
+
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 4, 2, 4);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 4, 3, 4);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (3, 4, 4, 4);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (4, 4, 5, 4);
+
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 5, 2, 5);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 5, 3, 5);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (3, 5, 4, 5);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (4, 5, 5, 5);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (5, 5, 6, 5);
+
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 6, 2, 6);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 6, 3, 6);
 
@@ -189,7 +197,7 @@ CREATE TABLE comeval_licencia_docente (
     id_comeval_licencia_docente BIGINT NOT NULL,
     personal CHARACTER(9) NOT NULL,
     id_motivo_licencia INTEGER NOT NULL,
-    id_tipo_licencia SMALLINT NOT NULL,
+    id_tipo_licencia SMALLINT,
     goce_sueldo VARCHAR(2) NOT NULL DEFAULT '-', 
     fecha_inicio_licencia TIMESTAMP NOT NULL,
     fecha_final_licencia TIMESTAMP NOT NULL,
@@ -200,11 +208,9 @@ CREATE TABLE comeval_licencia_docente (
     rechazado SMALLINT NOT NULL DEFAULT 0,
     id_estado_solicitud_rechazado BIGINT,
     id_tipo_solicitud_rechazado BIGINT,
-    visto_bueno_director SMALLINT NOT NULL DEFAULT 0,
-    ingreso_siif_traslado SMALLINT NOT NULL DEFAULT 0,
-    confirmar_traslado SMALLINT NOT NULL DEFAULT 0,
-    asignar_tipo_licencia SMALLINT NOT NULL DEFAULT 0,
-    aprobacion_decanatura SMALLINT NOT NULL DEFAULT 0,
+    ingreso_siif_visto_bueno_escuela SMALLINT NOT NULL DEFAULT 0,
+    tipo_licencia_secretario_academico SMALLINT NOT NULL DEFAULT 0,
+    acuerdo_decanatura SMALLINT NOT NULL DEFAULT 0,
     notificacion_tesoreria SMALLINT NOT NULL DEFAULT 0,    
     CONSTRAINT pk_comeval_licencia_docente PRIMARY KEY (id_comeval_licencia_docente),
     CONSTRAINT fk_comeval_licencia_docente_1 FOREIGN KEY (personal) REFERENCES personal (personal),

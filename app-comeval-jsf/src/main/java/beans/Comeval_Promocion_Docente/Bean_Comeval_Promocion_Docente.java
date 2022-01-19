@@ -984,7 +984,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
     public void agregar_observacion() {
         try {
             this.observacion = "";
-            PrimeFaces.current().executeScript("PF('ObservacionesDialogVar').show();");
+            PrimeFaces.current().executeScript("PF('PromocionObservacionesDialogVar').show();");
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: agregar_observacion ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
@@ -1024,7 +1024,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                 this.lst_observaciones.get(i).setId_observacion(Long.parseLong(j.toString()));
             }
 
-            PrimeFaces.current().executeScript("PF('ObservacionesDialogVar').hide();");
+            PrimeFaces.current().executeScript("PF('PromocionObservacionesDialogVar').hide();");
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: agregar_observacion_dialog ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));

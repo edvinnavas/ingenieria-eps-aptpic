@@ -122,7 +122,7 @@
                             </p:column>
 
                             <f:facet name="footer">
-                                <p:commandButton id="btnAgregarObservacion" disabled="#{Bean_Comeval_Promocion_Docente.btnAgregarObservacion}" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion}" icon="ui-icon-plus" update="ObservacionDialog,:ObservacionesForm" style="font-size:10px; font-weight:bold;"/>
+                                <p:commandButton id="btnAgregarObservacion" disabled="#{Bean_Comeval_Promocion_Docente.btnAgregarObservacion}" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion}" icon="ui-icon-plus" update="PromocionObservacionDialog,:PromocionObservacionesForm" style="font-size:10px; font-weight:bold;"/>
                                 <p:commandButton id="btnEliminarObservacion" disabled="#{Bean_Comeval_Promocion_Docente.btnEliminarObservacion}" value="Eliminar" actionListener="#{Bean_Comeval_Promocion_Docente.eliminar_observacion}" icon="ui-icon-trash" update="tblObservaciones" style="font-size:10px; font-weight:bold;"/>
                             </f:facet>
                         </p:dataTable>
@@ -131,7 +131,7 @@
                 <p:tab id="tab3" title="Rechazado">
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Tipo solicitud rechazado" style="font-size:10px; font-weight:bold;"/>
-                        <p:outputLabel value="Estado solicitud  rechazado" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Estado solicitud rechazado" style="font-size:10px; font-weight:bold;"/>
                         <p:selectOneMenu id="cbxTipoSolicitudRechazado" disabled="#{Bean_Comeval_Promocion_Docente.cbxTipoSolicitudRechazado}" value="#{Bean_Comeval_Promocion_Docente.id_tipo_solicitud_rechazado}" style="width: 200px; font-size:10px;">
                             <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipo_solicitud_rechazado}"/>
                         </p:selectOneMenu>
@@ -155,8 +155,8 @@
         </h:form>
     </p:dialog>
 
-    <p:dialog id="ObservacionDialog" header="Observaciones" widgetVar="ObservacionesDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
-        <h:form id="ObservacionesForm">
+    <p:dialog id="PromocionObservacionDialog" header="Observaciones" widgetVar="PromocionObservacionesDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="PromocionObservacionesForm">
             <h:panelGrid columns="1">
                 <p:outputLabel value="Dependencia" style="font-size:10px; font-weight:bold;"/>
                 <p:inputText id="txtTitularidadActual" readonly="true" value="#{Bean_Comeval_Promocion_Docente.dependencia_observaciones}" style="width: 214px; font-size:10px; background-color: yellow; color: blue;"/>
@@ -166,7 +166,7 @@
             
             <div align="right">
                 <p:commandButton id="btnAgregarObservacion" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion_dialog}" icon="ui-icon-check" update=":ComevalPromocionDocenteForm" style="font-size:10px; font-weight:bold;"/>
-                <p:commandButton id="btnCancelarObservacion" value="Cancelar" oncomplete="PF('ObservacionesDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
+                <p:commandButton id="btnCancelarObservacion" value="Cancelar" oncomplete="PF('PromocionObservacionesDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
             </div>
         </h:form>
     </p:dialog>

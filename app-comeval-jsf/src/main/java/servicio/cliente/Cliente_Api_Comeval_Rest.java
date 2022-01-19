@@ -47,7 +47,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - driver_comeval):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - driver_comeval_gestionautenticacion2):" + ex.toString());
         }
         
         return resultado;
@@ -67,7 +67,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - driver_comeval):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - driver_comeval_personal2):" + ex.toString());
         }
         
         return resultado;
@@ -87,7 +87,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - login):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - autenticar):" + ex.toString());
         }
         
         return resultado;
@@ -107,7 +107,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_ingresar):" + ex.toString());
         }
         
         return resultado;
@@ -127,7 +127,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_modificar):" + ex.toString());
         }
         
         return resultado;
@@ -147,7 +147,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_docente):" + ex.toString());
         }
         
         return resultado;
@@ -167,7 +167,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_comeval):" + ex.toString());
         }
         
         return resultado;
@@ -187,7 +187,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_secretario_academico):" + ex.toString());
         }
         
         return resultado;
@@ -207,7 +207,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_comeval):" + ex.toString());
         }
         
         return resultado;
@@ -227,16 +227,16 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_promocion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_secretario_academico):" + ex.toString());
         }
         
         return resultado;
     }
         
-    public String crear_licencia_docente(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+    public String licencia_docente_ingresar(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("crear_licencia_docente");
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_ingresar");
             String data = new Gson().toJson(lst_comeval_licencia_docente);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.post(Entity.text(data));
@@ -247,16 +247,16 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_licencia_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_ingresar):" + ex.toString());
         }
         
         return resultado;
     }
     
-    public String modificar_licencia_docente(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+    public String licencia_docente_modificar(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("modificar_licencia_docente");
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_modificar");
             String data = new Gson().toJson(lst_comeval_licencia_docente);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.put(Entity.text(data));
@@ -267,7 +267,107 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_licencia_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_modificar):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String licencia_docente_enviar_ingreso_docente(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_enviar_ingreso_docente");
+            String data = new Gson().toJson(lst_comeval_licencia_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_enviar_ingreso_docente):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String licencia_docente_enviar_ingreso_siif_visto_bueno_escuela(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_enviar_ingreso_siif_visto_bueno_escuela");
+            String data = new Gson().toJson(lst_comeval_licencia_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_enviar_ingreso_siif_visto_bueno_escuela):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String licencia_docente_enviar_tipo_licencia_secretario_academico(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_enviar_tipo_licencia_secretario_academico");
+            String data = new Gson().toJson(lst_comeval_licencia_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_enviar_tipo_licencia_secretario_academico):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String licencia_docente_enviar_acuerdo_decanatura(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_enviar_acuerdo_decanatura");
+            String data = new Gson().toJson(lst_comeval_licencia_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_enviar_acuerdo_decanatura):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String licencia_docente_enviar_notificacion_tesoreria(List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("licencia_docente_enviar_notificacion_tesoreria");
+            String data = new Gson().toJson(lst_comeval_licencia_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_enviar_notificacion_tesoreria):" + ex.toString());
         }
         
         return resultado;

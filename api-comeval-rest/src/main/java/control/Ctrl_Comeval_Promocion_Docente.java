@@ -276,7 +276,6 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     id_estado_solicitud_rechazado_temp = "null";
                     id_tipo_solicitud_rechazado_temp = "null";
                 }
-                
 
                 String cadenasql = "update comeval_promocion_docente set "
                         + "tipoascenso=" + lst_comeval_promocion_docente.get(i).getTipoascenso() + ", "
@@ -983,7 +982,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
 
                     entidad.Solicitud_Acta solicitud_acta = new entidad.Solicitud_Acta();
                     solicitud_acta.setSolicitanteexterno("NOMBRE-SOLICITANTE: " + nombre_solicitante + ", CÓDIGO-PERSONAL: " + lst_comeval_promocion_docente.get(i).getUsuario());
-                    solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
+                    solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval().trim() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
                             + "presentada por el/la Ing/Inga. " + nombre_solicitante + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
                             + "quien presenta el cuadro de promoción docente del ingeniero/a " + nombre_docente + " con registro de personal No. " + lst_comeval_promocion_docente.get(i).getPersonal() + ", "
                             + "quien promueve de " + puesto_actual + " a " + nuevo_puesto + " a partir del " + l_dia_fecha_promueve + " de " + l_mes_fecha_promueve + " de " + anio_fecha_promueve + ".");
@@ -1001,7 +1000,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     stmt.close();
 
                     Ctrl_Driver ctrl_driver2 = new Ctrl_Driver("jndi_asuntosestudiantiles");
-                    Long id_solicitud = ctrl_driver2.insertar_solictid_db_actas(solicitud_acta, lst_comeval_promocion_docente.get(i).getUsuario(), nombre_solicitante, id_archivo_personal2);
+                    Long id_solicitud = ctrl_driver2.insertar_solictid_db_actas(solicitud_acta, lst_comeval_promocion_docente.get(i).getUsuario(), nombre_solicitante, id_archivo_personal2, Long.parseLong("43"));
 
                     if (id_solicitud > Long.parseLong("0")) {
                         cadenasql = "insert into comeval_acta_solicitud ("
@@ -1145,9 +1144,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "usuario='" + lst_comeval_promocion_docente.get(i).getUsuario() + "', "
                             + "rechazado=0, "
                             + "id_estado_solicitud_rechazado=null, "
-                            + "id_tipo_solicitud_rechazado=null, "
-                            + "revision_comeval=0, "
-                            + "revision_secretario_academico=0 "
+                            + "id_tipo_solicitud_rechazado=null "
                             + "where id_comeval_promocion_docente=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
@@ -1413,9 +1410,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "usuario='" + lst_comeval_promocion_docente.get(i).getUsuario() + "', "
                             + "rechazado=0, "
                             + "id_estado_solicitud_rechazado=null, "
-                            + "id_tipo_solicitud_rechazado=null, "
-                            + "revision_comeval=0, "
-                            + "revision_secretario_academico=0 "
+                            + "id_tipo_solicitud_rechazado=null "
                             + "where id_comeval_promocion_docente=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
@@ -1745,7 +1740,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
 
                         entidad.Solicitud_Acta solicitud_acta = new entidad.Solicitud_Acta();
                         solicitud_acta.setSolicitanteexterno("NOMBRE-SOLICITANTE: " + nombre_solicitante + ", CÓDIGO-PERSONAL: " + lst_comeval_promocion_docente.get(i).getUsuario());
-                        solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
+                        solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval().trim() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
                                 + "presentada por el/la Ing/Inga. " + nombre_solicitante + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
                                 + "quien presenta el cuadro de promoción docente del ingeniero/a " + nombre_docente + " con registro de personal No. " + lst_comeval_promocion_docente.get(i).getPersonal() + ", "
                                 + "quien promueve de " + puesto_actual + " a " + nuevo_puesto + " a partir del " + l_dia_fecha_promueve + " de " + l_mes_fecha_promueve + " de " + anio_fecha_promueve + ".");
@@ -1763,7 +1758,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                         stmt.close();
 
                         Ctrl_Driver ctrl_driver2 = new Ctrl_Driver("jndi_asuntosestudiantiles");
-                        Long id_solicitud = ctrl_driver2.insertar_solictid_db_actas(solicitud_acta, lst_comeval_promocion_docente.get(i).getUsuario(), nombre_solicitante, id_archivo_personal2);
+                        Long id_solicitud = ctrl_driver2.insertar_solictid_db_actas(solicitud_acta, lst_comeval_promocion_docente.get(i).getUsuario(), nombre_solicitante, id_archivo_personal2, Long.parseLong("43"));
 
                         if (id_solicitud > Long.parseLong("0")) {
                             cadenasql = "insert into comeval_acta_solicitud ("
@@ -1904,6 +1899,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     + "from "
                     + "comeval_acta_solicitud cas "
                     + "where "
+                    + "cas.id_tipo_solicitud=1 and "
                     + "cas.no_acta is null and "
                     + "cas.anio_acta is null and "
                     + "cas.punto_acta is null and "
@@ -1921,7 +1917,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
             }
             rs.close();
             stmt.close();
-
+            
             for (Integer i = 0; i < lst_comeval_acta_solicitud.size(); i++) {
                 Ctrl_Driver ctrl_driver = new Ctrl_Driver("jndi_asuntosestudiantiles");
                 entidad.Acuerdo_Acta acuerdo_acta = ctrl_driver.obtener_acta_resolucion(lst_comeval_acta_solicitud.get(i).getId_solicitud_acta());

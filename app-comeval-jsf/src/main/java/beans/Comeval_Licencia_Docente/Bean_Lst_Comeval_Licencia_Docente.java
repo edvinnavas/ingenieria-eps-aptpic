@@ -51,7 +51,6 @@ public class Bean_Lst_Comeval_Licencia_Docente implements Serializable {
                     + "left join estado_solicitud_comeval es on (cld.id_estado_solicitud = es.id_estado_solicitud and cld.id_tipo_solicitud = es.id_tipo_solicitud) "
                     + "left join tipo_solicitud_comeval ts on (es.id_tipo_solicitud = ts.id_tipo_solicitud) "
                     + "where "
-                    + "cld.rechazado=0 and "
                     + "cld.id_estado_solicitud=" + this.id_estado_solicitud + " and "
                     + "cld.id_tipo_solicitud=" + this.id_tipo_solicitud + " "
                     + "order by "
@@ -83,17 +82,91 @@ public class Bean_Lst_Comeval_Licencia_Docente implements Serializable {
     }
     
     public void siguiente_estado_solicitud() {
-        /* try {
+        try {
             if (this.sel_comeval_licencia_docente != null) {
+                List<entidad.Comeval_Licencia_Docente> lst_comeval_licencia_docente_temp = new ArrayList<>();
+                
+                String cadenasql = "select "
+                        + "t.id_comeval_licencia_docente, "
+                        + "t.personal, "
+                        + "t.id_motivo_licencia, "
+                        + "t.id_tipo_licencia, "
+                        + "t.goce_sueldo, "
+                        + "t.fecha_inicio_licencia, "
+                        + "t.fecha_final_licencia, "
+                        + "t.fecha_ingreso, "
+                        + "t.id_estado_solicitud, "
+                        + "t.id_tipo_solicitud, "
+                        + "t.rechazado, "
+                        + "coalesce(t.id_estado_solicitud_rechazado,1) id_estado_solicitud_rechazado, "
+                        + "coalesce(t.id_tipo_solicitud_rechazado,1) id_tipo_solicitud_rechazado, "
+                        + "t.ingreso_siif_visto_bueno_escuela, "
+                        + "t.tipo_licencia_secretario_academico, "
+                        + "t.acuerdo_decanatura, "
+                        + "t.notificacion_tesoreria "
+                        + "from "
+                        + "comeval_licencia_docente t "
+                        + "where "
+                        + "t.id_comeval_licencia_docente=" + this.sel_comeval_licencia_docente.getId_comeval_licencia_docente();
                 servicio.cliente.Cliente_Api_Comeval_Rest cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
-                String resultado = cliente_api_comeval_rest.siguiente_estado_solicitud(this.sel_comeval_licencia_docente.getId_comeval_licencia_docente(), this.id_estado_solicitud, this.id_tipo_solicitud);
+                String jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
+                Type listType = new TypeToken<ArrayList<String>>() {
+                }.getType();
+                List<String> lista_drive = new Gson().fromJson(jsonString, listType);
+                for (Integer i = 1; i < lista_drive.size(); i++) {
+                    String[] col = lista_drive.get(i).split("♣");
+                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+                    entidad.Comeval_Licencia_Docente comeval_licencia_docente = new entidad.Comeval_Licencia_Docente(
+                            Long.parseLong(col[0]),
+                            col[1],
+                            Long.parseLong(col[2]),
+                            Long.parseLong(col[3]),
+                            col[4],
+                            dateFormat2.format(dateFormat1.parse(col[5])),
+                            dateFormat2.format(dateFormat1.parse(col[6])),
+                            this.usuario.getUsuario(),
+                            col[7],
+                            Long.parseLong(col[8]),
+                            Long.parseLong(col[9]),
+                            Long.parseLong(col[10]),
+                            Long.parseLong(col[11]),
+                            Long.parseLong(col[12]),
+                            Long.parseLong(col[13]),
+                            Long.parseLong(col[14]),
+                            Long.parseLong(col[15]),
+                            Long.parseLong(col[16]),
+                            null,
+                            null,
+                            null);
+                    lst_comeval_licencia_docente_temp.add(comeval_licencia_docente);
+                }
+                
+                cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
+                String resultado = "";
+                if (this.id_estado_solicitud == Long.parseLong("1")) {
+                    resultado = cliente_api_comeval_rest.licencia_docente_enviar_ingreso_docente(lst_comeval_licencia_docente_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("2")) {
+                    resultado = cliente_api_comeval_rest.licencia_docente_enviar_ingreso_siif_visto_bueno_escuela(lst_comeval_licencia_docente_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("3")) {
+                    resultado = cliente_api_comeval_rest.licencia_docente_enviar_tipo_licencia_secretario_academico(lst_comeval_licencia_docente_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("4")) {
+                    resultado = cliente_api_comeval_rest.licencia_docente_enviar_acuerdo_decanatura(lst_comeval_licencia_docente_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("6")) {
+                    resultado = cliente_api_comeval_rest.licencia_docente_enviar_notificacion_tesoreria(lst_comeval_licencia_docente_temp);
+                }
+                
                 this.cargar_datos(this.usuario, this.id_estado_solicitud, this.id_tipo_solicitud);
 
                 String[] mensaje = resultado.split(",");
                 if (mensaje[0].equals("0")) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", mensaje[1]));
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", mensaje[1]));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", mensaje[1]));
                 }
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar una solicitud."));
@@ -101,7 +174,7 @@ public class Bean_Lst_Comeval_Licencia_Docente implements Serializable {
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: siguiente_estado_solicitud ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
-        } */
+        }
     }
 
     public entidad.Usuario getUsuario() {
