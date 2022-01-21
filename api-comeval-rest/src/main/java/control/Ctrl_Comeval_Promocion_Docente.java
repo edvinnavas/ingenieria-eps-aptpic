@@ -269,7 +269,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
 
                 String id_estado_solicitud_rechazado_temp;
                 String id_tipo_solicitud_rechazado_temp;
-                if(lst_comeval_promocion_docente.get(i).getRechazado() == Long.parseLong("1")) {
+                if (lst_comeval_promocion_docente.get(i).getRechazado() == Long.parseLong("1")) {
                     id_estado_solicitud_rechazado_temp = lst_comeval_promocion_docente.get(i).getId_estado_solicitud_rechazado().toString();
                     id_tipo_solicitud_rechazado_temp = lst_comeval_promocion_docente.get(i).getId_tipo_solicitud_rechazado().toString();
                 } else {
@@ -1159,7 +1159,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    
+
                     Date fecha_actual = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     cadenasql = "insert into solicitud_workflow_historial ("
@@ -1415,7 +1415,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
                     stmt.close();
-                    
+
                     Long max_id_workflow = Long.parseLong("0");
                     cadenasql = "select coalesce(max(t.id_workflow) + 1, 1) max_id from solicitud_workflow_historial t where t.id_solicitud=" + lst_comeval_promocion_docente.get(i).getId_comeval_promocion_docente();
                     stmt = this.conn.createStatement();
@@ -1917,7 +1917,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
             }
             rs.close();
             stmt.close();
-            
+
             for (Integer i = 0; i < lst_comeval_acta_solicitud.size(); i++) {
                 Ctrl_Driver ctrl_driver = new Ctrl_Driver("jndi_asuntosestudiantiles");
                 entidad.Acuerdo_Acta acuerdo_acta = ctrl_driver.obtener_acta_resolucion(lst_comeval_acta_solicitud.get(i).getId_solicitud_acta());
@@ -2020,6 +2020,95 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
                     stmt.close();
+
+                    // CAMBIO DE ESTADO DE LA SOLICITUD PROMOCION DOCENTE.
+                    Long id_estado_solicitud_actual = Long.parseLong("0");
+                    Long id_tipo_solicitud_actual = Long.parseLong("0");
+                    String usuario = "";
+                    cadenasql = "select "
+                            + "cld.id_estado_solicitud, "
+                            + "cld.id_tipo_solicitud, "
+                            + "cld.usuario "
+                            + "from "
+                            + "comeval_promocion_docente cld "
+                            + "where "
+                            + "cld.comeval_promocion_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                    stmt = this.conn.createStatement();
+                    rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        id_estado_solicitud_actual = rs.getLong(1);
+                        id_tipo_solicitud_actual = rs.getLong(2);
+                        usuario = rs.getString(3);
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    Long id_estado_solicitud_siguiente = Long.parseLong("0");
+                    Long id_tipo_solicitud_siguiente = Long.parseLong("0");
+                    cadenasql = "select "
+                            + "ws.id_estado_solicitud_siguiente, "
+                            + "ws.id_tipo_solicitud_siguiente "
+                            + "from "
+                            + "workflow_solicitud ws "
+                            + "where "
+                            + "ws.id_estado_solicitud_actual=" + id_estado_solicitud_actual + " and "
+                            + "ws.id_tipo_solicitud_actual=" + id_tipo_solicitud_actual;
+                    stmt = this.conn.createStatement();
+                    rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        id_estado_solicitud_siguiente = rs.getLong(1);
+                        id_tipo_solicitud_siguiente = rs.getLong(2);
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    if (!id_estado_solicitud_siguiente.equals(Long.parseLong("0")) && !id_tipo_solicitud_siguiente.equals(Long.parseLong("0"))) {
+                        cadenasql = "update comeval_promocion_docente set "
+                                + "id_estado_solicitud=" + id_estado_solicitud_siguiente + ", "
+                                + "id_tipo_solicitud=" + id_tipo_solicitud_siguiente + ", "
+                                + "usuario='" + usuario + "' "
+                                + "where id_comeval_promocion_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                        stmt = this.conn.createStatement();
+                        stmt.executeUpdate(cadenasql);
+                        stmt.close();
+
+                        Long max_id_workflow = Long.parseLong("0");
+                        cadenasql = "select coalesce(max(t.id_workflow) + 1, 1) max_id from solicitud_workflow_historial t where t.id_solicitud=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                        stmt = this.conn.createStatement();
+                        rs = stmt.executeQuery(cadenasql);
+                        while (rs.next()) {
+                            max_id_workflow = rs.getLong(1);
+                        }
+                        rs.close();
+                        stmt.close();
+
+                        Date fecha_actual = new Date();
+
+                        cadenasql = "insert into solicitud_workflow_historial ("
+                                + "id_solicitud, "
+                                + "id_estado_solicitud, "
+                                + "id_tipo_solicitud, "
+                                + "id_workflow, "
+                                + "usuario, "
+                                + "fecha, "
+                                + "rechazado, "
+                                + "fecha_rechazado) values ("
+                                + lst_comeval_acta_solicitud.get(i).getId_solicitud() + ", "
+                                + id_estado_solicitud_siguiente + ","
+                                + id_tipo_solicitud_siguiente + ","
+                                + max_id_workflow + ",'"
+                                + usuario + "','"
+                                + dateFormat.format(fecha_actual) + "',"
+                                + "0" + ","
+                                + "null" + ")";
+                        stmt = this.conn.createStatement();
+                        stmt.executeUpdate(cadenasql);
+                        stmt.close();
+
+                        resultado = "0,Solicitud Promoción Docente enviada al siguiente estado correctamente.";
+                    } else {
+                        resultado = "1,No existe estado siguiente para la solicitud Promoción Docente.";
+                    }
                 }
             }
 

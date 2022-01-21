@@ -727,7 +727,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             validado = true;
                         }
                     }
-                    
+
                     // CAMBIA LA SOLICITUD AL SIGUIENTE ESTADO.
                     if (validado) {
                         Long id_estado_solicitud_siguiente = Long.parseLong("0");
@@ -772,19 +772,19 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                                 id_estado_solicitud_siguiente = Long.parseLong("5");
                             }
                         }
-                        
+
                         // INSERTAR SOLICITUD EN LA APLICACIÓN DE ACTAS DE JUNTA DIRECTIVA.
-                        if(id_estado_solicitud_siguiente.equals(Long.parseLong("5"))) {
+                        if (id_estado_solicitud_siguiente.equals(Long.parseLong("5"))) {
                             Ctrl_Driver ctrl_driver1 = new Ctrl_Driver("jndi_gestionautenticacion2");
                             String nombre_solicitante = ctrl_driver1.nombre_usuario(lst_comeval_licencia_docente.get(i).getUsuario());
 
                             String goce_sueldo = "";
-                            if(lst_comeval_licencia_docente.get(i).getGoce_sueldo().trim().equals("SI")) {
+                            if (lst_comeval_licencia_docente.get(i).getGoce_sueldo().trim().equals("SI")) {
                                 goce_sueldo = "con";
                             } else {
                                 goce_sueldo = "sin";
                             }
-                            
+
                             cadenasql = "select p.personal, trim(p.nombre) || ' ' || trim(p.apellido) nombre_solicitante "
                                     + "from personal p "
                                     + "where p.personal='" + lst_comeval_licencia_docente.get(i).getPersonal() + "'";
@@ -808,7 +808,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             }
                             rs.close();
                             stmt.close();
-                            
+
                             cadenasql = "select s.nombre "
                                     + "from subpartida s "
                                     + "where s.subpartida in (select p2.subpartida from plazapersonal p2 where p2.personal = '" + lst_comeval_licencia_docente.get(i).getPersonal() + "')";
@@ -820,7 +820,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             }
                             rs.close();
                             stmt.close();
-                            
+
                             cadenasql = "select cldp.numero_plaza "
                                     + "from comeval_licencia_docente_plazas cldp "
                                     + "where cldp.id_comeval_licencia_docente=" + lst_comeval_licencia_docente.get(i).getId_comeval_licencia_docente();
@@ -832,7 +832,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             }
                             rs.close();
                             stmt.close();
-                                                        
+
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
                             Calendar fecha_inicio_licencia = Calendar.getInstance();
@@ -900,7 +900,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                                     break;
                                 }
                             }
-                            
+
                             Calendar fecha_final_licencia = Calendar.getInstance();
                             fecha_final_licencia.setTime(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_final_licencia()));
 
@@ -966,15 +966,15 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                                     break;
                                 }
                             }
-                            
+
                             entidad.Solicitud_Acta solicitud_acta = new entidad.Solicitud_Acta();
                             solicitud_acta.setSolicitanteexterno("NOMBRE-SOLICITANTE: " + nombre_solicitante + ", CÓDIGO-PERSONAL: " + lst_comeval_licencia_docente.get(i).getUsuario());
                             solicitud_acta.setDescripcion("Se recibió solicitud de licencia " + goce_sueldo + " goce de sueldo del Ing(a). " + nombre_docente + ", "
-                                    + "Profesor(a) " + puesto_actual + " de la " + nombre_escuela + ", registro de personal No. " + lst_comeval_licencia_docente.get(i).getPersonal() 
+                                    + "Profesor(a) " + puesto_actual + " de la " + nombre_escuela + ", registro de personal No. " + lst_comeval_licencia_docente.get(i).getPersonal()
                                     + ", plaza No. " + numero_plaza + ". Dicha licencia la solicita por tener asuntos personales que no le permiten atender su curso durante el presente semestre. "
-                                    + "Dicha licencia tiene vigencia del " + l_dia_fecha_inicio_licencia + " de " + l_mes_fecha_inicio_licencia + " al " 
+                                    + "Dicha licencia tiene vigencia del " + l_dia_fecha_inicio_licencia + " de " + l_mes_fecha_inicio_licencia + " al "
                                     + l_dia_fecha_final_licencia + " de " + l_mes_fecha_final_licencia + " de " + anio_fecha_final_licencia + ".");
-                            
+
                             String id_archivo_personal2 = "";
                             Ctrl_Driver ctrl_driver2 = new Ctrl_Driver("jndi_asuntosestudiantiles");
                             Long id_solicitud = ctrl_driver2.insertar_solictid_db_actas(solicitud_acta, lst_comeval_licencia_docente.get(i).getUsuario(), nombre_solicitante, id_archivo_personal2, Long.parseLong("42"));
@@ -1008,7 +1008,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                                 mensaje_no_valido = "No se inserto la Solictud en la aplicación de Actas de Junta Directiva.";
                             }
                         }
-                        
+
                         if (!id_estado_solicitud_siguiente.equals(Long.parseLong("0")) && !id_tipo_solicitud_siguiente.equals(Long.parseLong("0"))) {
                             cadenasql = "update comeval_licencia_docente set "
                                     + "id_estado_solicitud=" + id_estado_solicitud_siguiente + ", "
@@ -1413,27 +1413,27 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                     }
 
                     // VALIDA QUE SE HAYA MARCADO LA CASILLA ACUERDO DECANATURA.
-//                    if (validado) {
-//                        cadenasql = "select cld.acuerdo_decanatura "
-//                                + "from comeval_licencia_docente cld "
-//                                + "where "
-//                                + "cld.id_comeval_licencia_docente=" + lst_comeval_licencia_docente.get(i).getId_comeval_licencia_docente();
-//                        stmt = conn.createStatement();
-//                        rs = stmt.executeQuery(cadenasql);
-//                        Integer acuerdo_decanatura = 0;
-//                        while (rs.next()) {
-//                            acuerdo_decanatura = rs.getInt(1);
-//                        }
-//                        rs.close();
-//                        stmt.close();
-//
-//                        if (acuerdo_decanatura == 0) {
-//                            validado = false;
-//                            mensaje_no_valido = "Debe marcar la casilla Acuerdo Decanatura en el formulario de la solicitud Licencia Docente.";
-//                        } else {
-//                            validado = true;
-//                        }
-//                    }
+                    if (validado) {
+                        cadenasql = "select cld.acuerdo_decanatura "
+                                + "from comeval_licencia_docente cld "
+                                + "where "
+                                + "cld.id_comeval_licencia_docente=" + lst_comeval_licencia_docente.get(i).getId_comeval_licencia_docente();
+                        stmt = conn.createStatement();
+                        rs = stmt.executeQuery(cadenasql);
+                        Integer acuerdo_decanatura = 0;
+                        while (rs.next()) {
+                            acuerdo_decanatura = rs.getInt(1);
+                        }
+                        rs.close();
+                        stmt.close();
+
+                        if (acuerdo_decanatura == 0) {
+                            validado = false;
+                            mensaje_no_valido = "Debe marcar la casilla Acuerdo Decanatura en el formulario de la solicitud Licencia Docente.";
+                        } else {
+                            validado = true;
+                        }
+                    }
 
                     // VALIDA QUE SE HAYA MARCADO LA CASILLA NOTIFICACION TESORERIA.
                     if (validado) {
@@ -1522,30 +1522,115 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             stmt = this.conn.createStatement();
                             stmt.executeUpdate(cadenasql);
                             stmt.close();
-                            
-                            SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-                            cadenasql = "insert into licencia ("
-                                    + "fechafin, "
-                                    + "tipolicencia, "
-                                    + "personal, "
-                                    + "fechainicio, "
-                                    + "acta, "
-                                    + "periodo, "
-                                    + "anio, "
-                                    + "congocedesueldo, "
-                                    + "plaza, "
-                                    + "subpartida, "
-                                    + "renglon, "
-                                    + "motivo, "
-                                    + "cargo, "
-                                    + "ubicacion, "
-                                    + "licencia) values ('"
-                                    + dateFormat1.format(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_inicio_licencia())) + "',"
-                                    + lst_comeval_licencia_docente.get(i).getId_tipo_licencia() + ",'"
-                                    + lst_comeval_licencia_docente.get(i).getPersonal().trim() + "','"
-                                    + dateFormat1.format(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_final_licencia()))  + "',"
-                                    + dateFormat1.format(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_final_licencia()))  + "',"
-                                    + ")";
+
+                            // BUSCA NUMERO DE ACTA ASIGNADO EN JUNTA DIRECTIVA.
+                            cadenasql = "select cas.no_acta, cas.aprobado "
+                                    + "from comeval_acta_solicitud cas "
+                                    + "where cas.id_tipo_solicitud=" + lst_comeval_licencia_docente.get(i).getId_tipo_solicitud() + " and "
+                                    + "id_solicitud=" + lst_comeval_licencia_docente.get(i).getId_comeval_licencia_docente();
+                            Long no_acta = Long.parseLong("0");
+                            Long aprobado = Long.parseLong("0");
+                            stmt = this.conn.createStatement();
+                            rs = stmt.executeQuery(cadenasql);
+                            while (rs.next()) {
+                                no_acta = rs.getLong(1);
+                                aprobado = rs.getLong(2);
+                            }
+                            rs.close();
+                            stmt.close();
+
+                            // SI LA LICENCIA FUE APROBADA VIA ACTA; ENTONCES, SE REGISTRA EN LA TABLA LICENCIA DB-PERSONAL2.
+                            if (no_acta > Long.parseLong("0") && aprobado.equals(Long.parseLong("1"))) {
+                                cadenasql = "select "
+                                        + "cldp.plaza, "
+                                        + "cldp.periodo, "
+                                        + "cldp.anio, "
+                                        + "cldp.subpartida, "
+                                        + "cldp.renglon "
+                                        + "from comeval_licencia_docente_plazas cldp "
+                                        + "where cldp.id_comeval_licencia_docente=" + lst_comeval_licencia_docente.get(i).getId_comeval_licencia_docente();
+                                Long plaza = Long.parseLong("0");
+                                Long periodo = Long.parseLong("0");
+                                Long anio = Long.parseLong("0");
+                                String subpartida = "";
+                                String renglon = "";
+                                stmt = this.conn.createStatement();
+                                rs = stmt.executeQuery(cadenasql);
+                                while (rs.next()) {
+                                    plaza = rs.getLong(1);
+                                    periodo = rs.getLong(2);
+                                    anio = rs.getLong(3);
+                                    subpartida = rs.getString(4);
+                                    renglon = rs.getString(5);
+                                }
+                                rs.close();
+                                stmt.close();
+
+                                Boolean bool_goce_sueldo = false;
+                                if (lst_comeval_licencia_docente.get(i).getGoce_sueldo().trim().equals("SI")) {
+                                    bool_goce_sueldo = true;
+                                } else {
+                                    bool_goce_sueldo = false;
+                                }
+
+                                cadenasql = "select s.nombre "
+                                        + "from subpartida s "
+                                        + "where s.subpartida in (select p2.subpartida from plazapersonal p2 where p2.personal = '" + lst_comeval_licencia_docente.get(i).getPersonal() + "')";
+                                stmt = this.conn.createStatement();
+                                rs = stmt.executeQuery(cadenasql);
+                                String nombre_escuela = "";
+                                while (rs.next()) {
+                                    nombre_escuela = rs.getString(1);
+                                }
+                                rs.close();
+                                stmt.close();
+
+                                Long max_licencia = Long.parseLong("0");
+                                cadenasql = "select coalesce(max(t.licencia) + 1, 1) max_id from licencia t";
+                                stmt = this.conn.createStatement();
+                                rs = stmt.executeQuery(cadenasql);
+                                while (rs.next()) {
+                                    max_licencia = rs.getLong(1);
+                                }
+                                rs.close();
+                                stmt.close();
+
+                                SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                                cadenasql = "insert into licencia ("
+                                        + "fechafin, "
+                                        + "tipolicencia, "
+                                        + "personal, "
+                                        + "fechainicio, "
+                                        + "acta, "
+                                        + "periodo, "
+                                        + "anio, "
+                                        + "congocedesueldo, "
+                                        + "plaza, "
+                                        + "subpartida, "
+                                        + "renglon, "
+                                        + "motivo, "
+                                        + "cargo, "
+                                        + "ubicacion, "
+                                        + "licencia) values ('"
+                                        + dateFormat1.format(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_final_licencia())) + "',"
+                                        + lst_comeval_licencia_docente.get(i).getId_tipo_licencia() + ",'"
+                                        + lst_comeval_licencia_docente.get(i).getPersonal().trim() + "','"
+                                        + dateFormat1.format(dateFormat.parse(lst_comeval_licencia_docente.get(i).getFecha_inicio_licencia())) + "',"
+                                        + no_acta + ","
+                                        + periodo + ","
+                                        + anio + ","
+                                        + bool_goce_sueldo + ","
+                                        + plaza + ",'"
+                                        + subpartida + "','"
+                                        + renglon + "',"
+                                        + lst_comeval_licencia_docente.get(i).getId_motivo_licencia() + ","
+                                        + "null" + ",'"
+                                        + nombre_escuela + "',"
+                                        + max_licencia + ")";
+                                stmt = this.conn.createStatement();
+                                stmt.executeUpdate(cadenasql);
+                                stmt.close();
+                            }
 
                             resultado = "0,Solicitud Licencia Docente enviada al siguiente estado correctamente.";
                         } else {
@@ -1591,6 +1676,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                     + "from "
                     + "comeval_acta_solicitud cas "
                     + "where "
+                    + "cas.id_tipo_solicitud=2 and "
                     + "cas.no_acta is null and "
                     + "cas.anio_acta is null and "
                     + "cas.punto_acta is null and "
@@ -1618,80 +1704,6 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                     Integer aprobado_acuerdo = 0;
                     if (acuerdo_acta.getAprobado()) {
                         aprobado_acuerdo = 1;
-                        String personal = "";
-                        String puesto = "";
-                        Long tipoascenso = Long.parseLong("0");
-                        cadenasql = "select cpd.personal, cpd.puesto, cpd.tipoascenso "
-                                + "from comeval_promocion_docente cpd "
-                                + "where cpd.id_comeval_promocion_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
-                        stmt = conn.createStatement();
-                        rs = stmt.executeQuery(cadenasql);
-                        while (rs.next()) {
-                            personal = rs.getString(1);
-                            puesto = rs.getString(2);
-                            tipoascenso = rs.getLong(3);
-                        }
-                        rs.close();
-                        stmt.close();
-
-                        String puestoorigen = "";
-                        cadenasql = "select p.puesto "
-                                + "from puesto p "
-                                + "where p.puesto in (select t.puesto from titularidad t where t.personal='" + personal + "')";
-                        stmt = conn.createStatement();
-                        rs = stmt.executeQuery(cadenasql);
-                        while (rs.next()) {
-                            puestoorigen = rs.getString(1);
-                        }
-                        rs.close();
-                        stmt.close();
-
-                        cadenasql = "insert into titularidadhistorial ("
-                                + "personal,"
-                                + "puesto,"
-                                + "acta,"
-                                + "fechasistema,"
-                                + "titular,"
-                                + "dictamen,"
-                                + "puestoorigen,"
-                                + "tipoascenso,"
-                                + "fechaascenso) values ('"
-                                + personal + "','"
-                                + puesto + "',"
-                                + acuerdo_acta.getNo_acta() + ","
-                                + "now()" + ","
-                                + "TRUE" + ","
-                                + "null" + ",'"
-                                + puestoorigen + "',"
-                                + tipoascenso + ",'"
-                                + dateFormat.format(acuerdo_acta.getFecha_acta()) + "')";
-                        stmt = conn.createStatement();
-                        stmt.executeUpdate(cadenasql);
-                        stmt.close();
-
-                        cadenasql = "delete from titularidad where personal='" + personal + "'";
-                        stmt = conn.createStatement();
-                        stmt.executeUpdate(cadenasql);
-                        stmt.close();
-
-                        cadenasql = "insert into titularidad ("
-                                + "personal,"
-                                + "puesto,"
-                                + "acta,"
-                                + "fechasistema,"
-                                + "titular,"
-                                + "dictamen,"
-                                + "dictamenemisor) values ('"
-                                + personal + "','"
-                                + puesto + "',"
-                                + acuerdo_acta.getNo_acta() + ","
-                                + "now()" + ","
-                                + "TRUE" + ","
-                                + "null" + ","
-                                + "1)";
-                        stmt = conn.createStatement();
-                        stmt.executeUpdate(cadenasql);
-                        stmt.close();
                     } else {
                         aprobado_acuerdo = 0;
                     }
@@ -1711,6 +1723,96 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                     stmt = conn.createStatement();
                     stmt.executeUpdate(cadenasql);
                     stmt.close();
+
+                    // CAMBIO DE ESTADO DE LA SOLICITUD LICENCIA DOCENTE.
+                    Long id_estado_solicitud_actual = Long.parseLong("0");
+                    Long id_tipo_solicitud_actual = Long.parseLong("0");
+                    String usuario = "";
+                    cadenasql = "select "
+                            + "cld.id_estado_solicitud, "
+                            + "cld.id_tipo_solicitud, "
+                            + "cld.usuario "
+                            + "from "
+                            + "comeval_licencia_docente cld "
+                            + "where "
+                            + "cld.comeval_licencia_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                    stmt = this.conn.createStatement();
+                    rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        id_estado_solicitud_actual = rs.getLong(1);
+                        id_tipo_solicitud_actual = rs.getLong(2);
+                        usuario = rs.getString(3);
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    Long id_estado_solicitud_siguiente = Long.parseLong("0");
+                    Long id_tipo_solicitud_siguiente = Long.parseLong("0");
+                    cadenasql = "select "
+                            + "ws.id_estado_solicitud_siguiente, "
+                            + "ws.id_tipo_solicitud_siguiente "
+                            + "from "
+                            + "workflow_solicitud ws "
+                            + "where "
+                            + "ws.id_estado_solicitud_actual=" + id_estado_solicitud_actual + " and "
+                            + "ws.id_tipo_solicitud_actual=" + id_tipo_solicitud_actual;
+                    stmt = this.conn.createStatement();
+                    rs = stmt.executeQuery(cadenasql);
+                    while (rs.next()) {
+                        id_estado_solicitud_siguiente = rs.getLong(1);
+                        id_tipo_solicitud_siguiente = rs.getLong(2);
+                    }
+                    rs.close();
+                    stmt.close();
+
+                    if (!id_estado_solicitud_siguiente.equals(Long.parseLong("0")) && !id_tipo_solicitud_siguiente.equals(Long.parseLong("0"))) {
+                        cadenasql = "update comeval_licencia_docente set "
+                                + "id_estado_solicitud=" + id_estado_solicitud_siguiente + ", "
+                                + "id_tipo_solicitud=" + id_tipo_solicitud_siguiente + ", "
+                                + "acuerdo_decanatura=" + "1" + ", "
+                                + "usuario='" + usuario + "' "
+                                + "where id_comeval_licencia_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                        stmt = this.conn.createStatement();
+                        stmt.executeUpdate(cadenasql);
+                        stmt.close();
+
+                        Long max_id_workflow = Long.parseLong("0");
+                        cadenasql = "select coalesce(max(t.id_workflow) + 1, 1) max_id from solicitud_workflow_historial t where t.id_solicitud=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                        stmt = this.conn.createStatement();
+                        rs = stmt.executeQuery(cadenasql);
+                        while (rs.next()) {
+                            max_id_workflow = rs.getLong(1);
+                        }
+                        rs.close();
+                        stmt.close();
+
+                        Date fecha_actual = new Date();
+
+                        cadenasql = "insert into solicitud_workflow_historial ("
+                                + "id_solicitud, "
+                                + "id_estado_solicitud, "
+                                + "id_tipo_solicitud, "
+                                + "id_workflow, "
+                                + "usuario, "
+                                + "fecha, "
+                                + "rechazado, "
+                                + "fecha_rechazado) values ("
+                                + lst_comeval_acta_solicitud.get(i).getId_solicitud() + ", "
+                                + id_estado_solicitud_siguiente + ","
+                                + id_tipo_solicitud_siguiente + ","
+                                + max_id_workflow + ",'"
+                                + usuario + "','"
+                                + dateFormat.format(fecha_actual) + "',"
+                                + "0" + ","
+                                + "null" + ")";
+                        stmt = this.conn.createStatement();
+                        stmt.executeUpdate(cadenasql);
+                        stmt.close();
+
+                        resultado = "0,Solicitud Licencia Docente enviada al siguiente estado correctamente.";
+                    } else {
+                        resultado = "1,No existe estado siguiente para la solicitud Licencia Docente.";
+                    }
                 }
             }
 
@@ -1734,5 +1836,5 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
 
         return resultado;
     }
-    
+
 }
