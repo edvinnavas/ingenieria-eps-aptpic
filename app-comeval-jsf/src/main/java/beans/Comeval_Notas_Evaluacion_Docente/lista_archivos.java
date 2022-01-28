@@ -1,4 +1,4 @@
-package beans.Comeval_Carga_Eval_Comeval;
+package beans.Comeval_Notas_Evaluacion_Docente;
 
 import java.io.File;
 import java.io.Serializable;
@@ -8,11 +8,13 @@ public class lista_archivos implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id_archivo;
     private String nombre_archivo;
+    private String nombre_archivo_real;
     private File archivo;
 
-    public lista_archivos(Long id_archivo, String nombre_archivo, File archivo) {
+    public lista_archivos(Long id_archivo, String nombre_archivo, String nombre_archivo_real, File archivo) {
         this.id_archivo = id_archivo;
         this.nombre_archivo = nombre_archivo;
+        this.nombre_archivo_real = nombre_archivo_real;
         this.archivo = archivo;
     }
 
@@ -35,6 +37,14 @@ public class lista_archivos implements Serializable {
         this.nombre_archivo = nombre_archivo;
     }
 
+    public String getNombre_archivo_real() {
+        return nombre_archivo_real;
+    }
+
+    public void setNombre_archivo_real(String nombre_archivo_real) {
+        this.nombre_archivo_real = nombre_archivo_real;
+    }
+
     public File getArchivo() {
         return archivo;
     }
@@ -45,7 +55,7 @@ public class lista_archivos implements Serializable {
 
     @Override
     public String toString() {
-        return "lista_archivos{" + "id_archivo=" + id_archivo + ", nombre_archivo=" + nombre_archivo + ", archivo=" + archivo + '}';
+        return "lista_archivos{" + "id_archivo=" + id_archivo + ", nombre_archivo=" + nombre_archivo + ", nombre_archivo_real=" + nombre_archivo_real + ", archivo=" + archivo + '}';
     }
     
 }

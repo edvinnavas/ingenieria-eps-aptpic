@@ -237,6 +237,16 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
             this.conn.setAutoCommit(false);
 
             for (Integer i = 0; i < lst_comeval_licencia_docente.size(); i++) {
+                String id_estado_solicitud_rechazado_temp;
+                String id_tipo_solicitud_rechazado_temp;
+                if (lst_comeval_licencia_docente.get(i).getRechazado() == Long.parseLong("1")) {
+                    id_estado_solicitud_rechazado_temp = lst_comeval_licencia_docente.get(i).getId_estado_solicitud_rechazado().toString();
+                    id_tipo_solicitud_rechazado_temp = lst_comeval_licencia_docente.get(i).getId_tipo_solicitud_rechazado().toString();
+                } else {
+                    id_estado_solicitud_rechazado_temp = "null";
+                    id_tipo_solicitud_rechazado_temp = "null";
+                }
+                
                 String cadenasql = "update comeval_licencia_docente set "
                         + "personal='" + lst_comeval_licencia_docente.get(i).getPersonal() + "', "
                         + "id_motivo_licencia=" + lst_comeval_licencia_docente.get(i).getId_motivo_licencia() + ", "
@@ -246,8 +256,8 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                         + "fecha_final_licencia='" + lst_comeval_licencia_docente.get(i).getFecha_final_licencia() + "', "
                         + "usuario='" + lst_comeval_licencia_docente.get(i).getUsuario() + "', "
                         + "rechazado=" + lst_comeval_licencia_docente.get(i).getRechazado() + ", "
-                        + "id_estado_solicitud_rechazado=" + lst_comeval_licencia_docente.get(i).getId_estado_solicitud_rechazado() + ", "
-                        + "id_tipo_solicitud_rechazado=" + lst_comeval_licencia_docente.get(i).getId_tipo_solicitud_rechazado() + ", "
+                        + "id_estado_solicitud_rechazado=" + id_estado_solicitud_rechazado_temp + ", "
+                        + "id_tipo_solicitud_rechazado=" + id_tipo_solicitud_rechazado_temp + ", "
                         + "ingreso_siif_visto_bueno_escuela=" + lst_comeval_licencia_docente.get(i).getIngreso_siif_visto_bueno_escuela() + ", "
                         + "tipo_licencia_secretario_academico=" + lst_comeval_licencia_docente.get(i).getTipo_licencia_secretario_academico() + ", "
                         + "acuerdo_decanatura=" + lst_comeval_licencia_docente.get(i).getAcuerdo_decanatura() + ", "
@@ -1706,6 +1716,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                         aprobado_acuerdo = 1;
                     } else {
                         aprobado_acuerdo = 0;
+                        acuerdo_acta.setAcuerdo("SOLICITUD NO APROBADA!!!" + acuerdo_acta.getAcuerdo());
                     }
 
                     cadenasql = "update comeval_acta_solicitud set "
@@ -1735,7 +1746,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                             + "from "
                             + "comeval_licencia_docente cld "
                             + "where "
-                            + "cld.comeval_licencia_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                            + "cld.id_comeval_licencia_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
                     stmt = this.conn.createStatement();
                     rs = stmt.executeQuery(cadenasql);
                     while (rs.next()) {

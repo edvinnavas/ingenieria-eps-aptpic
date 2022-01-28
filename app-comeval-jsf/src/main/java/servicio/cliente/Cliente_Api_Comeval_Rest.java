@@ -493,10 +493,10 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String crear_carga_eval_comeval(List<entidad.Comeval_Carga_Eval_Comeval> lst_comeval_carga_eval_comeval) {
+    public String notas_evaluacion_docente_ingresar(List<entidad.Comeval_Notas_Evaluacion_Docente> lst_comeval_carga_eval_comeval) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("crear_carga_eval_comeval");
+            WebTarget webTarget = this.client.target(BASE_URI).path("notas_evaluacion_docente_ingresar");
             String data = new Gson().toJson(lst_comeval_carga_eval_comeval);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.post(Entity.text(data));
@@ -513,10 +513,10 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String modificar_carga_eval_comeval(List<entidad.Comeval_Carga_Eval_Comeval> lst_comeval_carga_eval_comeval) {
+    public String notas_evaluacion_docente_modificar(List<entidad.Comeval_Notas_Evaluacion_Docente> lst_comeval_carga_eval_comeval) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("modificar_carga_eval_comeval");
+            WebTarget webTarget = this.client.target(BASE_URI).path("notas_evaluacion_docente_modificar");
             String data = new Gson().toJson(lst_comeval_carga_eval_comeval);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.put(Entity.text(data));
@@ -533,13 +533,13 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String flujo_proceso(Long id_solicitud, Long id_tipo_solicitud, Long id_estado_solicitud) {
+    public String notas_evaluacion_enviar_ingreso_secretario(List<entidad.Comeval_Notas_Evaluacion_Docente> lst_comeval_carga_eval_comeval) {
         String resultado = "";
-        
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("flujo_proceso/" + id_solicitud + "/" + id_tipo_solicitud + "/" + id_estado_solicitud);
+            WebTarget webTarget = this.client.target(BASE_URI).path("notas_evaluacion_enviar_ingreso_secretario");
+            String data = new Gson().toJson(lst_comeval_carga_eval_comeval);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
-            Response response = invocationBuilder.get();
+            Response response = invocationBuilder.put(Entity.text(data));
             if(response.getStatus() == 200) {
                 resultado = response.readEntity(String.class);
             } else {
@@ -547,7 +547,7 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - login):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_carga_eval_comeval):" + ex.toString());
         }
         
         return resultado;

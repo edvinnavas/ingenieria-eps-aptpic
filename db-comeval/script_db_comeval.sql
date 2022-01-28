@@ -342,24 +342,23 @@ CREATE TABLE comeval_ampliacion_horario_plaza (
 );
 
 -- TABLA: COMEVAL_CARGA_EVAL_COMEVAL.
-DROP TABLE IF EXISTS comeval_carga_eval_comeval;
-CREATE TABLE comeval_carga_eval_comeval (
-    id_comeval_carga_eval_comeval BIGINT NOT NULL,
-    descripcion_solicitud TEXT NOT NULL DEFAULT '-',
+DROP TABLE IF EXISTS comeval_notas_evaluacion_docente;
+CREATE TABLE comeval_notas_evaluacion_docente (
+    id_comeval_notas_evaluacion_docente BIGINT NOT NULL,
+    nota_ref CHARACTER(20),
+    fecha_nota_ref TIMESTAMP,
+    anio_notas BIGINT NOT NULL,
     path_archivo TEXT NOT NULL DEFAULT '-',
-    id_solicitud_acta BIGINT,
-    no_acta VARCHAR(50),
-    anio_acta VARCHAR(50),
-    punto_acta VARCHAR(50),
-    inciso_acta VARCHAR(50),
-    fecha_acta TIMESTAMP, 
-    resolucion_acta TEXT,
+    usuario VARCHAR(50) NOT NULL,
     fecha_ingreso TIMESTAMP NOT NULL,
     id_estado_solicitud BIGINT NOT NULL,
     id_tipo_solicitud BIGINT NOT NULL,
     rechazado SMALLINT NOT NULL DEFAULT 0,
-    CONSTRAINT pk_comeval_carga_eval_comeval PRIMARY KEY (id_comeval_carga_eval_comeval),
-    CONSTRAINT fk_comeval_carga_eval_comeval_1 FOREIGN KEY (id_estado_solicitud, id_tipo_solicitud) REFERENCES estado_solicitud_comeval (id_estado_solicitud, id_tipo_solicitud)
+    id_estado_solicitud_rechazado BIGINT,
+    id_tipo_solicitud_rechazado BIGINT,
+    
+    CONSTRAINT pk_comeval_notas_evaluacion_docente PRIMARY KEY (id_comeval_notas_evaluacion_docente),
+    CONSTRAINT fk_comeval_notas_evaluacion_docente_1 FOREIGN KEY (id_estado_solicitud, id_tipo_solicitud) REFERENCES estado_solicitud_comeval (id_estado_solicitud, id_tipo_solicitud)
 );
 
 -- TABLA: SOLICITUD_WORKFLOW_HISTORIAL.

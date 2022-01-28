@@ -983,7 +983,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                     entidad.Solicitud_Acta solicitud_acta = new entidad.Solicitud_Acta();
                     solicitud_acta.setSolicitanteexterno("NOMBRE-SOLICITANTE: " + nombre_solicitante + ", CÓDIGO-PERSONAL: " + lst_comeval_promocion_docente.get(i).getUsuario());
                     solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval().trim() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
-                            + "presentada por el/la Ing/Inga. " + nombre_solicitante + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
+                            + "presentada por el/la Ing/Inga. " + nombre_solicitante.trim() + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
                             + "quien presenta el cuadro de promoción docente del ingeniero/a " + nombre_docente + " con registro de personal No. " + lst_comeval_promocion_docente.get(i).getPersonal() + ", "
                             + "quien promueve de " + puesto_actual + " a " + nuevo_puesto + " a partir del " + l_dia_fecha_promueve + " de " + l_mes_fecha_promueve + " de " + anio_fecha_promueve + ".");
 
@@ -1741,7 +1741,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                         entidad.Solicitud_Acta solicitud_acta = new entidad.Solicitud_Acta();
                         solicitud_acta.setSolicitanteexterno("NOMBRE-SOLICITANTE: " + nombre_solicitante + ", CÓDIGO-PERSONAL: " + lst_comeval_promocion_docente.get(i).getUsuario());
                         solicitud_acta.setDescripcion("Se recibió nota de Ref. COMEVAL " + lst_comeval_promocion_docente.get(i).getNota_ref_comeval().trim() + " de fecha " + l_dia_fecha_nota_ref_comeval + " de " + l_mes_fecha_nota_ref_comeval + " de " + anio_fecha_nota_ref_comeval + ", "
-                                + "presentada por el/la Ing/Inga. " + nombre_solicitante + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
+                                + "presentada por el/la Ing/Inga. " + nombre_solicitante.trim() + ", usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, "
                                 + "quien presenta el cuadro de promoción docente del ingeniero/a " + nombre_docente + " con registro de personal No. " + lst_comeval_promocion_docente.get(i).getPersonal() + ", "
                                 + "quien promueve de " + puesto_actual + " a " + nuevo_puesto + " a partir del " + l_dia_fecha_promueve + " de " + l_mes_fecha_promueve + " de " + anio_fecha_promueve + ".");
 
@@ -2003,6 +2003,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                         stmt.close();
                     } else {
                         aprobado_acuerdo = 0;
+                        acuerdo_acta.setAcuerdo("SOLICITUD NO APROBADA!!!" + acuerdo_acta.getAcuerdo());
                     }
 
                     cadenasql = "update comeval_acta_solicitud set "
@@ -2032,7 +2033,7 @@ public class Ctrl_Comeval_Promocion_Docente implements Serializable {
                             + "from "
                             + "comeval_promocion_docente cld "
                             + "where "
-                            + "cld.comeval_promocion_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
+                            + "cld.id_comeval_promocion_docente=" + lst_comeval_acta_solicitud.get(i).getId_solicitud();
                     stmt = this.conn.createStatement();
                     rs = stmt.executeQuery(cadenasql);
                     while (rs.next()) {

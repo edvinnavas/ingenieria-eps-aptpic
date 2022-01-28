@@ -44,7 +44,7 @@
                         <p:outputLabel value="Fecha de promoción" style="font-size:10px; font-weight:bold;"/>
                         <p:calendar id="calFechaPromueve" disabled="#{Bean_Comeval_Promocion_Docente.calFechaPromueve}" value="#{Bean_Comeval_Promocion_Docente.fecha_promueve}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
                     </h:panelGrid>
-                    
+
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Nota Ref. COMEVAL" style="font-size:10px; font-weight:bold;"/>
                         <p:outputLabel value="Fecha Nota Ref. COMEVAL" style="font-size:10px; font-weight:bold;"/>
@@ -59,7 +59,7 @@
                         <p:selectBooleanCheckbox id="chxRevisionComeval" disabled="#{Bean_Comeval_Promocion_Docente.chxRevisionComeval}" value="#{Bean_Comeval_Promocion_Docente.revision_comeval_form}" itemLabel="Revisión COMEVAL" style="font-size:10px; font-weight:bold;"/>
                         <p:selectBooleanCheckbox id="chxRevisionSecretarioAcademico" disabled="#{Bean_Comeval_Promocion_Docente.chxRevisionSecretarioAcademico}" value="#{Bean_Comeval_Promocion_Docente.revision_secretario_academico_form}" itemLabel="Revisión secretario académico" style="font-size:10px; font-weight:bold;"/>
                     </h:panelGrid>
-                    
+
                     <h:panelGrid columns="1">
                         <p:selectOneMenu id="cbxTipoArchivo" value="#{Bean_Comeval_Promocion_Docente.tipo_adjunto}" style="width: 200px; font-size:10px;">
                             <f:selectItems value="#{Bean_Comeval_Promocion_Docente.lst_tipo_adjunto}"/>
@@ -79,16 +79,16 @@
                             rowsPerPageTemplate="3"
                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                             style="width: 450px; font-size:10px;">
-                            
+
                             <p:ajax event="rowDblselect" listener="#{Bean_Comeval_Promocion_Docente.mostrar_adjunto}" update="ArchivoDialog,:ArchivoForm,:formMensaje:mensaje2" global="false"/>
-                            
+
                             <p:column headerText="Id" sortBy="#{archivos.id_archivo}" filterBy="#{archivos.id_archivo}" filterMatchMode="contains">
                                 <h:outputText value="#{archivos.id_archivo}"/>
                             </p:column>
                             <p:column headerText="Nombre" sortBy="#{archivos.nombre_archivo_real}" filterBy="#{archivos.nombre_archivo_real}" filterMatchMode="contains">
                                 <h:outputText value="#{archivos.nombre_archivo_real}"/>
                             </p:column>
-                            
+
                             <f:facet name="footer">
                                 <p:commandButton id="btnEliminarArchivo" disabled="#{Bean_Comeval_Promocion_Docente.btnEliminarArchivo}" value="Eliminar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Promocion_Docente.eliminar_archivo}" update=":formMensaje:mensaje2,tblArchivos" style="font-size:10px; font-weight:bold;"/>
                             </f:facet>
@@ -110,7 +110,7 @@
                             rowsPerPageTemplate="10"
                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                             style="width: 450px; font-size:10px;">
-                            
+
                             <p:column headerText="Dependencia" sortBy="#{observaciones.dependencia}" filterBy="#{observaciones.dependencia}" filterMatchMode="contains">
                                 <h:outputText value="#{observaciones.dependencia}"/>
                             </p:column>
@@ -163,14 +163,14 @@
                 <p:outputLabel value="Observación" style="font-size:10px; font-weight:bold;"/>
                 <p:inputTextarea id="areObservacion" value="#{Bean_Comeval_Promocion_Docente.observacion}" style="width: 214px; font-size:10px;"/>
             </h:panelGrid>
-            
+
             <div align="right">
                 <p:commandButton id="btnAgregarObservacion" value="Agregar" actionListener="#{Bean_Comeval_Promocion_Docente.agregar_observacion_dialog}" icon="ui-icon-check" update=":ComevalPromocionDocenteForm" style="font-size:10px; font-weight:bold;"/>
                 <p:commandButton id="btnCancelarObservacion" value="Cancelar" oncomplete="PF('PromocionObservacionesDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
             </div>
         </h:form>
     </p:dialog>
-    
+
     <p:dialog id="ArchivoDialog" header="Descarga" widgetVar="ArchivoDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
         <h:form id="ArchivoForm">
             <p:commandButton value="Descargar" icon="ui-icon-document" ajax="false">

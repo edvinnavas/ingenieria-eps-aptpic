@@ -3,7 +3,7 @@ package servicio;
 import control.Ctrl_Comeval_Amonestacion_Docente;
 import control.Ctrl_Comeval_Ampliacion_Horario;
 import control.Ctrl_Comeval_Cambio_Horario;
-import control.Ctrl_Comeval_Carga_Eval_Comeval;
+import control.Ctrl_Comeval_Notas_Evaluacion_Docente;
 import control.Ctrl_Comeval_Promocion_Docente;
 import control.Ctrl_Comeval_Licencia_Docente;
 import control.Ctrl_Driver;
@@ -436,75 +436,67 @@ public class Servicios implements Serializable {
     }
 
     @POST
-    @Path("crear_carga_eval_comeval")
-    public String crear_carga_eval_comeval(String jsonString) {
+    @Path("notas_evaluacion_docente_ingresar")
+    public String notas_evaluacion_docente_ingresar(String jsonString) {
         String resultado;
 
         try {
-            Ctrl_Comeval_Carga_Eval_Comeval ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Carga_Eval_Comeval(this.jndi_personal2);
-            resultado = ctrl_comeval_carga_eval_comeval.crear_carga_eval_comeval(jsonString);
+            Ctrl_Comeval_Notas_Evaluacion_Docente ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Notas_Evaluacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_carga_eval_comeval.notas_evaluacion_docente_ingresar(jsonString);
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_carga_eval_comeval):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - crear_carga_eval_comeval):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_docente_ingresar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_docente_ingresar):" + ex.toString();
         }
 
         return resultado;
     }
 
     @PUT
-    @Path("modificar_carga_eval_comeval")
-    public String modificar_carga_eval_comeval(String jsonString) {
+    @Path("notas_evaluacion_docente_modificar")
+    public String notas_evaluacion_docente_modificar(String jsonString) {
         String resultado;
 
         try {
-            Ctrl_Comeval_Carga_Eval_Comeval ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Carga_Eval_Comeval(this.jndi_personal2);
-            resultado = ctrl_comeval_carga_eval_comeval.modificar_carga_eval_comeval(jsonString);
+            Ctrl_Comeval_Notas_Evaluacion_Docente ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Notas_Evaluacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_carga_eval_comeval.notas_evaluacion_docente_modificar(jsonString);
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_carga_eval_comeval):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - modificar_carga_eval_comeval):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_docente_modificar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_docente_modificar):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("notas_evaluacion_enviar_ingreso_secretario")
+    public String notas_evaluacion_enviar_ingreso_secretario(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Notas_Evaluacion_Docente ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Notas_Evaluacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_carga_eval_comeval.notas_evaluacion_enviar_ingreso_secretario(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_enviar_ingreso_secretario):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_enviar_ingreso_secretario):" + ex.toString();
         }
 
         return resultado;
     }
     
-    @GET
-    @Path("flujo_proceso/{id_solicitud}/{id_tipo_solicitud}/{id_estado_solicitud}")
-    public String flujo_proceso(
-            @PathParam("id_solicitud") Long id_solicitud,
-            @PathParam("id_tipo_solicitud") Long id_tipo_solicitud,
-            @PathParam("id_estado_solicitud") Long id_estado_solicitud) {
-
+    @PUT
+    @Path("notas_evaluacion_acta_junta_directiva")
+    public String notas_evaluacion_acta_junta_directiva() {
         String resultado;
 
         try {
-            Ctrl_Driver ctrl_driver = new Ctrl_Driver(this.jndi_personal2);
-            resultado = ctrl_driver.flujo_proceso(id_solicitud, id_tipo_solicitud, id_estado_solicitud);
+            Ctrl_Comeval_Notas_Evaluacion_Docente ctrl_comeval_carga_eval_comeval = new Ctrl_Comeval_Notas_Evaluacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_carga_eval_comeval.notas_evaluacion_acta_junta_directiva();
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - flujo_proceso):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - flujo_proceso):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_acta_junta_directiva):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - notas_evaluacion_acta_junta_directiva):" + ex.toString();
         }
 
         return resultado;
     }
-
-    @GET
-    @Path("siguiente_estado_solicitud/{id_solicitud}/{id_estado_solicitud_actual}/{id_tipo_solicitud_actual}")
-    public String siguiente_estado_solicitud(
-            @PathParam("id_solicitud") Long id_solicitud,
-            @PathParam("id_estado_solicitud_actual") Long id_estado_solicitud_actual,
-            @PathParam("id_tipo_solicitud_actual") Long id_tipo_solicitud_actual) {
-
-        String resultado;
-
-        try {
-            Ctrl_Driver ctrl_driver = new Ctrl_Driver(this.jndi_personal2);
-            resultado = ctrl_driver.siguiente_estado_solicitud(id_solicitud, id_estado_solicitud_actual, id_tipo_solicitud_actual);
-        } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - siguiente_estado_solicitud):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - siguiente_estado_solicitud):" + ex.toString();
-        }
-
-        return resultado;
-    }
-
+    
 }

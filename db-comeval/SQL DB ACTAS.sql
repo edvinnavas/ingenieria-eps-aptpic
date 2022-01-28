@@ -5,47 +5,32 @@
 	-- 43 PROMOCIONES DOCENTES. 
 	-- 50 CAMBIOS DE HORARIO.
 SELECT c.* FROM asunto c WHERE c.asunto IN (31, 37, 42, 43, 50);
-SELECT es.* FROM estado_solicitud es;
-
+SELECT es.* FROM estado_solicitud es; -- 0: INGRESADA VIA WEB.
+SELECT s.* FROM solicitud s WHERE s.asunto = 37;
 -- SELECT coalesce(max(s.solicitud) + 1, 1) max_id_solicitud FROM solicitud s;
--- select nextval('seq_solicitud');
--- SELECT s.* FROM solicitud s WHERE s.solicitud in (21538, 21540, 21541, 21542, 21543, 21546, 21547, 23889, 23890);
--- SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (21538, 21540, 21541, 21542, 21543, 21546, 21547, 23889);
-SELECT s.* FROM solicitud s WHERE s.solicitud in (23889, 23890, 23892);
-SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (23889, 23890);
-'Se recibió nota de Ref. COMEVAL REF-NO-002 de fecha 14 de enero de 2022, 
- presentada por el/la Ing/Inga. EDVIN FRANCISCO NAVAS MEJIA, usuario de la aplicación Procesos Titulares de la Facultad de Ingenieria, 
- quien presenta el cuadro de promoción docente del ingeniero/a EVEREST DARWIN MEDINILLA RODRIGUEZ con registro de personal No. 000018150, 
- quien promueve de TITULAR II a TITULAR III a partir del 18 de enero de 2022.'
+-- SELECT nextval('seq_solicitud');
+SELECT s.* FROM solicitud s WHERE s.solicitud in (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
+SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
+SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
 
-'Se recibió solicitud de licencia sin goce de sueldo del Ing(a). OSMAR BERNAL GODINEZ VELÁSQUEZ, 
-Profesor(a) AUXILIAR DE CATEDRA I de la ESCUELA TECNICA, registro de personal No. 000930066, 
-plaza No. 25. Dicha licencia la solicita por tener asuntos personales que no le permiten atender su curso durante el presente semestre. 
-Dicha licencia tiene vigencia del 01 de enero al 31 de diciembre de 2022.'
-
-SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud = 23891; -- SOLICITUD = 21547
-SELECT c.* FROM contenido c WHERE c.contenido = 31352;
+SELECT c.* FROM contenido c WHERE c.contenido IN (31352, 31353, 31354, 31355, 31357, 31358, 31359);
 SELECT c.* FROM contenido c WHERE c.contenido = 31350;
-SELECT r.* FROM resolucion r WHERE r.contenido = 31352;
--- 'LA JUNTA DIRECTIVA DICE
--- PRIMER: FELICITAR AL DOCENTE
--- SEGUNDO: efectuar la promocion docente'
+SELECT r.* FROM resolucion r WHERE r.contenido IN (31352, 31353, 31354, 31355, 31357, 31358, 31359);
+UPDATE resolucion SET aprobado = true, acuerdo = 'ACUERDO TEXTO DE PRUEBA.' WHERE contenido IN (31352, 31353, 31354, 31355, 31357, 31358, 31359);
 
-SELECT a.* FROM acta a WHERE a.numero = 1 AND a.anio = 2021 AND a.tipoacta = 2;
-SELECT s.* FROM sesion s WHERE s.sesion = 362;
-
+-- QUERY OREJA DE COCHE.
 SELECT
-coalesce(contenido_hijo.numeroacta,0) no_acta,
-coalesce(contenido_hijo.anioacta,0) anio_acta,
-coalesce(contenido_padre.numero,0) punto,
-coalesce(contenido_hijo.numero,0) inciso,
-coalesce(contenido_hijo.tipoacta ,0) tipoacta 
+	coalesce(contenido_hijo.numeroacta,0) no_acta,
+	coalesce(contenido_hijo.anioacta,0) anio_acta,
+	coalesce(contenido_padre.numero,0) punto,
+	coalesce(contenido_hijo.numero,0) inciso,
+	coalesce(contenido_hijo.tipoacta ,0) tipoacta 
 FROM
-contenido contenido_hijo
-INNER JOIN contenido contenido_padre on (contenido_padre.contenido = contenido_hijo.contenidopadre)
-INNER JOIN solicitud_contenido sc on (sc.contenido = contenido_hijo.contenido)
+	contenido contenido_hijo
+	INNER JOIN contenido contenido_padre on (contenido_padre.contenido = contenido_hijo.contenidopadre)
+	INNER JOIN solicitud_contenido sc on (sc.contenido = contenido_hijo.contenido)
 WHERE
-sc.solicitud = 21547;
+	sc.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895);
 
 -- RESOLUCION.
 -- a) Aprobar lo informado con respecto al Ingeniero Julio Cesar Solares Peñate , informando a donde corresponda, b) 
@@ -88,3 +73,7 @@ sc.solicitud = 21547;
 -- b) Felicitar al Ingeniero Solares Peñate la promoción adquirida tomando en cuenta los resultados de su correspondiente evaluación, 
 -- incentivándolo a continuar su preparación en beneficio de la academia y de su superación como docente de nuestra unidad académica.
 
+-- NOTAS EVALUACION DOCENTE.
+-- 'Se recibió nota de Ref. S 694-2014 de fecha 20 de agosto de 2014, 
+-- enviada por el Ing(a). Hugo Humberto Rivera Pérez, Secretario Académico de la Facultad de ingeniería, 
+-- quien presenta las NOTAS DE LAS EVALUACIONES DOCENTES del año 2021 de los profesionales docente.' 

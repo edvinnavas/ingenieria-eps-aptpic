@@ -227,7 +227,7 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
             this.txtNombreDocente = true;
             this.cbxMotivoLicencia = false;
             this.cbxTipoLicencia = true;
-            this.cbxGoceSueldo = false;
+            this.cbxGoceSueldo = true;
             this.calFechaInicioLicencia = false;
             this.calFechaFinalLicencia = false;
             this.chxRechazado = true;
@@ -432,7 +432,7 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.txtNombreDocente = true;
                 this.cbxMotivoLicencia = false;
                 this.cbxTipoLicencia = true;
-                this.cbxGoceSueldo = false;
+                this.cbxGoceSueldo = true;
                 this.calFechaInicioLicencia = false;
                 this.calFechaFinalLicencia = false;
                 this.chxRechazado = true;

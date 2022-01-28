@@ -2,7 +2,7 @@ select rc.* from rest_credential rc;
 
 -- TABLAS DE CONFIGURACION Y CATALOGOS.
 SELECT t.* FROM tipo_solicitud_comeval t ORDER BY t.id_tipo_solicitud;
-SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud = 1 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
+SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=6 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
 
 -- WORKFLOW ESTADOS SOLICITUDES. 
 SELECT
@@ -10,7 +10,7 @@ SELECT
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_actual and es.id_tipo_solicitud = ws.id_tipo_solicitud_actual) estado_solicitud_actual, 
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_siguiente and es.id_tipo_solicitud = ws.id_tipo_solicitud_siguiente) estado_solicitud_anterior
 FROM workflow_solicitud ws 
-WHERE ws.id_tipo_solicitud_actual = 1 AND ws.id_tipo_solicitud_siguiente = 1
+WHERE ws.id_tipo_solicitud_actual = 6 AND ws.id_tipo_solicitud_siguiente = 6
 ORDER BY ws.id_tipo_solicitud_actual, ws.id_estado_solicitud_actual, ws.id_tipo_solicitud_siguiente, ws.id_estado_solicitud_siguiente;
 
 -- CONFIGURACIÓN Y ORDEN DE LISTADOS (CATÁLOGOS PROMOCIÓN DOCENTE).
@@ -32,19 +32,20 @@ SELECT cchp.* FROM comeval_cambio_horario_plaza cchp ORDER BY cchp.id_comeval_ca
 SELECT cah.* FROM comeval_ampliacion_horario cah ORDER BY cah.id_comeval_ampliacion_horario;
 SELECT cahp.* FROM comeval_ampliacion_horario_plaza cahp ORDER BY cahp.id_comeval_ampliacion_horario;
 
-SELECT ccec.* FROM comeval_carga_eval_comeval ccec;
+SELECT ccec.* FROM comeval_notas_evaluacion_docente ccec;
+
 SELECT t.* FROM resultado_evaluacion t;
 
 SELECT cas.* FROM comeval_acta_solicitud cas ORDER BY cas.id_tipo_solicitud, cas.id_solicitud;
 
-SELECT cso.* FROM comeval_solicitud_observacion cso WHERE cso.id_tipo_solicitud=2 ORDER BY cso.id_tipo_solicitud, cso.id_solicitud, cso.id_observacion;
+SELECT cso.* FROM comeval_solicitud_observacion cso WHERE cso.id_tipo_solicitud=6 ORDER BY cso.id_tipo_solicitud, cso.id_solicitud, cso.id_observacion;
  
 -- SEGUIMIENTOS CAMBIO DE ESTADOS EN LAS SOLICITUDES.
 SELECT swh.id_solicitud, swh.id_workflow ,es.nombre estado_solicitud, ts.nombre tipo_solicitud, swh.usuario, swh.fecha, swh.rechazado, swh.fecha_rechazado 
 FROM solicitud_workflow_historial swh 
 	 LEFT JOIN estado_solicitud_comeval es ON (swh.id_estado_solicitud = es.id_estado_solicitud AND swh.id_tipo_solicitud = es.id_tipo_solicitud) 
 	 LEFT JOIN tipo_solicitud_comeval ts ON (es.id_tipo_solicitud = ts.id_tipo_solicitud)
-WHERE swh.id_tipo_solicitud = 2 -- AND swh.id_solicitud = 1
+WHERE swh.id_tipo_solicitud = 6 -- AND swh.id_solicitud = 1
 ORDER BY swh.id_tipo_solicitud, swh.id_solicitud,  swh.id_workflow, swh.id_estado_solicitud;
 
 -- CODIGO DE PERSONAL PARA PRUEBAS.
@@ -55,7 +56,7 @@ SELECT d.* FROM personal d WHERE d.nombre ILIKE '%david estuardo%' AND d.apellid
 
 -- PLAZA PERSONAL.
 SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1;
-SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and p.personal='019990748';
+SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and p.personal='020000915';
 SELECT p.* FROM plazapuesto p WHERE p.puesto='210141';
 SELECT p.* FROM plazapartida p WHERE p.puesto='210121';
 
@@ -81,4 +82,3 @@ SELECT th.* FROM titularidadhistorial th WHERE th.personal='000930131' ORDER BY 
 SELECT t.* FROM titularidad t WHERE t.personal='000930066';
 
 SELECT l.* FROM licencia l;
-
