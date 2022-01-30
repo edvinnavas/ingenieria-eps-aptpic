@@ -3,9 +3,9 @@ package entidad;
 import java.io.Serializable;
 
 public class Comeval_Promocion_Docente_Archivos implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_promocion_docente;
     private Long id_archivo;
     private String nombre_archivo;
@@ -57,5 +57,5 @@ public class Comeval_Promocion_Docente_Archivos implements Serializable {
     public String toString() {
         return "Comeval_Promocion_Docente_Archivos{" + "id_comeval_promocion_docente=" + id_comeval_promocion_docente + ", id_archivo=" + id_archivo + ", nombre_archivo=" + nombre_archivo + ", nombre_archivo_real=" + nombre_archivo_real + '}';
     }
-    
+
 }

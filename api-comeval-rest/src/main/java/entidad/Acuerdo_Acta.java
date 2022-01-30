@@ -6,7 +6,7 @@ import java.util.Date;
 public class Acuerdo_Acta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_solicitud_acta;
     private Boolean tiene_contenido;
     private Long contenido;
@@ -118,5 +118,5 @@ public class Acuerdo_Acta implements Serializable {
     public String toString() {
         return "Acuerdo_Acta{" + "id_solicitud_acta=" + id_solicitud_acta + ", tiene_contenido=" + tiene_contenido + ", contenido=" + contenido + ", no_acta=" + no_acta + ", anio_acta=" + anio_acta + ", punto_acta=" + punto_acta + ", inciso_acta=" + inciso_acta + ", fecha_acta=" + fecha_acta + ", acuerdo=" + acuerdo + ", aprobado=" + aprobado + '}';
     }
-    
+
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Comeval_Licencia_Docente implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_licencia_docente;
     private String personal;
     private Long id_motivo_licencia;
@@ -228,5 +228,5 @@ public class Comeval_Licencia_Docente implements Serializable {
     public String toString() {
         return "Comeval_Licencia_Docente{" + "id_comeval_licencia_docente=" + id_comeval_licencia_docente + ", personal=" + personal + ", id_motivo_licencia=" + id_motivo_licencia + ", id_tipo_licencia=" + id_tipo_licencia + ", goce_sueldo=" + goce_sueldo + ", fecha_inicio_licencia=" + fecha_inicio_licencia + ", fecha_final_licencia=" + fecha_final_licencia + ", usuario=" + usuario + ", fecha_ingreso=" + fecha_ingreso + ", id_estado_solicitud=" + id_estado_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", rechazado=" + rechazado + ", id_estado_solicitud_rechazado=" + id_estado_solicitud_rechazado + ", id_tipo_solicitud_rechazado=" + id_tipo_solicitud_rechazado + ", ingreso_siif_visto_bueno_escuela=" + ingreso_siif_visto_bueno_escuela + ", tipo_licencia_secretario_academico=" + tipo_licencia_secretario_academico + ", acuerdo_decanatura=" + acuerdo_decanatura + ", notificacion_tesoreria=" + notificacion_tesoreria + ", lst_plazas=" + lst_plazas + ", comeval_acta_solicitud=" + comeval_acta_solicitud + ", lst_observaciones=" + lst_observaciones + '}';
     }
-    
+
 }

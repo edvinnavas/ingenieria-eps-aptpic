@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Solicitud_Acta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_solicitud;
     private Long estado;
     private Long asunto;
@@ -237,5 +237,5 @@ public class Solicitud_Acta implements Serializable {
     public String toString() {
         return "Solicitud_Acta{" + "id_solicitud=" + id_solicitud + ", estado=" + estado + ", asunto=" + asunto + ", carreraorigen=" + carreraorigen + ", carreradestino=" + carreradestino + ", solicitanteexterno=" + solicitanteexterno + ", descripcion=" + descripcion + ", fechaaprobacion=" + fechaaprobacion + ", fechaingreso=" + fechaingreso + ", facultadorigen=" + facultadorigen + ", facultaddestino=" + facultaddestino + ", universidadorigen=" + universidadorigen + ", universidaddestino=" + universidaddestino + ", scarreraorigen=" + scarreraorigen + ", id_archivo=" + id_archivo + ", estado_validacion=" + estado_validacion + ", anio=" + anio + ", periodo=" + periodo + ", transaccion=" + transaccion + ", impresa=" + impresa + ", tipoaprobacion=" + tipoaprobacion + ", con_asignacion=" + con_asignacion + '}';
     }
-    
+
 }

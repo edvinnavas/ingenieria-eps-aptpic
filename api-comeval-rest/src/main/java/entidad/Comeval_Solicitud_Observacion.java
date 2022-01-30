@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Comeval_Solicitud_Observacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_solicitud;
     private Long id_tipo_solicitud;
     private Long id_observacion;
@@ -77,5 +77,5 @@ public class Comeval_Solicitud_Observacion implements Serializable {
     public String toString() {
         return "Comeval_Solicitud_Observacion{" + "id_solicitud=" + id_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", id_observacion=" + id_observacion + ", dependencia=" + dependencia + ", fecha_hora=" + fecha_hora + ", observacion=" + observacion + '}';
     }
-    
+
 }

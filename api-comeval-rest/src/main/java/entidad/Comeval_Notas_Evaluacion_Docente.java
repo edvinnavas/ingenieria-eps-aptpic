@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Comeval_Notas_Evaluacion_Docente implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_notas_evaluacion_docente;
     private String nota_ref;
     private String fecha_nota_ref;
@@ -158,5 +158,5 @@ public class Comeval_Notas_Evaluacion_Docente implements Serializable {
     public String toString() {
         return "Comeval_Notas_Evaluacion_Docente{" + "id_comeval_notas_evaluacion_docente=" + id_comeval_notas_evaluacion_docente + ", nota_ref=" + nota_ref + ", fecha_nota_ref=" + fecha_nota_ref + ", anio_notas=" + anio_notas + ", path_archivo=" + path_archivo + ", usuario=" + usuario + ", fecha_ingreso=" + fecha_ingreso + ", id_estado_solicitud=" + id_estado_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", rechazado=" + rechazado + ", id_estado_solicitud_rechazado=" + id_estado_solicitud_rechazado + ", id_tipo_solicitud_rechazado=" + id_tipo_solicitud_rechazado + ", comeval_acta_solicitud=" + comeval_acta_solicitud + ", lst_observaciones=" + lst_observaciones + '}';
     }
-    
+
 }

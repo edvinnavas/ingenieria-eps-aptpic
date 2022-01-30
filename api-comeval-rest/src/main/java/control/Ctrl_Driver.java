@@ -183,7 +183,7 @@ public class Ctrl_Driver implements Serializable {
 
             Boolean validado = false;
             String mensaje_no_valido = "";
-            
+
             // WORKFLOW AMONESTACION DOCENTE.
             if (id_tipo_solicitud_actual == Long.parseLong("3")) {
                 if (id_estado_solicitud_actual == Long.parseLong("1")) {
@@ -321,7 +321,7 @@ public class Ctrl_Driver implements Serializable {
                     validado = true;
                 }
             }
-            
+
             this.conn.commit();
             this.conn.setAutoCommit(true);
         } catch (Exception ex) {
@@ -404,7 +404,7 @@ public class Ctrl_Driver implements Serializable {
             }
 
             String id_archivo = "";
-            if(id_asunto.equals(Long.parseLong("43")) || id_asunto.equals(Long.parseLong("37"))) {
+            if (id_asunto.equals(Long.parseLong("43")) || id_asunto.equals(Long.parseLong("37"))) {
                 servicio.cliente.Cliente_RestHeart_API_1 cliente_restheart_api_1 = new servicio.cliente.Cliente_RestHeart_API_1("admin", "changeit");
                 InputStream inputstream = cliente_restheart_api_1.descargar_adjunto_binary(id_archivo_personal2);
 
@@ -413,19 +413,19 @@ public class Ctrl_Driver implements Serializable {
                 FileUtils.copyInputStreamToFile(inputstream, archivo_rest);
 
                 String prefijo_archivo = "";
-                if(id_asunto.equals(Long.parseLong("43"))) {
+                if (id_asunto.equals(Long.parseLong("43"))) {
                     prefijo_archivo = "spd_";
                 }
-                if(id_asunto.equals(Long.parseLong("37"))) {
+                if (id_asunto.equals(Long.parseLong("37"))) {
                     prefijo_archivo = "ned_";
                 }
-                
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddkkmmss");
                 id_archivo = prefijo_archivo + dateFormat.format(new Date());
                 servicio.cliente.Cliente_RestHeart_API cliente_restheart_api = new servicio.cliente.Cliente_RestHeart_API("admin", "changeit");
                 cliente_restheart_api.cargar_archivo(archivo_rest, id_archivo);
             }
-            
+
             solicitud_acta.setId_archivo(id_archivo);
             solicitud_acta.setAnio(Long.parseLong(anio_actual_temp.toString()));
             solicitud_acta.setPeriodo(Long.parseLong(periodo_actual_temp.toString()));
@@ -567,7 +567,7 @@ public class Ctrl_Driver implements Serializable {
                 }
                 rs.close();
                 stmt.close();
-                
+
                 cadenasql = "select r.acuerdo, r.aprobado from resolucion r where r.contenido=" + resultado.getContenido();
                 stmt = this.conn.createStatement();
                 rs = stmt.executeQuery(cadenasql);

@@ -49,9 +49,10 @@ INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solic
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (6, 'Notificación (Tesorería)', 2, 0);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (7, 'DB Centro de Cálculo', 2, 0);
 
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Secretario académico)', 3, 1);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Acta (Junta directiva)', 3, 0);
-INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'DB Centro de Cálculo', 3, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Escuela)', 3, 1);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Visto Bueno (Secretario académico)', 3, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (3, 'Acta (Junta directiva)', 3, 0);
+INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (4, 'DB Centro de Cálculo', 3, 0);
 
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (1, 'Ingreso solicitud (Docente)', 4, 1);
 INSERT INTO estado_solicitud_comeval (id_estado_solicitud, nombre, id_tipo_solicitud, estado_inicial) VALUES (2, 'Visto bueno (Director escuela)', 4, 0);
@@ -96,10 +97,9 @@ INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_ac
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (5, 2, 6, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (6, 2, 7, 2);
 
-INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (7, 2, 8, 2);
-INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (8, 2, 9, 2);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 3, 2, 3);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 3, 3, 3);
+INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (3, 3, 4, 3);
 
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (1, 4, 2, 4);
 INSERT INTO workflow_solicitud (id_estado_solicitud_actual, id_tipo_solicitud_actual, id_estado_solicitud_siguiente, id_tipo_solicitud_siguiente) VALUES (2, 4, 3, 4);
@@ -240,18 +240,16 @@ DROP TABLE IF EXISTS comeval_amonestacion_docente;
 CREATE TABLE comeval_amonestacion_docente (
     id_comeval_amonestacion_docente BIGINT NOT NULL,
     personal CHARACTER(9) NOT NULL,
-    descripcion_solicitud TEXT NOT NULL DEFAULT '-',
-    id_solicitud_acta BIGINT,
-    no_acta VARCHAR(50),
-    anio_acta VARCHAR(50),
-    punto_acta VARCHAR(50),
-    inciso_acta VARCHAR(50),
-    fecha_acta TIMESTAMP, 
-    resolucion_acta TEXT,
+    nota_ref CHARACTER(20),
+    fecha_nota_ref TIMESTAMP,
+    usuario VARCHAR(50) NOT NULL,
     fecha_ingreso TIMESTAMP NOT NULL,
     id_estado_solicitud BIGINT NOT NULL,
     id_tipo_solicitud BIGINT NOT NULL,
     rechazado SMALLINT NOT NULL DEFAULT 0,
+    id_estado_solicitud_rechazado BIGINT,
+    id_tipo_solicitud_rechazado BIGINT,
+    visto_bueno_secretario_academico SMALLINT NOT NULL DEFAULT 0,
     CONSTRAINT pk_comeval_amonestacion_docente PRIMARY KEY (id_comeval_amonestacion_docente),
     CONSTRAINT fk_comeval_amonestacion_docente_1 FOREIGN KEY (personal) REFERENCES personal (personal),
     CONSTRAINT fk_comeval_amonestacion_docente_2 FOREIGN KEY (id_estado_solicitud, id_tipo_solicitud) REFERENCES estado_solicitud_comeval (id_estado_solicitud, id_tipo_solicitud)
@@ -262,19 +260,17 @@ DROP TABLE IF EXISTS comeval_cambio_horario;
 CREATE TABLE comeval_cambio_horario (
     id_comeval_cambio_horario BIGINT NOT NULL,
     personal CHARACTER(9) NOT NULL,
-    descripcion_solicitud TEXT NOT NULL DEFAULT '-',
-    id_solicitud_acta BIGINT,
-    no_acta VARCHAR(50),
-    anio_acta VARCHAR(50),
-    punto_acta VARCHAR(50),
-    inciso_acta VARCHAR(50),
-    fecha_acta TIMESTAMP, 
-    resolucion_acta TEXT,
+    id_tipo_cambio_horario SMALLINT NOT NULL DEFAULT 0, -- 1: TEMPORAL, 2: PERMANENTE.
+    nota_ref CHARACTER(20),
+    fecha_nota_ref TIMESTAMP,
+    usuario VARCHAR(50) NOT NULL,
     fecha_ingreso TIMESTAMP NOT NULL,
     id_estado_solicitud BIGINT NOT NULL,
     id_tipo_solicitud BIGINT NOT NULL,
     rechazado SMALLINT NOT NULL DEFAULT 0,
-    visto_bueno_director SMALLINT NOT NULL DEFAULT 0,
+    id_estado_solicitud_rechazado BIGINT,
+    id_tipo_solicitud_rechazado BIGINT,
+    visto_bueno_director_escuela SMALLINT NOT NULL DEFAULT 0,
     visto_bueno_secretario_academico SMALLINT NOT NULL DEFAULT 0,
     CONSTRAINT pk_comeval_cambio_horario PRIMARY KEY (id_comeval_cambio_horario),
     CONSTRAINT fk_comeval_cambio_horario_1 FOREIGN KEY (personal) REFERENCES personal (personal),
@@ -295,6 +291,7 @@ CREATE TABLE comeval_cambio_horario_plaza (
 	anio INTEGER NOT NULL,
 	subpartida CHARACTER(7) NOT NULL,
 	renglon CHARACTER(3) NOT NULL,
+	numero_plaza INTEGER NOT NULL,
 	CONSTRAINT pk_comeval_cambio_horario_plaza PRIMARY KEY (id_comeval_cambio_horario, id_horario, personal, plaza, periodo, anio, subpartida, renglon),
     CONSTRAINT fk_comeval_cambio_horario_plaza_1 FOREIGN KEY (id_comeval_cambio_horario) REFERENCES comeval_cambio_horario (id_comeval_cambio_horario),
     CONSTRAINT fk_comeval_cambio_horario_plaza_2 FOREIGN KEY (personal, plaza, periodo, anio, subpartida, renglon) REFERENCES plazapersonal (personal, plaza, periodo, anio, subpartida, renglon)
@@ -305,21 +302,19 @@ DROP TABLE IF EXISTS comeval_ampliacion_horario;
 CREATE TABLE comeval_ampliacion_horario (
     id_comeval_ampliacion_horario BIGINT NOT NULL,
     personal CHARACTER(9) NOT NULL,
+    id_tipo_ampliacion_horario SMALLINT NOT NULL DEFAULT 0, -- 1: TEMPORAL, 2: PERMANENTE.
     id_plaza_temporal INTEGER,
     id_plaza_indefinido INTEGER,
-    descripcion_solicitud TEXT NOT NULL DEFAULT '-',
-    id_solicitud_acta BIGINT,
-    no_acta VARCHAR(50),
-    anio_acta VARCHAR(50),
-    punto_acta VARCHAR(50),
-    inciso_acta VARCHAR(50),
-    fecha_acta TIMESTAMP, 
-    resolucion_acta TEXT,
+    nota_ref CHARACTER(20),
+    fecha_nota_ref TIMESTAMP,
+    usuario VARCHAR(50) NOT NULL,
     fecha_ingreso TIMESTAMP NOT NULL,
     id_estado_solicitud BIGINT NOT NULL,
     id_tipo_solicitud BIGINT NOT NULL,
     rechazado SMALLINT NOT NULL DEFAULT 0,
-    visto_bueno_director SMALLINT NOT NULL DEFAULT 0,
+    id_estado_solicitud_rechazado BIGINT,
+    id_tipo_solicitud_rechazado BIGINT,
+    visto_bueno_director_escuela SMALLINT NOT NULL DEFAULT 0,
     visto_bueno_secretario_academico SMALLINT NOT NULL DEFAULT 0,
     notificacion_tesoreria SMALLINT NOT NULL DEFAULT 0,
     CONSTRAINT pk_comeval_ampliacion_horario PRIMARY KEY (id_comeval_ampliacion_horario),

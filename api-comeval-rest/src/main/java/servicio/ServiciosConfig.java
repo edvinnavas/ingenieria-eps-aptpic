@@ -8,5 +8,5 @@ import javax.ws.rs.core.Application;
 public class ServiciosConfig extends Application implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
 }

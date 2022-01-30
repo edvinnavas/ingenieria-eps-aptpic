@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Comeval_Licencia_Docente_Plaza implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_licencia_docente;
     private String personal;
     private Long plaza;
@@ -97,5 +97,5 @@ public class Comeval_Licencia_Docente_Plaza implements Serializable {
     public String toString() {
         return "Comeval_Licencia_Docente_Plaza{" + "id_comeval_licencia_docente=" + id_comeval_licencia_docente + ", personal=" + personal + ", plaza=" + plaza + ", periodo=" + periodo + ", anio=" + anio + ", subpartida=" + subpartida + ", renglon=" + renglon + ", numero_plaza=" + numero_plaza + '}';
     }
-    
+
 }

@@ -40,5 +40,5 @@ public class RestAuthenticationFilter implements javax.servlet.Filter, Serializa
     @Override
     public void init(FilterConfig arg0) throws ServletException {
     }
-    
+
 }

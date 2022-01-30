@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Comeval_Acta_Solicitud implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_solicitud;
     private Long id_tipo_solicitud;
     private Long id_solicitud_acta;
@@ -117,5 +117,5 @@ public class Comeval_Acta_Solicitud implements Serializable {
     public String toString() {
         return "Comeval_Acta_Solicitud{" + "id_solicitud=" + id_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", id_solicitud_acta=" + id_solicitud_acta + ", no_acta=" + no_acta + ", anio_acta=" + anio_acta + ", punto_acta=" + punto_acta + ", inciso_acta=" + inciso_acta + ", fecha_acta=" + fecha_acta + ", resolucion_acta=" + resolucion_acta + ", aprobado=" + aprobado + '}';
     }
-    
+
 }

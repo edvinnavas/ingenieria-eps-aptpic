@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Solicitud_Workflow_Historial implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_solicitud;
     private Long id_estado_solicitud;
     private Long id_tipo_solicitud;
@@ -97,5 +97,5 @@ public class Solicitud_Workflow_Historial implements Serializable {
     public String toString() {
         return "Solicitud_Workflow_Historial{" + "id_solicitud=" + id_solicitud + ", id_estado_solicitud=" + id_estado_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", id_workflow=" + id_workflow + ", usuario=" + usuario + ", fecha=" + fecha + ", rechazado=" + rechazado + ", fecha_rechazado=" + fecha_rechazado + '}';
     }
-    
+
 }

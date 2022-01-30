@@ -246,7 +246,7 @@ public class Ctrl_Comeval_Licencia_Docente implements Serializable {
                     id_estado_solicitud_rechazado_temp = "null";
                     id_tipo_solicitud_rechazado_temp = "null";
                 }
-                
+
                 String cadenasql = "update comeval_licencia_docente set "
                         + "personal='" + lst_comeval_licencia_docente.get(i).getPersonal() + "', "
                         + "id_motivo_licencia=" + lst_comeval_licencia_docente.get(i).getId_motivo_licencia() + ", "

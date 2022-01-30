@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Comeval_Cambio_Horario_Plaza implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_cambio_horario;
     private Long id_horario;
     private String horainicio;
@@ -17,8 +17,9 @@ public class Comeval_Cambio_Horario_Plaza implements Serializable {
     private Long anio;
     private String subpartida;
     private String renglon;
+    private Long numero_plaza;
 
-    public Comeval_Cambio_Horario_Plaza(Long id_comeval_cambio_horario, Long id_horario, String horainicio, String horafin, String dias, String personal, Long plaza, Long periodo, Long anio, String subpartida, String renglon) {
+    public Comeval_Cambio_Horario_Plaza(Long id_comeval_cambio_horario, Long id_horario, String horainicio, String horafin, String dias, String personal, Long plaza, Long periodo, Long anio, String subpartida, String renglon, Long numero_plaza) {
         this.id_comeval_cambio_horario = id_comeval_cambio_horario;
         this.id_horario = id_horario;
         this.horainicio = horainicio;
@@ -30,6 +31,7 @@ public class Comeval_Cambio_Horario_Plaza implements Serializable {
         this.anio = anio;
         this.subpartida = subpartida;
         this.renglon = renglon;
+        this.numero_plaza = numero_plaza;
     }
 
     public Comeval_Cambio_Horario_Plaza() {
@@ -123,9 +125,17 @@ public class Comeval_Cambio_Horario_Plaza implements Serializable {
         this.renglon = renglon;
     }
 
+    public Long getNumero_plaza() {
+        return numero_plaza;
+    }
+
+    public void setNumero_plaza(Long numero_plaza) {
+        this.numero_plaza = numero_plaza;
+    }
+
     @Override
     public String toString() {
-        return "Comeval_Cambio_Horario_Plaza{" + "id_comeval_cambio_horario=" + id_comeval_cambio_horario + ", id_horario=" + id_horario + ", horainicio=" + horainicio + ", horafin=" + horafin + ", dias=" + dias + ", personal=" + personal + ", plaza=" + plaza + ", periodo=" + periodo + ", anio=" + anio + ", subpartida=" + subpartida + ", renglon=" + renglon + '}';
+        return "Comeval_Cambio_Horario_Plaza{" + "id_comeval_cambio_horario=" + id_comeval_cambio_horario + ", id_horario=" + id_horario + ", horainicio=" + horainicio + ", horafin=" + horafin + ", dias=" + dias + ", personal=" + personal + ", plaza=" + plaza + ", periodo=" + periodo + ", anio=" + anio + ", subpartida=" + subpartida + ", renglon=" + renglon + ", numero_plaza=" + numero_plaza + '}';
     }
-    
+
 }

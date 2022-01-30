@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Comeval_Ampliacion_Horario_Plaza implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_ampliacion_horario;
     private Long id_horario;
     private String horainicio;
@@ -67,5 +67,5 @@ public class Comeval_Ampliacion_Horario_Plaza implements Serializable {
     public String toString() {
         return "Comeval_Ampliacion_Horario_Plaza{" + "id_comeval_ampliacion_horario=" + id_comeval_ampliacion_horario + ", id_horario=" + id_horario + ", horainicio=" + horainicio + ", horafin=" + horafin + ", dias=" + dias + '}';
     }
-    
+
 }

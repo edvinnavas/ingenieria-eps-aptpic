@@ -293,7 +293,7 @@ public class Ctrl_Comeval_Notas_Evaluacion_Docente implements Serializable {
                 // INSERTAR SOLICITUD EN LA APLICACIÓN DE ACTAS DE JUNTA DIRECTIVA.
                 if (validado) {
                     Ctrl_Driver ctrl_driver1 = new Ctrl_Driver("jndi_gestionautenticacion2");
-                    
+
                     String nombre_solicitante = ctrl_driver1.nombre_usuario(lst_comeval_notas_evaluacion_docente.get(i).getUsuario());
 
                     String cadenasql = "select p.nombre "
@@ -307,7 +307,7 @@ public class Ctrl_Comeval_Notas_Evaluacion_Docente implements Serializable {
                     }
                     rs.close();
                     stmt.close();
-                    
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
                     Calendar fecha_nota_ref = Calendar.getInstance();
@@ -508,7 +508,7 @@ public class Ctrl_Comeval_Notas_Evaluacion_Docente implements Serializable {
 
         return resultado;
     }
-    
+
     public String notas_evaluacion_acta_junta_directiva() {
         String resultado = "1,No se proceso ninguna solicitud.";
 

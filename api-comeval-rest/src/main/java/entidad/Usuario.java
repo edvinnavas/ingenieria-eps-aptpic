@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private String usuario;
     private String nombre;
     private String contrasena;
@@ -67,5 +67,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Usuario{" + "usuario=" + usuario + ", nombre=" + nombre + ", contrasena=" + contrasena + ", id_rol=" + id_rol + ", id_unidad=" + id_unidad + '}';
     }
-    
+
 }

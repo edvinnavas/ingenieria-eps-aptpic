@@ -1,11 +1,11 @@
 package servicio;
 
-import control.Ctrl_Comeval_Amonestacion_Docente;
-import control.Ctrl_Comeval_Ampliacion_Horario;
-import control.Ctrl_Comeval_Cambio_Horario;
-import control.Ctrl_Comeval_Notas_Evaluacion_Docente;
 import control.Ctrl_Comeval_Promocion_Docente;
 import control.Ctrl_Comeval_Licencia_Docente;
+import control.Ctrl_Comeval_Amonestacion_Docente;
+import control.Ctrl_Comeval_Cambio_Horario;
+import control.Ctrl_Comeval_Ampliacion_Horario;
+import control.Ctrl_Comeval_Notas_Evaluacion_Docente;
 import control.Ctrl_Driver;
 import java.io.Serializable;
 import javax.ws.rs.GET;
@@ -114,103 +114,103 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_enviar_ingreso_docente")
     public String promocion_docente_enviar_ingreso_docente(String jsonString) {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_enviar_ingreso_docente(jsonString);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_docente):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_docente):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_enviar_ingreso_comeval")
     public String promocion_docente_enviar_ingreso_comeval(String jsonString) {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_enviar_ingreso_comeval(jsonString);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_comeval):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_comeval):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_enviar_ingreso_secretario_academico")
     public String promocion_docente_enviar_ingreso_secretario_academico(String jsonString) {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_enviar_ingreso_secretario_academico(jsonString);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_secretario_academico):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_ingreso_secretario_academico):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_enviar_revision_comeval")
     public String promocion_docente_enviar_revision_comeval(String jsonString) {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_enviar_revision_comeval(jsonString);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_comeval):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_comeval):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_enviar_revision_secretario_academico")
     public String promocion_docente_enviar_revision_secretario_academico(String jsonString) {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_enviar_revision_secretario_academico(jsonString);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_secretario_academico):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_enviar_revision_secretario_academico):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @PUT
     @Path("promocion_docente_acta_junta_directiva")
     public String promocion_docente_acta_junta_directiva() {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Promocion_Docente ctrl_comeval_promocion_docente = new Ctrl_Comeval_Promocion_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_promocion_docente.promocion_docente_acta_junta_directiva();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - promocion_docente_acta_junta_directiva):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - promocion_docente_acta_junta_directiva):" + ex.toString();
         }
-        
+
         return resultado;
     }
-    
+
     @POST
     @Path("licencia_docente_ingresar")
     public String licencia_docente_ingresar(String jsonString) {
@@ -258,7 +258,7 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("licencia_docente_enviar_ingreso_siif_visto_bueno_escuela")
     public String licencia_docente_enviar_ingreso_siif_visto_bueno_escuela(String jsonString) {
@@ -274,7 +274,7 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("licencia_docente_enviar_tipo_licencia_secretario_academico")
     public String licencia_docente_enviar_tipo_licencia_secretario_academico(String jsonString) {
@@ -290,7 +290,7 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("licencia_docente_enviar_acuerdo_decanatura")
     public String licencia_docente_enviar_acuerdo_decanatura(String jsonString) {
@@ -306,7 +306,7 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("licencia_docente_enviar_notificacion_tesoreria")
     public String licencia_docente_enviar_notificacion_tesoreria(String jsonString) {
@@ -322,119 +322,313 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("licencia_docente_acta_junta_directiva")
-    public String licencia_docente_acta_junta_directiva(String jsonString) {
+    public String licencia_docente_acta_junta_directiva() {
         String resultado;
-        
+
         try {
             Ctrl_Comeval_Licencia_Docente ctrl_comeval_licencia_docente = new Ctrl_Comeval_Licencia_Docente(this.jndi_personal2);
             resultado = ctrl_comeval_licencia_docente.licencia_docente_acta_junta_directiva();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("1,ERROR (" + this.getClass().getName() + " - licencia_docente_acta_junta_directiva):" + ex.toString());
             resultado = "1,ERROR (" + this.getClass().getName() + " - licencia_docente_acta_junta_directiva):" + ex.toString();
         }
-        
+
+        return resultado;
+    }
+
+    @POST
+    @Path("amonestacion_docente_ingresar")
+    public String amonestacion_docente_ingresar(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_amonestacion_docente.amonestacion_docente_ingresar(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_ingresar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_ingresar):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("amonestacion_docente_modificar")
+    public String amonestacion_docente_modificar(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_amonestacion_docente.amonestacion_docente_modificar(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_modificar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_modificar):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("amonestacion_docente_enviar_ingreso_escuela")
+    public String amonestacion_docente_enviar_ingreso_escuela(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_amonestacion_docente.amonestacion_docente_enviar_ingreso_escuela(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_ingreso_escuela):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_ingreso_escuela):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("amonestacion_docente_enviar_visto_bueno_secretario_academico")
+    public String amonestacion_docente_enviar_visto_bueno_secretario_academico(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_amonestacion_docente.amonestacion_docente_enviar_visto_bueno_secretario_academico(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_visto_bueno_secretario_academico):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_visto_bueno_secretario_academico):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("amonestacion_docente_acta_junta_directiva")
+    public String amonestacion_docente_acta_junta_directiva() {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
+            resultado = ctrl_comeval_amonestacion_docente.amonestacion_docente_acta_junta_directiva();
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_acta_junta_directiva):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_acta_junta_directiva):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @POST
+    @Path("cambio_horario_ingresar")
+    public String cambio_horario_ingresar(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_ingresar(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_ingresar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_ingresar):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("cambio_horario_modificar")
+    public String cambio_horario_modificar(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_modificar(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_modificar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_modificar):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("cambio_horario_enviar_ingreso_docente")
+    public String cambio_horario_enviar_ingreso_docente(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_enviar_ingreso_docente(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_ingreso_docente):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_ingreso_docente):" + ex.toString();
+        }
+
+        return resultado;
+    }
+            
+            
+    @PUT
+    @Path("cambio_horario_enviar_visto_bueno_escuela")
+    public String cambio_horario_enviar_visto_bueno_escuela(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_enviar_visto_bueno_escuela(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_visto_bueno_escuela):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_visto_bueno_escuela):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("cambio_horario_enviar_visto_bueno_secretario")
+    public String cambio_horario_enviar_visto_bueno_secretario(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_enviar_visto_bueno_secretario(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_visto_bueno_secretario):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_enviar_visto_bueno_secretario):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("cambio_horario_acta_junta_directiva")
+    public String cambio_horario_acta_junta_directiva() {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_cambio_horario.cambio_horario_acta_junta_directiva();
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - cambio_horario_acta_junta_directiva):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - cambio_horario_acta_junta_directiva):" + ex.toString();
+        }
+
         return resultado;
     }
     
     @POST
-    @Path("crear_amonestacion_docente")
-    public String crear_amonestacion_docente(String jsonString) {
-        String resultado;
-
-        try {
-            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
-            resultado = ctrl_comeval_amonestacion_docente.crear_amonestacion_docente(jsonString);
-        } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_amonestacion_docente):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - crear_amonestacion_docente):" + ex.toString();
-        }
-
-        return resultado;
-    }
-
-    @PUT
-    @Path("modificar_amonestacion_docente")
-    public String modificar_amonestacion_docente(String jsonString) {
-        String resultado;
-
-        try {
-            Ctrl_Comeval_Amonestacion_Docente ctrl_comeval_amonestacion_docente = new Ctrl_Comeval_Amonestacion_Docente(this.jndi_personal2);
-            resultado = ctrl_comeval_amonestacion_docente.modificar_amonestacion_docente(jsonString);
-        } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_amonestacion_docente):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - modificar_amonestacion_docente):" + ex.toString();
-        }
-
-        return resultado;
-    }
-
-    @POST
-    @Path("crear_cambio_horario")
-    public String crear_cambio_horario(String jsonString) {
-        String resultado;
-
-        try {
-            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
-            resultado = ctrl_comeval_cambio_horario.crear_cambio_horario(jsonString);
-        } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_cambio_horario):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - crear_cambio_horario):" + ex.toString();
-        }
-
-        return resultado;
-    }
-
-    @PUT
-    @Path("modificar_cambio_horario")
-    public String modificar_cambio_horario(String jsonString) {
-        String resultado;
-
-        try {
-            Ctrl_Comeval_Cambio_Horario ctrl_comeval_cambio_horario = new Ctrl_Comeval_Cambio_Horario(this.jndi_personal2);
-            resultado = ctrl_comeval_cambio_horario.modificar_cambio_horario(jsonString);
-        } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_cambio_horario):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - modificar_cambio_horario):" + ex.toString();
-        }
-
-        return resultado;
-    }
-
-    @POST
-    @Path("crear_ampliacion_horario")
-    public String crear_ampliacion_horario(String jsonString) {
+    @Path("ampliacion_horario_ingresar")
+    public String ampliacion_horario_ingresar(String jsonString) {
         String resultado;
 
         try {
             Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
-            resultado = ctrl_comeval_ampliacion_horario.crear_ampliacion_horario(jsonString);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_ingresar(jsonString);
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_ampliacion_horario):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - crear_ampliacion_horario):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_ingresar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_ingresar):" + ex.toString();
         }
 
         return resultado;
     }
 
     @PUT
-    @Path("modificar_ampliacion_horario")
-    public String modificar_ampliacion_horario(String jsonString) {
+    @Path("ampliacion_horario_modificar")
+    public String ampliacion_horario_modificar(String jsonString) {
         String resultado;
 
         try {
             Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
-            resultado = ctrl_comeval_ampliacion_horario.modificar_ampliacion_horario(jsonString);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_modificar(jsonString);
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_ampliacion_horario):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - modificar_ampliacion_horario):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_modificar):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_modificar):" + ex.toString();
         }
 
         return resultado;
     }
 
+    @PUT
+    @Path("ampliacion_horario_enviar_ingreso_docente")
+    public String ampliacion_horario_enviar_ingreso_docente(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_ingreso_docente(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_ingreso_docente):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_ingreso_docente):" + ex.toString();
+        }
+
+        return resultado;
+    }
+            
+            
+    @PUT
+    @Path("ampliacion_horario_enviar_visto_bueno_escuela")
+    public String ampliacion_horario_enviar_visto_bueno_escuela(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_visto_bueno_escuela(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_escuela):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_escuela):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("ampliacion_horario_enviar_visto_bueno_secretario")
+    public String ampliacion_horario_enviar_visto_bueno_secretario(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_visto_bueno_secretario(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_secretario):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_secretario):" + ex.toString();
+        }
+
+        return resultado;
+    }
+    
+    @PUT
+    @Path("ampliacion_horario_enviar_notificacion_secretario")
+    public String ampliacion_horario_enviar_notificacion_secretario(String jsonString) {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_notificacion_secretario(jsonString);
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString();
+        }
+
+        return resultado;
+    }
+
+    @PUT
+    @Path("ampliacion_horario_acta_junta_directiva")
+    public String ampliacion_horario_acta_junta_directiva() {
+        String resultado;
+
+        try {
+            Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_acta_junta_directiva();
+        } catch (Exception ex) {
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_acta_junta_directiva):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_acta_junta_directiva):" + ex.toString();
+        }
+
+        return resultado;
+    }
+    
     @POST
     @Path("notas_evaluacion_docente_ingresar")
     public String notas_evaluacion_docente_ingresar(String jsonString) {
@@ -482,7 +676,7 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
     @PUT
     @Path("notas_evaluacion_acta_junta_directiva")
     public String notas_evaluacion_acta_junta_directiva() {
@@ -498,5 +692,5 @@ public class Servicios implements Serializable {
 
         return resultado;
     }
-    
+
 }
