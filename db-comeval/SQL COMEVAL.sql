@@ -2,7 +2,7 @@ select rc.* from rest_credential rc;
 
 -- TABLAS DE CONFIGURACION Y CATALOGOS.
 SELECT t.* FROM tipo_solicitud_comeval t ORDER BY t.id_tipo_solicitud;
-SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=3 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
+SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=4 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
 
 -- WORKFLOW ESTADOS SOLICITUDES. 
 SELECT ws.* FROM workflow_solicitud ws;
@@ -11,7 +11,7 @@ SELECT
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_actual and es.id_tipo_solicitud = ws.id_tipo_solicitud_actual) estado_solicitud_actual, 
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_siguiente and es.id_tipo_solicitud = ws.id_tipo_solicitud_siguiente) estado_solicitud_anterior
 FROM workflow_solicitud ws 
-WHERE ws.id_tipo_solicitud_actual = 3 AND ws.id_tipo_solicitud_siguiente = 3
+WHERE ws.id_tipo_solicitud_actual = 4 AND ws.id_tipo_solicitud_siguiente = 4
 ORDER BY ws.id_tipo_solicitud_actual, ws.id_estado_solicitud_actual, ws.id_tipo_solicitud_siguiente, ws.id_estado_solicitud_siguiente;
 
 -- CONFIGURACIÓN Y ORDEN DE LISTADOS (CATÁLOGOS PROMOCIÓN DOCENTE).

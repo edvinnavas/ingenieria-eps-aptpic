@@ -1,10 +1,12 @@
+SELECT c.* FROM asunto c WHERE c.nombre ILIKE '%audi%';
 -- TABLAS PARA REGISTRAR LA SOLICITUD EN LAS TABLAS DE LA APLICACION DE ACTAS.
 	-- 31 AMPLIACIONES DE HORARIO.
 	-- 37 EVALUACIONES DOCENTES.
 	-- 42 LICENCIAS.
 	-- 43 PROMOCIONES DOCENTES. 
 	-- 50 CAMBIOS DE HORARIO.
-SELECT c.* FROM asunto c WHERE c.asunto IN (31, 37, 42, 43, 50);
+    -- 29 AUDIENCIAS.
+SELECT c.* FROM asunto c WHERE c.asunto IN (31, 37, 42, 43, 50, 29);
 SELECT es.* FROM estado_solicitud es; -- 0: INGRESADA VIA WEB.
 SELECT s.* FROM solicitud s WHERE s.asunto = 37;
 -- SELECT coalesce(max(s.solicitud) + 1, 1) max_id_solicitud FROM solicitud s;
