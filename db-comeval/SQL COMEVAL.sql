@@ -2,7 +2,7 @@ select rc.* from rest_credential rc;
 
 -- TABLAS DE CONFIGURACION Y CATALOGOS.
 SELECT t.* FROM tipo_solicitud_comeval t ORDER BY t.id_tipo_solicitud;
-SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=4 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
+SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=3 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
 
 -- WORKFLOW ESTADOS SOLICITUDES. 
 SELECT ws.* FROM workflow_solicitud ws;
@@ -11,7 +11,7 @@ SELECT
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_actual and es.id_tipo_solicitud = ws.id_tipo_solicitud_actual) estado_solicitud_actual, 
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_siguiente and es.id_tipo_solicitud = ws.id_tipo_solicitud_siguiente) estado_solicitud_anterior
 FROM workflow_solicitud ws 
-WHERE ws.id_tipo_solicitud_actual = 4 AND ws.id_tipo_solicitud_siguiente = 4
+WHERE ws.id_tipo_solicitud_actual = 3 AND ws.id_tipo_solicitud_siguiente = 3
 ORDER BY ws.id_tipo_solicitud_actual, ws.id_estado_solicitud_actual, ws.id_tipo_solicitud_siguiente, ws.id_estado_solicitud_siguiente;
 
 -- CONFIGURACIÓN Y ORDEN DE LISTADOS (CATÁLOGOS PROMOCIÓN DOCENTE).
@@ -53,13 +53,12 @@ ORDER BY swh.id_tipo_solicitud, swh.id_solicitud,  swh.id_workflow, swh.id_estad
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%everest%' AND d.apellido ILIKE '%medinilla%';        -- PERSONAL: 000018150, 000930066
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%julio%' AND d.apellido ILIKE '%flores%';             -- PERSONAL: 020160418
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%david estuardo%' AND d.apellido ILIKE '%morales%';   -- PERSONAL: 020091178
--- 000013564, 000017976, 000940264
+-- 000013564, 000017976, 000940264, 000014259, 019990748
 
 -- PLAZA PERSONAL.
-SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1;
+SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and personal not in ('000013564','000017976','000940264','000014259');
 SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and p.personal='020000915';
 SELECT p.* FROM plazapuesto p WHERE p.puesto='210141';
-SELECT p.* FROM plazapartida p WHERE p.puesto='210121';
 
 -- PLAZAPARTIDA.
 SELECT p.* FROM plazapartida p WHERE (p.plaza, p.subpartida, p.renglon) IN (SELECT pp.plaza, pp.subpartida, pp.renglon 
@@ -83,3 +82,5 @@ SELECT th.* FROM titularidadhistorial th WHERE th.personal='000930131' ORDER BY 
 SELECT t.* FROM titularidad t WHERE t.personal='000930066';
 
 SELECT l.* FROM licencia l;
+
+

@@ -342,7 +342,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
                     + "t.revision_comeval, "
                     + "t.revision_secretario_academico, "
                     + "coalesce(t.id_estado_solicitud_rechazado, 1) id_estado_solicitud_rechazado, "
-                    + "coalesce(t.id_tipo_solicitud_rechazado, 1) id_tipo_solicitud_rechazado "
+                    + "coalesce(t.id_tipo_solicitud_rechazado, " + id_tipo_solicitud + ") id_tipo_solicitud_rechazado "
                     + "from "
                     + "comeval_promocion_docente t "
                     + "where "

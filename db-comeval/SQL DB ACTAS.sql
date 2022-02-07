@@ -11,9 +11,9 @@ SELECT es.* FROM estado_solicitud es; -- 0: INGRESADA VIA WEB.
 SELECT s.* FROM solicitud s WHERE s.asunto = 37;
 -- SELECT coalesce(max(s.solicitud) + 1, 1) max_id_solicitud FROM solicitud s;
 -- SELECT nextval('seq_solicitud');
-SELECT s.* FROM solicitud s WHERE s.solicitud in (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
-SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
-SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898);
+SELECT s.* FROM solicitud s WHERE s.solicitud in (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898, 23899);
+SELECT ss.* FROM solicitud_solicitante ss WHERE ss.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898, 23899);
+SELECT sc.* FROM solicitud_contenido sc WHERE sc.solicitud IN (23893, 23894, 23889, 23891, 23890, 23892, 23895, 23896, 23897, 23898, 23899);
 
 SELECT c.* FROM contenido c WHERE c.contenido IN (31352, 31353, 31354, 31355, 31357, 31358, 31359);
 SELECT c.* FROM contenido c WHERE c.contenido = 31350;

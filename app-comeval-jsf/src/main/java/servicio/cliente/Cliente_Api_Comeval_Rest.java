@@ -373,10 +373,10 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String crear_amonestacion_docente(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
+    public String amonestacion_docente_ingresar(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("crear_amonestacion_docente");
+            WebTarget webTarget = this.client.target(BASE_URI).path("amonestacion_docente_ingresar");
             String data = new Gson().toJson(lst_comeval_amonestacion_docente);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.post(Entity.text(data));
@@ -387,16 +387,16 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_amonestacion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_ingresar):" + ex.toString());
         }
         
         return resultado;
     }
     
-    public String modificar_amonestacion_docente(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
+    public String amonestacion_docente_modificar(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("modificar_amonestacion_docente");
+            WebTarget webTarget = this.client.target(BASE_URI).path("amonestacion_docente_modificar");
             String data = new Gson().toJson(lst_comeval_amonestacion_docente);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.put(Entity.text(data));
@@ -407,7 +407,47 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_amonestacion_docente):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_modificar):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String amonestacion_docente_enviar_ingreso_escuela(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("amonestacion_docente_enviar_ingreso_escuela");
+            String data = new Gson().toJson(lst_comeval_amonestacion_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_ingreso_escuela):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String amonestacion_docente_enviar_visto_bueno_secretario_academico(List<entidad.Comeval_Amonestacion_Docente> lst_comeval_amonestacion_docente) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("amonestacion_docente_enviar_visto_bueno_secretario_academico");
+            String data = new Gson().toJson(lst_comeval_amonestacion_docente);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - amonestacion_docente_enviar_visto_bueno_secretario_academico):" + ex.toString());
         }
         
         return resultado;

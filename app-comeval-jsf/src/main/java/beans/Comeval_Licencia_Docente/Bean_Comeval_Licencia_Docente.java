@@ -343,7 +343,7 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                     + "t.acuerdo_decanatura, "
                     + "t.notificacion_tesoreria, "
                     + "coalesce(t.id_estado_solicitud_rechazado, 1) id_estado_solicitud_rechazado, "
-                    + "coalesce(t.id_tipo_solicitud_rechazado, 1) id_tipo_solicitud_rechazado "
+                    + "coalesce(t.id_tipo_solicitud_rechazado, " + id_tipo_solicitud + ") id_tipo_solicitud_rechazado "
                     + "from "
                     + "comeval_licencia_docente t "
                     + "where "
