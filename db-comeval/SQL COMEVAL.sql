@@ -2,7 +2,7 @@ select rc.* from rest_credential rc;
 
 -- TABLAS DE CONFIGURACION Y CATALOGOS.
 SELECT t.* FROM tipo_solicitud_comeval t ORDER BY t.id_tipo_solicitud;
-SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=3 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
+SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=4 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
 
 -- WORKFLOW ESTADOS SOLICITUDES. 
 SELECT ws.* FROM workflow_solicitud ws;
@@ -11,7 +11,7 @@ SELECT
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_actual and es.id_tipo_solicitud = ws.id_tipo_solicitud_actual) estado_solicitud_actual, 
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_siguiente and es.id_tipo_solicitud = ws.id_tipo_solicitud_siguiente) estado_solicitud_anterior
 FROM workflow_solicitud ws 
-WHERE ws.id_tipo_solicitud_actual = 3 AND ws.id_tipo_solicitud_siguiente = 3
+WHERE ws.id_tipo_solicitud_actual = 4 AND ws.id_tipo_solicitud_siguiente = 4
 ORDER BY ws.id_tipo_solicitud_actual, ws.id_estado_solicitud_actual, ws.id_tipo_solicitud_siguiente, ws.id_estado_solicitud_siguiente;
 
 -- CONFIGURACIÓN Y ORDEN DE LISTADOS (CATÁLOGOS PROMOCIÓN DOCENTE).
@@ -39,24 +39,24 @@ SELECT t.* FROM resultado_evaluacion t;
 
 SELECT cas.* FROM comeval_acta_solicitud cas ORDER BY cas.id_tipo_solicitud, cas.id_solicitud;
 
-SELECT cso.* FROM comeval_solicitud_observacion cso WHERE cso.id_tipo_solicitud=6 ORDER BY cso.id_tipo_solicitud, cso.id_solicitud, cso.id_observacion;
+SELECT cso.* FROM comeval_solicitud_observacion cso WHERE cso.id_tipo_solicitud=4 ORDER BY cso.id_tipo_solicitud, cso.id_solicitud, cso.id_observacion;
  
 -- SEGUIMIENTOS CAMBIO DE ESTADOS EN LAS SOLICITUDES.
 SELECT swh.id_solicitud, swh.id_workflow ,es.nombre estado_solicitud, ts.nombre tipo_solicitud, swh.usuario, swh.fecha, swh.rechazado, swh.fecha_rechazado 
 FROM solicitud_workflow_historial swh 
 	 LEFT JOIN estado_solicitud_comeval es ON (swh.id_estado_solicitud = es.id_estado_solicitud AND swh.id_tipo_solicitud = es.id_tipo_solicitud) 
 	 LEFT JOIN tipo_solicitud_comeval ts ON (es.id_tipo_solicitud = ts.id_tipo_solicitud)
-WHERE swh.id_tipo_solicitud = 6 -- AND swh.id_solicitud = 1
+WHERE swh.id_tipo_solicitud = 4 -- AND swh.id_solicitud = 1
 ORDER BY swh.id_tipo_solicitud, swh.id_solicitud,  swh.id_workflow, swh.id_estado_solicitud;
 
 -- CODIGO DE PERSONAL PARA PRUEBAS.
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%everest%' AND d.apellido ILIKE '%medinilla%';        -- PERSONAL: 000018150, 000930066
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%julio%' AND d.apellido ILIKE '%flores%';             -- PERSONAL: 020160418
 SELECT d.* FROM personal d WHERE d.nombre ILIKE '%david estuardo%' AND d.apellido ILIKE '%morales%';   -- PERSONAL: 020091178
--- 000013564, 000017976, 000940264, 000014259, 019990748
+-- 000013564, 000017976, 000940264, 000014259, 019990748, 000930336
 
 -- PLAZA PERSONAL.
-SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and personal not in ('000013564','000017976','000940264','000014259');
+SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and personal not in ('000013564','000017976','000940264','000014259', '019990748');
 SELECT p.* FROM plazapersonal p WHERE p.anio=2021 and p.periodo=1 and p.personal='020000915';
 SELECT p.* FROM plazapuesto p WHERE p.puesto='210141';
 
@@ -84,3 +84,13 @@ SELECT t.* FROM titularidad t WHERE t.personal='000930066';
 SELECT l.* FROM licencia l;
 
 
+select distinct swh.id_estado_solicitud, esc.nombre
+from solicitud_workflow_historial swh
+left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud)
+where swh.id_tipo_solicitud=4 and swh.id_solicitud=1 and swh.id_estado_solicitud < 3;
+
+
+select distinct swh.id_estado_solicitud, esc.nombre 
+from solicitud_workflow_historial swh 
+left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud) 
+where swh.id_tipo_solicitud=1 and swh.id_solicitud=1 and swh.id_estado_solicitud < 3;

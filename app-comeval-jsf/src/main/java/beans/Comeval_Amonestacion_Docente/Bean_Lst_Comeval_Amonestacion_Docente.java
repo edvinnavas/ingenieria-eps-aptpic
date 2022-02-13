@@ -187,6 +187,8 @@ public class Bean_Lst_Comeval_Amonestacion_Docente implements Serializable {
         this.id_estado_solicitud = id_estado_solicitud;
     }
 
+    
+   
     public Long getId_tipo_solicitud() {
         return id_tipo_solicitud;
     }
@@ -202,5 +204,5 @@ public class Bean_Lst_Comeval_Amonestacion_Docente implements Serializable {
     public void setBtnCrear(Boolean btnCrear) {
         this.btnCrear = btnCrear;
     }
-    
+
 }

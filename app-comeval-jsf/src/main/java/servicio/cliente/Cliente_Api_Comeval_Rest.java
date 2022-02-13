@@ -453,10 +453,10 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String crear_cambio_horario(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
+    public String cambio_horario_ingresar(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("crear_cambio_horario");
+            WebTarget webTarget = this.client.target(BASE_URI).path("cambio_horario_ingresar");
             String data = new Gson().toJson(lst_comeval_cambio_horario);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.post(Entity.text(data));
@@ -473,10 +473,70 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String modificar_cambio_horario(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
+    public String cambio_horario_modificar(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("modificar_cambio_horario");
+            WebTarget webTarget = this.client.target(BASE_URI).path("cambio_horario_modificar");
+            String data = new Gson().toJson(lst_comeval_cambio_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_cambio_horario):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String cambio_horario_enviar_ingreso_docente(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("cambio_horario_enviar_ingreso_docente");
+            String data = new Gson().toJson(lst_comeval_cambio_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_cambio_horario):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String cambio_horario_enviar_visto_bueno_escuela(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("cambio_horario_enviar_visto_bueno_escuela");
+            String data = new Gson().toJson(lst_comeval_cambio_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_cambio_horario):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String cambio_horario_enviar_visto_bueno_secretario(List<entidad.Comeval_Cambio_Horario> lst_comeval_cambio_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("cambio_horario_enviar_visto_bueno_secretario");
             String data = new Gson().toJson(lst_comeval_cambio_horario);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.put(Entity.text(data));

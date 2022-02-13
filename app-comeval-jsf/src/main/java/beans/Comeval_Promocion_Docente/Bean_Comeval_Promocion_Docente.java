@@ -316,7 +316,7 @@ public class Bean_Comeval_Promocion_Docente implements Serializable {
             cadenasql = "select distinct swh.id_estado_solicitud, esc.nombre "
                     + "from solicitud_workflow_historial swh "
                     + "left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud) "
-                    + "where swh.id_solicitud=" + id_comeval_promocion_docente + " and swh.id_estado_solicitud < " + id_estado_solicitud;
+                    + "where swh.id_tipo_solicitud=" + id_tipo_solicitud + " and swh.id_solicitud=" + id_comeval_promocion_docente + " and swh.id_estado_solicitud < " + id_estado_solicitud;
             cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
             jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
             listType = new TypeToken<ArrayList<String>>() {
