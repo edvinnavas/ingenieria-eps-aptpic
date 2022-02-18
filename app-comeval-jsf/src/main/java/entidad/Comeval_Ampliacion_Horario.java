@@ -6,49 +6,49 @@ import java.util.List;
 public class Comeval_Ampliacion_Horario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private Long id_comeval_ampliacion_horario;
     private String personal;
+    private Long id_tipo_ampliacion_horario;
     private Long id_plaza_temporal;
     private Long id_plaza_indefinido;
-    private String descripcion_solicitud;
-    private Long id_solicitud_acta;
-    private String no_acta;
-    private String anio_acta;
-    private String punto_acta;
-    private String inciso_acta;
-    private String fecha_acta;
-    private String resolucion_acta;
+    private String nota_ref;
+    private String fecha_nota_ref;
+    private String usuario;
     private String fecha_ingreso;
     private Long id_estado_solicitud;
     private Long id_tipo_solicitud;
     private Long rechazado;
-    private Long visto_bueno_director;
+    private Long id_estado_solicitud_rechazado;
+    private Long id_tipo_solicitud_rechazado;
+    private Long visto_bueno_director_escuela;
     private Long visto_bueno_secretario_academico;
     private Long notificacion_tesoreria;
     private List<Comeval_Ampliacion_Horario_Plaza> lst_horario_plaza;
+    private Comeval_Acta_Solicitud comeval_acta_solicitud;
+    private List<Comeval_Solicitud_Observacion> lst_observaciones;
 
-    public Comeval_Ampliacion_Horario(Long id_comeval_ampliacion_horario, String personal, Long id_plaza_temporal, Long id_plaza_indefinido, String descripcion_solicitud, Long id_solicitud_acta, String no_acta, String anio_acta, String punto_acta, String inciso_acta, String fecha_acta, String resolucion_acta, String fecha_ingreso, Long id_estado_solicitud, Long id_tipo_solicitud, Long rechazado, Long visto_bueno_director, Long visto_bueno_secretario_academico, Long notificacion_tesoreria, List<Comeval_Ampliacion_Horario_Plaza> lst_horario_plaza) {
+    public Comeval_Ampliacion_Horario(Long id_comeval_ampliacion_horario, String personal, Long id_tipo_ampliacion_horario, Long id_plaza_temporal, Long id_plaza_indefinido, String nota_ref, String fecha_nota_ref, String usuario, String fecha_ingreso, Long id_estado_solicitud, Long id_tipo_solicitud, Long rechazado, Long id_estado_solicitud_rechazado, Long id_tipo_solicitud_rechazado, Long visto_bueno_director_escuela, Long visto_bueno_secretario_academico, Long notificacion_tesoreria, List<Comeval_Ampliacion_Horario_Plaza> lst_horario_plaza, Comeval_Acta_Solicitud comeval_acta_solicitud, List<Comeval_Solicitud_Observacion> lst_observaciones) {
         this.id_comeval_ampliacion_horario = id_comeval_ampliacion_horario;
         this.personal = personal;
+        this.id_tipo_ampliacion_horario = id_tipo_ampliacion_horario;
         this.id_plaza_temporal = id_plaza_temporal;
         this.id_plaza_indefinido = id_plaza_indefinido;
-        this.descripcion_solicitud = descripcion_solicitud;
-        this.id_solicitud_acta = id_solicitud_acta;
-        this.no_acta = no_acta;
-        this.anio_acta = anio_acta;
-        this.punto_acta = punto_acta;
-        this.inciso_acta = inciso_acta;
-        this.fecha_acta = fecha_acta;
-        this.resolucion_acta = resolucion_acta;
+        this.nota_ref = nota_ref;
+        this.fecha_nota_ref = fecha_nota_ref;
+        this.usuario = usuario;
         this.fecha_ingreso = fecha_ingreso;
         this.id_estado_solicitud = id_estado_solicitud;
         this.id_tipo_solicitud = id_tipo_solicitud;
         this.rechazado = rechazado;
-        this.visto_bueno_director = visto_bueno_director;
+        this.id_estado_solicitud_rechazado = id_estado_solicitud_rechazado;
+        this.id_tipo_solicitud_rechazado = id_tipo_solicitud_rechazado;
+        this.visto_bueno_director_escuela = visto_bueno_director_escuela;
         this.visto_bueno_secretario_academico = visto_bueno_secretario_academico;
         this.notificacion_tesoreria = notificacion_tesoreria;
         this.lst_horario_plaza = lst_horario_plaza;
+        this.comeval_acta_solicitud = comeval_acta_solicitud;
+        this.lst_observaciones = lst_observaciones;
     }
 
     public Comeval_Ampliacion_Horario() {
@@ -70,6 +70,14 @@ public class Comeval_Ampliacion_Horario implements Serializable {
         this.personal = personal;
     }
 
+    public Long getId_tipo_ampliacion_horario() {
+        return id_tipo_ampliacion_horario;
+    }
+
+    public void setId_tipo_ampliacion_horario(Long id_tipo_ampliacion_horario) {
+        this.id_tipo_ampliacion_horario = id_tipo_ampliacion_horario;
+    }
+
     public Long getId_plaza_temporal() {
         return id_plaza_temporal;
     }
@@ -86,68 +94,28 @@ public class Comeval_Ampliacion_Horario implements Serializable {
         this.id_plaza_indefinido = id_plaza_indefinido;
     }
 
-    public String getDescripcion_solicitud() {
-        return descripcion_solicitud;
+    public String getNota_ref() {
+        return nota_ref;
     }
 
-    public void setDescripcion_solicitud(String descripcion_solicitud) {
-        this.descripcion_solicitud = descripcion_solicitud;
+    public void setNota_ref(String nota_ref) {
+        this.nota_ref = nota_ref;
     }
 
-    public Long getId_solicitud_acta() {
-        return id_solicitud_acta;
+    public String getFecha_nota_ref() {
+        return fecha_nota_ref;
     }
 
-    public void setId_solicitud_acta(Long id_solicitud_acta) {
-        this.id_solicitud_acta = id_solicitud_acta;
+    public void setFecha_nota_ref(String fecha_nota_ref) {
+        this.fecha_nota_ref = fecha_nota_ref;
     }
 
-    public String getNo_acta() {
-        return no_acta;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setNo_acta(String no_acta) {
-        this.no_acta = no_acta;
-    }
-
-    public String getAnio_acta() {
-        return anio_acta;
-    }
-
-    public void setAnio_acta(String anio_acta) {
-        this.anio_acta = anio_acta;
-    }
-
-    public String getPunto_acta() {
-        return punto_acta;
-    }
-
-    public void setPunto_acta(String punto_acta) {
-        this.punto_acta = punto_acta;
-    }
-
-    public String getInciso_acta() {
-        return inciso_acta;
-    }
-
-    public void setInciso_acta(String inciso_acta) {
-        this.inciso_acta = inciso_acta;
-    }
-
-    public String getFecha_acta() {
-        return fecha_acta;
-    }
-
-    public void setFecha_acta(String fecha_acta) {
-        this.fecha_acta = fecha_acta;
-    }
-
-    public String getResolucion_acta() {
-        return resolucion_acta;
-    }
-
-    public void setResolucion_acta(String resolucion_acta) {
-        this.resolucion_acta = resolucion_acta;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getFecha_ingreso() {
@@ -182,12 +150,28 @@ public class Comeval_Ampliacion_Horario implements Serializable {
         this.rechazado = rechazado;
     }
 
-    public Long getVisto_bueno_director() {
-        return visto_bueno_director;
+    public Long getId_estado_solicitud_rechazado() {
+        return id_estado_solicitud_rechazado;
     }
 
-    public void setVisto_bueno_director(Long visto_bueno_director) {
-        this.visto_bueno_director = visto_bueno_director;
+    public void setId_estado_solicitud_rechazado(Long id_estado_solicitud_rechazado) {
+        this.id_estado_solicitud_rechazado = id_estado_solicitud_rechazado;
+    }
+
+    public Long getId_tipo_solicitud_rechazado() {
+        return id_tipo_solicitud_rechazado;
+    }
+
+    public void setId_tipo_solicitud_rechazado(Long id_tipo_solicitud_rechazado) {
+        this.id_tipo_solicitud_rechazado = id_tipo_solicitud_rechazado;
+    }
+
+    public Long getVisto_bueno_director_escuela() {
+        return visto_bueno_director_escuela;
+    }
+
+    public void setVisto_bueno_director_escuela(Long visto_bueno_director_escuela) {
+        this.visto_bueno_director_escuela = visto_bueno_director_escuela;
     }
 
     public Long getVisto_bueno_secretario_academico() {
@@ -214,9 +198,25 @@ public class Comeval_Ampliacion_Horario implements Serializable {
         this.lst_horario_plaza = lst_horario_plaza;
     }
 
+    public Comeval_Acta_Solicitud getComeval_acta_solicitud() {
+        return comeval_acta_solicitud;
+    }
+
+    public void setComeval_acta_solicitud(Comeval_Acta_Solicitud comeval_acta_solicitud) {
+        this.comeval_acta_solicitud = comeval_acta_solicitud;
+    }
+
+    public List<Comeval_Solicitud_Observacion> getLst_observaciones() {
+        return lst_observaciones;
+    }
+
+    public void setLst_observaciones(List<Comeval_Solicitud_Observacion> lst_observaciones) {
+        this.lst_observaciones = lst_observaciones;
+    }
+
     @Override
     public String toString() {
-        return "Comeval_Ampliacion_Horario{" + "id_comeval_ampliacion_horario=" + id_comeval_ampliacion_horario + ", personal=" + personal + ", id_plaza_temporal=" + id_plaza_temporal + ", id_plaza_indefinido=" + id_plaza_indefinido + ", descripcion_solicitud=" + descripcion_solicitud + ", id_solicitud_acta=" + id_solicitud_acta + ", no_acta=" + no_acta + ", anio_acta=" + anio_acta + ", punto_acta=" + punto_acta + ", inciso_acta=" + inciso_acta + ", fecha_acta=" + fecha_acta + ", resolucion_acta=" + resolucion_acta + ", fecha_ingreso=" + fecha_ingreso + ", id_estado_solicitud=" + id_estado_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", rechazado=" + rechazado + ", visto_bueno_director=" + visto_bueno_director + ", visto_bueno_secretario_academico=" + visto_bueno_secretario_academico + ", notificacion_tesoreria=" + notificacion_tesoreria + ", lst_horario_plaza=" + lst_horario_plaza + '}';
+        return "Comeval_Ampliacion_Horario{" + "id_comeval_ampliacion_horario=" + id_comeval_ampliacion_horario + ", personal=" + personal + ", id_tipo_ampliacion_horario=" + id_tipo_ampliacion_horario + ", id_plaza_temporal=" + id_plaza_temporal + ", id_plaza_indefinido=" + id_plaza_indefinido + ", nota_ref=" + nota_ref + ", fecha_nota_ref=" + fecha_nota_ref + ", usuario=" + usuario + ", fecha_ingreso=" + fecha_ingreso + ", id_estado_solicitud=" + id_estado_solicitud + ", id_tipo_solicitud=" + id_tipo_solicitud + ", rechazado=" + rechazado + ", id_estado_solicitud_rechazado=" + id_estado_solicitud_rechazado + ", id_tipo_solicitud_rechazado=" + id_tipo_solicitud_rechazado + ", visto_bueno_director_escuela=" + visto_bueno_director_escuela + ", visto_bueno_secretario_academico=" + visto_bueno_secretario_academico + ", notificacion_tesoreria=" + notificacion_tesoreria + ", lst_horario_plaza=" + lst_horario_plaza + ", comeval_acta_solicitud=" + comeval_acta_solicitud + ", lst_observaciones=" + lst_observaciones + '}';
     }
-    
+
 }

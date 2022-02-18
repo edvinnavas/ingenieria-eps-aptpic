@@ -2,7 +2,7 @@ select rc.* from rest_credential rc;
 
 -- TABLAS DE CONFIGURACION Y CATALOGOS.
 SELECT t.* FROM tipo_solicitud_comeval t ORDER BY t.id_tipo_solicitud;
-SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=4 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
+SELECT t.* FROM estado_solicitud_comeval t WHERE t.id_tipo_solicitud=5 ORDER BY t.id_tipo_solicitud, t.id_estado_solicitud;
 
 -- WORKFLOW ESTADOS SOLICITUDES. 
 SELECT ws.* FROM workflow_solicitud ws;
@@ -11,7 +11,7 @@ SELECT
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_actual and es.id_tipo_solicitud = ws.id_tipo_solicitud_actual) estado_solicitud_actual, 
 	(select es.nombre from estado_solicitud_comeval es where es.id_estado_solicitud = ws.id_estado_solicitud_siguiente and es.id_tipo_solicitud = ws.id_tipo_solicitud_siguiente) estado_solicitud_anterior
 FROM workflow_solicitud ws 
-WHERE ws.id_tipo_solicitud_actual = 4 AND ws.id_tipo_solicitud_siguiente = 4
+WHERE ws.id_tipo_solicitud_actual = 5 AND ws.id_tipo_solicitud_siguiente = 5
 ORDER BY ws.id_tipo_solicitud_actual, ws.id_estado_solicitud_actual, ws.id_tipo_solicitud_siguiente, ws.id_estado_solicitud_siguiente;
 
 -- CONFIGURACIÓN Y ORDEN DE LISTADOS (CATÁLOGOS PROMOCIÓN DOCENTE).
@@ -82,15 +82,3 @@ SELECT th.* FROM titularidadhistorial th WHERE th.personal='000930131' ORDER BY 
 SELECT t.* FROM titularidad t WHERE t.personal='000930066';
 
 SELECT l.* FROM licencia l;
-
-
-select distinct swh.id_estado_solicitud, esc.nombre
-from solicitud_workflow_historial swh
-left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud)
-where swh.id_tipo_solicitud=4 and swh.id_solicitud=1 and swh.id_estado_solicitud < 3;
-
-
-select distinct swh.id_estado_solicitud, esc.nombre 
-from solicitud_workflow_historial swh 
-left join estado_solicitud_comeval esc on (swh.id_tipo_solicitud=esc.id_tipo_solicitud and swh.id_estado_solicitud=esc.id_estado_solicitud) 
-where swh.id_tipo_solicitud=1 and swh.id_solicitud=1 and swh.id_estado_solicitud < 3;

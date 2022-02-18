@@ -265,7 +265,6 @@ public class Bean_Comeval_Cambio_Horario implements Serializable {
                 String[] rol = lista_drive.get(i).split("♣");
                 this.lst_estado_solicitud.add(new SelectItem(Long.parseLong(rol[0]), rol[1]));
             }
-
             this.lst_tipo_solicitud_rechazado = this.lst_tipo_solicitud;
 
             this.lst_estado_solicitud_rechazado = new ArrayList<>();
@@ -374,7 +373,11 @@ public class Bean_Comeval_Cambio_Horario implements Serializable {
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.txtCodigoDocente = false;
                 this.txtNombreDocente = true;
                 this.txtNotaRef = true;
@@ -405,7 +408,11 @@ public class Bean_Comeval_Cambio_Horario implements Serializable {
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.txtCodigoDocente = true;
                 this.txtNombreDocente = true;
                 this.txtNotaRef = false;
@@ -436,7 +443,11 @@ public class Bean_Comeval_Cambio_Horario implements Serializable {
                 this.cbxTipoSolicitud = true;
                 this.cbxEstadoSolicitud = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.txtCodigoDocente = true;
                 this.txtNombreDocente = true;
                 this.txtNotaRef = false;
@@ -559,7 +570,8 @@ public class Bean_Comeval_Cambio_Horario implements Serializable {
                     entidad.Comeval_Cambio_Horario comeval_cambio_horario = new entidad.Comeval_Cambio_Horario(
                             this.id_comeval_cambio_horario,
                             this.personal,
-                            this.id_tipo_cambio_horario, this.nota_ref,
+                            this.id_tipo_cambio_horario, 
+                            this.nota_ref,
                             dateFormat.format(this.fecha_nota_ref),
                             this.usuario.getUsuario(),
                             dateFormat.format(new Date()),

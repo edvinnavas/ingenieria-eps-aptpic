@@ -4,106 +4,164 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-    
+
     <p:dialog id="ComevalAmpliacionHorarioDialog" header="Ampliación-Horario" widgetVar="ComevalAmpliacionHorarioDialogVar" modal="true" appendTo="@(body)" resizable="false" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
         <h:form id="ComevalAmpliacionHorarioForm">
             <link href="../css/style.css" rel="stylesheet" type="text/css"/>
-            
-            <h:panelGrid columns="2">
-                <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
-                <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
-                <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxTipoSolicitud}" value="#{Bean_Comeval_Ampliacion_Horario.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
-                    <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_tipo_solicitud}"/>
-                </p:selectOneMenu>
-                <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxEstadoSolicitud}" value="#{Bean_Comeval_Ampliacion_Horario.id_estado_solicitud}" style="width: 200px; font-size:10px;">
-                    <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_estado_solicitud}"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="1">
-                <p:outputLabel value="Código-Docente" style="font-size:10px; font-weight:bold;"/>
-                <p:inputText id="txtCodigoDocente" readonly="#{Bean_Comeval_Ampliacion_Horario.txtCodigoDocente}" value="#{Bean_Comeval_Ampliacion_Horario.codigo_docente}" style="width: 214px; font-size:10px;">
-                    <p:ajax event="blur" listener="#{Bean_Comeval_Ampliacion_Horario.datos_docente}" update="txtNombreDocente,calHoraInicio,calHoraFin,chxLunes,chxMartes,chxMiercoles,chxJueves,chxViernes,chxSabado,chxDomingo,tblHorario"/>
-                </p:inputText>
-                <p:outputLabel value="Nombre del docente" style="font-size:10px; font-weight:bold;"/>
-                <p:inputText id="txtNombreDocente" readonly="#{Bean_Comeval_Ampliacion_Horario.txtNombreDocente}" value="#{Bean_Comeval_Ampliacion_Horario.nombre_docente}" style="width: 440px; font-size:10px; background-color: yellow; color: blue;"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="2">
-                <p:outputLabel value="Plaza temporal" style="font-size:10px; font-weight:bold;"/>
-                <p:outputLabel value="Plaza indefinido" style="font-size:10px; font-weight:bold;"/>
-                <p:selectOneMenu id="cbxPlazaTemporal" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxPlazaTemporal}" value="#{Bean_Comeval_Ampliacion_Horario.id_plaza_temporal}" style="width: 200px; font-size:10px;">
-                    <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_plaza_temporal}"/>
-                </p:selectOneMenu>
-                <p:selectOneMenu id="cbxPlazaIndefinido" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxPlazaIndefinido}" value="#{Bean_Comeval_Ampliacion_Horario.id_plaza_indefinido}" style="width: 200px; font-size:10px;">
-                    <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_plaza_indefinido}"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="3">
-                <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Ampliacion_Horario.chxRechazado}" value="#{Bean_Comeval_Ampliacion_Horario.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxVistoBuenoDirector" disabled="#{Bean_Comeval_Ampliacion_Horario.chxVistoBuenoDirector}" value="#{Bean_Comeval_Ampliacion_Horario.visto_bueno_director_form}" itemLabel="Visto bueno Director" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxVistoSecretarioAcademico" disabled="#{Bean_Comeval_Ampliacion_Horario.chxVistoSecretarioAcademico}" value="#{Bean_Comeval_Ampliacion_Horario.visto_bueno_secretario_academico_form}" itemLabel="Visto bueno Secretario Académico" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxNotificacionTesoreria" disabled="#{Bean_Comeval_Ampliacion_Horario.chxNotificacionTesoreria}" value="#{Bean_Comeval_Ampliacion_Horario.notificacion_tesoreria_form}" itemLabel="Notificación tesorería" style="font-size:10px; font-weight:bold;"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="1">
-                <p:outputLabel value="Observación del docente" style="font-size:10px; font-weight:bold;"/>
-                <p:inputTextarea id="areObservacionDocente" readonly="#{Bean_Comeval_Ampliacion_Horario.areObservacionDocente}" value="#{Bean_Comeval_Ampliacion_Horario.descripcion_solicitud}" rows="6" autoResize="false" scrollHeight="6" style="width: 440px; font-size:10px;"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="2">
-                <p:outputLabel value="Hora inicio" style="font-size:10px; font-weight:bold;"/>
-                <p:outputLabel value="Hora fin" style="font-size:10px; font-weight:bold;"/>
-                <p:calendar id="calHoraInicio" disabled="#{Bean_Comeval_Ampliacion_Horario.calHoraInicio}" value="#{Bean_Comeval_Ampliacion_Horario.hora_inicio}" pattern="HH:mm" timeOnly="true" showHour="true" showMinute="true" showSecond="false" style="font-size:10px;"/>
-                <p:calendar id="calHoraFin" disabled="#{Bean_Comeval_Ampliacion_Horario.calHoraFin}" value="#{Bean_Comeval_Ampliacion_Horario.hora_fin}" pattern="HH:mm" timeOnly="true" showHour="true" showMinute="true" showSecond="false" style="font-size:10px;"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="7">
-                <p:selectBooleanCheckbox id="chxLunes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxLunes}" value="#{Bean_Comeval_Ampliacion_Horario.lunes}" itemLabel="L" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxMartes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxMartes}" value="#{Bean_Comeval_Ampliacion_Horario.martes}" itemLabel="MA" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxMiercoles" disabled="#{Bean_Comeval_Ampliacion_Horario.chxMiercoles}" value="#{Bean_Comeval_Ampliacion_Horario.miercoles}" itemLabel="M" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxJueves" disabled="#{Bean_Comeval_Ampliacion_Horario.chxJueves}" value="#{Bean_Comeval_Ampliacion_Horario.jueves}" itemLabel="J" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxViernes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxViernes}" value="#{Bean_Comeval_Ampliacion_Horario.viernes}" itemLabel="V" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxSabado" disabled="#{Bean_Comeval_Ampliacion_Horario.chxSabado}" value="#{Bean_Comeval_Ampliacion_Horario.sabado}" itemLabel="S" style="font-size:10px; font-weight:bold;"/>
-                <p:selectBooleanCheckbox id="chxDomingo" disabled="#{Bean_Comeval_Ampliacion_Horario.chxDomingo}" value="#{Bean_Comeval_Ampliacion_Horario.domingo}" itemLabel="D" style="font-size:10px; font-weight:bold;"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="1">
-                <p:commandButton id="btnAgregarHorario" disabled="#{Bean_Comeval_Ampliacion_Horario.btnAgregarHorario}" value="Agregar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Ampliacion_Horario.agregar_horario}" update=":formMensaje:mensaje2,tblHorario,calHoraInicio,calHoraFin,chxLunes,chxMartes,chxMiercoles,chxJueves,chxViernes,chxSabado,chxDomingo" style="font-size:10px; font-weight:bold;"/>
-                <p:dataTable
-                    id="tblHorario"
-                    var="horario"
-                    widgetVar="vartblHorario"
-                    value="#{Bean_Comeval_Ampliacion_Horario.lst_horarios}"
-                    selectionMode="single"
-                    selection="#{Bean_Comeval_Ampliacion_Horario.sel_horarios}"
-                    rowKey="#{horario.id_horario}"
-                    paginator="true"
-                    rows="3"
-                    rowsPerPageTemplate="3"
-                    paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                    style="width: 600px; font-size:10px;">
-                    
-                    <p:column headerText="Id" sortBy="#{horario.id_horario}" filterBy="#{horario.id_horario}" filterMatchMode="contains">
-                        <h:outputText value="#{horario.id_horario}"/>
-                    </p:column>
-                    <p:column headerText="Hora-Inicio" sortBy="#{horario.hora_inicio}" filterBy="#{horario.hora_inicio}" filterMatchMode="contains">
-                        <h:outputText value="#{horario.hora_inicio}"/>
-                    </p:column>
-                    <p:column headerText="Hora-Fin" sortBy="#{horario.hora_final}" filterBy="#{horario.hora_final}" filterMatchMode="contains">
-                        <h:outputText value="#{horario.hora_final}"/>
-                    </p:column>
-                    <p:column headerText="Dís" sortBy="#{horario.dias}" filterBy="#{horario.dias}" filterMatchMode="contains">
-                        <h:outputText value="#{horario.dias}"/>
-                    </p:column>
+            <p:tabView id="tabView1">
+                <p:tab id="tab1" title="Solicitud">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Tipo solicitud" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Estado solicitud" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoSolicitud" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxTipoSolicitud}" value="#{Bean_Comeval_Ampliacion_Horario.id_tipo_solicitud}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_tipo_solicitud}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cbxEstadoSolicitud" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxEstadoSolicitud}" value="#{Bean_Comeval_Ampliacion_Horario.id_estado_solicitud}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_estado_solicitud}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
 
-                    <f:facet name="footer">
-                        <p:commandButton id="btnEliminarHorario" disabled="#{Bean_Comeval_Ampliacion_Horario.btnEliminarHorario}" value="Eliminar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Ampliacion_Horario.eliminar_horario}" update=":formMensaje:mensaje2,tblHorario" style="font-size:10px; font-weight:bold;"/>
-                    </f:facet>
-                </p:dataTable>
-            </h:panelGrid>
-            
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="Código-Docente" style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtCodigoDocente" readonly="#{Bean_Comeval_Ampliacion_Horario.txtCodigoDocente}" value="#{Bean_Comeval_Ampliacion_Horario.codigo_docente}" style="width: 214px; font-size:10px;">
+                            <p:ajax event="blur" listener="#{Bean_Comeval_Ampliacion_Horario.datos_docente}" update="txtNombreDocente,calHoraInicio,calHoraFin,chxLunes,chxMartes,chxMiercoles,chxJueves,chxViernes,chxSabado,chxDomingo,tblHorario"/>
+                        </p:inputText>
+                        <p:outputLabel value="Nombre del docente" style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtNombreDocente" readonly="#{Bean_Comeval_Ampliacion_Horario.txtNombreDocente}" value="#{Bean_Comeval_Ampliacion_Horario.nombre_docente}" style="width: 440px; font-size:10px; background-color: yellow; color: blue;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="Tipo Ampliación Horario" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoAmpliacionHorario" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxTipoAmpliacionHorario}" value="#{Bean_Comeval_Ampliacion_Horario.id_tipo_ampliacion_horario}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_tipo_ampliacion_horario}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Plaza temporal" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Plaza indefinido" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxPlazaTemporal" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxPlazaTemporal}" value="#{Bean_Comeval_Ampliacion_Horario.id_plaza_temporal}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_plaza_temporal}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cbxPlazaIndefinido" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxPlazaIndefinido}" value="#{Bean_Comeval_Ampliacion_Horario.id_plaza_indefinido}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_plaza_indefinido}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Nota Ref." style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Fecha Nota Ref." style="font-size:10px; font-weight:bold;"/>
+                        <p:inputText id="txtNotaRef" readonly="#{Bean_Comeval_Ampliacion_Horario.txtNotaRef}" value="#{Bean_Comeval_Ampliacion_Horario.nota_ref}" style="width: 214px; font-size:10px;"/>
+                        <p:calendar id="calFechaNotaRef" disabled="#{Bean_Comeval_Ampliacion_Horario.calFechaNotaRef}" value="#{Bean_Comeval_Ampliacion_Horario.fecha_nota_ref}" pattern="yyyy/MM/dd HH:mm:ss" showHour="true" showMinute="true" showSecond="true" style="font-size:10px;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <p:selectBooleanCheckbox id="chxRechazado" disabled="#{Bean_Comeval_Ampliacion_Horario.chxRechazado}" value="#{Bean_Comeval_Ampliacion_Horario.rechazado_form}" itemLabel="Rechazado" style="font-size:10px; font-weight:bold;">
+                            <p:ajax update="cbxEstadoSolicitudRechazado" listener="#{Bean_Comeval_Ampliacion_Horario.check_cambio_valor}"/>
+                        </p:selectBooleanCheckbox>
+                        <p:selectBooleanCheckbox id="chxVistoBuenoDirector" disabled="#{Bean_Comeval_Ampliacion_Horario.chxVistoBuenoDirector}" value="#{Bean_Comeval_Ampliacion_Horario.visto_bueno_director_form}" itemLabel="Visto bueno Director" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxVistoSecretarioAcademico" disabled="#{Bean_Comeval_Ampliacion_Horario.chxVistoSecretarioAcademico}" value="#{Bean_Comeval_Ampliacion_Horario.visto_bueno_secretario_academico_form}" itemLabel="Visto bueno Secretario Académico" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxNotificacionTesoreria" disabled="#{Bean_Comeval_Ampliacion_Horario.chxNotificacionTesoreria}" value="#{Bean_Comeval_Ampliacion_Horario.notificacion_tesoreria_form}" itemLabel="Notificación tesorería" style="font-size:10px; font-weight:bold;"/>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Hora inicio" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Hora fin" style="font-size:10px; font-weight:bold;"/>
+                        <p:calendar id="calHoraInicio" disabled="#{Bean_Comeval_Ampliacion_Horario.calHoraInicio}" value="#{Bean_Comeval_Ampliacion_Horario.hora_inicio}" pattern="HH:mm" timeOnly="true" showHour="true" showMinute="true" showSecond="false" style="font-size:10px;"/>
+                        <p:calendar id="calHoraFin" disabled="#{Bean_Comeval_Ampliacion_Horario.calHoraFin}" value="#{Bean_Comeval_Ampliacion_Horario.hora_fin}" pattern="HH:mm" timeOnly="true" showHour="true" showMinute="true" showSecond="false" style="font-size:10px;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="7">
+                        <p:selectBooleanCheckbox id="chxLunes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxLunes}" value="#{Bean_Comeval_Ampliacion_Horario.lunes}" itemLabel="L" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxMartes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxMartes}" value="#{Bean_Comeval_Ampliacion_Horario.martes}" itemLabel="MA" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxMiercoles" disabled="#{Bean_Comeval_Ampliacion_Horario.chxMiercoles}" value="#{Bean_Comeval_Ampliacion_Horario.miercoles}" itemLabel="M" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxJueves" disabled="#{Bean_Comeval_Ampliacion_Horario.chxJueves}" value="#{Bean_Comeval_Ampliacion_Horario.jueves}" itemLabel="J" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxViernes" disabled="#{Bean_Comeval_Ampliacion_Horario.chxViernes}" value="#{Bean_Comeval_Ampliacion_Horario.viernes}" itemLabel="V" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxSabado" disabled="#{Bean_Comeval_Ampliacion_Horario.chxSabado}" value="#{Bean_Comeval_Ampliacion_Horario.sabado}" itemLabel="S" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectBooleanCheckbox id="chxDomingo" disabled="#{Bean_Comeval_Ampliacion_Horario.chxDomingo}" value="#{Bean_Comeval_Ampliacion_Horario.domingo}" itemLabel="D" style="font-size:10px; font-weight:bold;"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <p:commandButton id="btnAgregarHorario" disabled="#{Bean_Comeval_Ampliacion_Horario.btnAgregarHorario}" value="Agregar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Ampliacion_Horario.agregar_horario}" update=":formMensaje:mensaje2,tblHorario,calHoraInicio,calHoraFin,chxLunes,chxMartes,chxMiercoles,chxJueves,chxViernes,chxSabado,chxDomingo" style="font-size:10px; font-weight:bold;"/>
+                        <p:dataTable
+                            id="tblHorario"
+                            var="horario"
+                            widgetVar="vartblHorario"
+                            value="#{Bean_Comeval_Ampliacion_Horario.lst_horarios}"
+                            selectionMode="single"
+                            selection="#{Bean_Comeval_Ampliacion_Horario.sel_horarios}"
+                            rowKey="#{horario.id_horario}"
+                            paginator="true"
+                            rows="3"
+                            rowsPerPageTemplate="3"
+                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                            style="width: 600px; font-size:10px;">
+
+                            <p:column headerText="Id" sortBy="#{horario.id_horario}" filterBy="#{horario.id_horario}" filterMatchMode="contains">
+                                <h:outputText value="#{horario.id_horario}"/>
+                            </p:column>
+                            <p:column headerText="Hora-Inicio" sortBy="#{horario.hora_inicio}" filterBy="#{horario.hora_inicio}" filterMatchMode="contains">
+                                <h:outputText value="#{horario.hora_inicio}"/>
+                            </p:column>
+                            <p:column headerText="Hora-Fin" sortBy="#{horario.hora_final}" filterBy="#{horario.hora_final}" filterMatchMode="contains">
+                                <h:outputText value="#{horario.hora_final}"/>
+                            </p:column>
+                            <p:column headerText="Dís" sortBy="#{horario.dias}" filterBy="#{horario.dias}" filterMatchMode="contains">
+                                <h:outputText value="#{horario.dias}"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="btnEliminarHorario" disabled="#{Bean_Comeval_Ampliacion_Horario.btnEliminarHorario}" value="Eliminar" icon="ui-icon-trash" actionListener="#{Bean_Comeval_Ampliacion_Horario.eliminar_horario}" update=":formMensaje:mensaje2,tblHorario" style="font-size:10px; font-weight:bold;"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:panelGrid>        
+                </p:tab>
+                <p:tab id="tab2" title="Observaciones">
+                    <h:panelGrid columns="1">
+                        <p:dataTable
+                            id="tblObservaciones"
+                            var="observaciones"
+                            widgetVar="varTblObservaciones"
+                            value="#{Bean_Comeval_Ampliacion_Horario.lst_observaciones}"
+                            selectionMode="single"
+                            selection="#{Bean_Comeval_Ampliacion_Horario.sel_observaciones}"
+                            rowKey="#{observaciones.id_observacion}"
+                            paginator="true"
+                            rows="10"
+                            rowsPerPageTemplate="10"
+                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                            style="width: 450px; font-size:10px;">
+
+                            <p:column headerText="Dependencia" sortBy="#{observaciones.dependencia}" filterBy="#{observaciones.dependencia}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.dependencia}"/>
+                            </p:column>
+                            <p:column headerText="Fecha-Hora" sortBy="#{observaciones.fecha_hora}" filterBy="#{observaciones.fecha_hora}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.fecha_hora}"/>
+                            </p:column>
+                            <p:column headerText="Observación" sortBy="#{observaciones.observacion}" filterBy="#{observaciones.observacion}" filterMatchMode="contains">
+                                <h:outputText value="#{observaciones.observacion}"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="btnAgregarObservacion" disabled="#{Bean_Comeval_Ampliacion_Horario.btnAgregarObservacion}" value="Agregar" actionListener="#{Bean_Comeval_Ampliacion_Horario.agregar_observacion}" icon="ui-icon-plus" update="AmpliacionHorarioObservacionDialog,:AmpliacionHorarioObservacionesForm" style="font-size:10px; font-weight:bold;"/>
+                                <p:commandButton id="btnEliminarObservacion" disabled="#{Bean_Comeval_Ampliacion_Horario.btnEliminarObservacion}" value="Eliminar" actionListener="#{Bean_Comeval_Ampliacion_Horario.eliminar_observacion}" icon="ui-icon-trash" update="tblObservaciones" style="font-size:10px; font-weight:bold;"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab id="tab3" title="Rechazado">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Tipo sopitud rechazado" style="font-size:10px; font-weight:bold;"/>
+                        <p:outputLabel value="Estado solicitud rechazado" style="font-size:10px; font-weight:bold;"/>
+                        <p:selectOneMenu id="cbxTipoSolicitudRechazado" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxTipoSolicitudRechazado}" value="#{Bean_Comeval_Ampliacion_Horario.id_tipo_solicitud_rechazado}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_tipo_solicitud_rechazado}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu id="cbxEstadoSolicitudRechazado" disabled="#{Bean_Comeval_Ampliacion_Horario.cbxEstadoSolicitudRechazado}" value="#{Bean_Comeval_Ampliacion_Horario.id_estado_solicitud_rechazado}" style="width: 200px; font-size:10px;">
+                            <f:selectItems value="#{Bean_Comeval_Ampliacion_Horario.lst_estado_solicitud_rechazado}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
             <div align="right">
                 <p:commandButton id="btnAceptar" disabled="#{Bean_Comeval_Ampliacion_Horario.btnAceptar}" value="Aceptar" actionListener="#{Bean_Comeval_Ampliacion_Horario.aceptar}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{Bean_Lst_Comeval_Ampliacion_Horario.cargar_datos(Bean_Comeval_Ampliacion_Horario.usuario, Bean_Comeval_Ampliacion_Horario.id_estado_solicitud, Bean_Comeval_Ampliacion_Horario.id_tipo_solicitud)}" update=":formMensaje:mensaje2,:formContenido" style="font-size:10px; font-weight:bold;">
                     <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
@@ -113,6 +171,22 @@
                     <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="font-size:10px;"/>
                     <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="font-size:10px;"/>
                 </p:confirmDialog>
+            </div>
+        </h:form>
+    </p:dialog>
+    
+    <p:dialog id="AmpliacionHorarioObservacionDialog" header="Observaciones" widgetVar="AmpliacionHorarioObservacionesDialogVar" modal="true" appendTo="@(body)" resizable="true" closable="true" closeOnEscape="true" style="font-size:12px; font-weight:bold;">
+        <h:form id="AmpliacionHorarioObservacionesForm">
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Dependencia" style="font-size:10px; font-weight:bold;"/>
+                <p:inputText id="txtTitularidadActual" readonly="true" value="#{Bean_Comeval_Ampliacion_Horario.dependencia_observaciones}" style="width: 214px; font-size:10px; background-color: yellow; color: blue;"/>
+                <p:outputLabel value="Observación" style="font-size:10px; font-weight:bold;"/>
+                <p:inputTextarea id="areObservacion" value="#{Bean_Comeval_Ampliacion_Horario.observacion}" style="width: 214px; font-size:10px;"/>
+            </h:panelGrid>
+
+            <div align="right">
+                <p:commandButton id="btnAgregarObservacion" value="Agregar" actionListener="#{Bean_Comeval_Ampliacion_Horario.agregar_observacion_dialog}" icon="ui-icon-check" update=":ComevalAmpliacionHorarioForm" style="font-size:10px; font-weight:bold;"/>
+                <p:commandButton id="btnCancelarObservacion" value="Cancelar" oncomplete="PF('AmpliacionHorarioObservacionesDialogVar').hide();" style="font-size:10px; font-weight:bold;"/>
             </div>
         </h:form>
     </p:dialog>

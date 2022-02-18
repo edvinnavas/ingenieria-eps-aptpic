@@ -441,7 +441,11 @@ public class Bean_Comeval_Licencia_Docente implements Serializable {
                 this.chxAcuerdoDecanatura = true;
                 this.chxNotificacionTesoreria = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.pklPlazas = false;
                 this.btnAgregarObservacion = false;
                 this.btnEliminarObservacion = false;

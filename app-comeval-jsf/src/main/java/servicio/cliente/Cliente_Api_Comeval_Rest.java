@@ -553,10 +553,10 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
         return resultado;
     }
     
-    public String crear_ampliacion_horario(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+    public String ampliacion_horario_ingresar(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("crear_ampliacion_horario");
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_ingresar");
             String data = new Gson().toJson(lst_comeval_ampliacion_horario);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.post(Entity.text(data));
@@ -567,16 +567,16 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - crear_ampliacion_horario):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_ingresar):" + ex.toString());
         }
         
         return resultado;
     }
     
-    public String modificar_ampliacion_horario(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+    public String ampliacion_horario_modificar(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
         String resultado = "";
         try {
-            WebTarget webTarget = this.client.target(BASE_URI).path("modificar_ampliacion_horario");
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_modificar");
             String data = new Gson().toJson(lst_comeval_ampliacion_horario);
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.put(Entity.text(data));
@@ -587,7 +587,87 @@ public class Cliente_Api_Comeval_Rest implements Serializable {
             }
         } catch(Exception ex) {
             resultado = ex.toString();
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - modificar_ampliacion_horario):" + ex.toString());
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_modificar):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String ampliacion_horario_enviar_ingreso_docente(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_enviar_ingreso_docente");
+            String data = new Gson().toJson(lst_comeval_ampliacion_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_ingreso_docente):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String ampliacion_horario_enviar_visto_bueno_escuela(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_enviar_visto_bueno_escuela");
+            String data = new Gson().toJson(lst_comeval_ampliacion_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_escuela):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String ampliacion_horario_enviar_visto_bueno_secretario(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_enviar_visto_bueno_secretario");
+            String data = new Gson().toJson(lst_comeval_ampliacion_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_visto_bueno_secretario):" + ex.toString());
+        }
+        
+        return resultado;
+    }
+    
+    public String ampliacion_horario_enviar_notificacion_secretaria(List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario) {
+        String resultado = "";
+        try {
+            WebTarget webTarget = this.client.target(BASE_URI).path("ampliacion_horario_enviar_notificacion_secretaria");
+            String data = new Gson().toJson(lst_comeval_ampliacion_horario);
+            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.put(Entity.text(data));
+            if(response.getStatus() == 200) {
+                resultado = response.readEntity(String.class);
+            } else {
+                resultado = response.getStatus() + ": " + response.getStatusInfo();
+            }
+        } catch(Exception ex) {
+            resultado = ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria):" + ex.toString());
         }
         
         return resultado;

@@ -598,16 +598,16 @@ public class Servicios implements Serializable {
     }
     
     @PUT
-    @Path("ampliacion_horario_enviar_notificacion_secretario")
-    public String ampliacion_horario_enviar_notificacion_secretario(String jsonString) {
+    @Path("ampliacion_horario_enviar_notificacion_secretaria")
+    public String ampliacion_horario_enviar_notificacion_secretaria(String jsonString) {
         String resultado;
 
         try {
             Ctrl_Comeval_Ampliacion_Horario ctrl_comeval_ampliacion_horario = new Ctrl_Comeval_Ampliacion_Horario(this.jndi_personal2);
-            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_notificacion_secretario(jsonString);
+            resultado = ctrl_comeval_ampliacion_horario.ampliacion_horario_enviar_notificacion_secretaria(jsonString);
         } catch (Exception ex) {
-            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString());
-            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString();
+            System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria):" + ex.toString());
+            resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria):" + ex.toString();
         }
 
         return resultado;

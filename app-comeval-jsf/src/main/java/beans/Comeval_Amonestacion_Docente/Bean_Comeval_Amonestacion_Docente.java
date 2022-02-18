@@ -295,7 +295,11 @@ public class Bean_Comeval_Amonestacion_Docente implements Serializable {
                 this.chxRechazado = true;
                 this.chxVistoBuenoSecretario = true;
                 this.cbxTipoSolicitudRechazado = true;
-                this.cbxEstadoSolicitudRechazado = true;
+                if(this.rechazado_form) {
+                    this.cbxEstadoSolicitudRechazado = false;
+                } else {
+                    this.cbxEstadoSolicitudRechazado = true;
+                }
                 this.btnAgregarObservacion = false;
                 this.btnEliminarObservacion = false;
                 this.btnAceptar = false;

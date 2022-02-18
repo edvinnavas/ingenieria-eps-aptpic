@@ -114,9 +114,9 @@ public class Ctrl_Comeval_Ampliacion_Horario implements Serializable {
                         + lst_comeval_ampliacion_horario.get(i).getPersonal() + "',"
                         + lst_comeval_ampliacion_horario.get(i).getId_tipo_ampliacion_horario() + ","
                         + lst_comeval_ampliacion_horario.get(i).getId_plaza_temporal() + ","
-                        + lst_comeval_ampliacion_horario.get(i).getId_plaza_indefinido() + ",'"
-                        + nota_ref_temp + "','"
-                        + fecha_nota_ref_temp + "','"
+                        + lst_comeval_ampliacion_horario.get(i).getId_plaza_indefinido() + ","
+                        + nota_ref_temp + ","
+                        + fecha_nota_ref_temp + ",'"
                         + lst_comeval_ampliacion_horario.get(i).getUsuario() + "','"
                         + lst_comeval_ampliacion_horario.get(i).getFecha_ingreso() + "',"
                         + lst_comeval_ampliacion_horario.get(i).getId_estado_solicitud() + ","
@@ -269,8 +269,8 @@ public class Ctrl_Comeval_Ampliacion_Horario implements Serializable {
                         + "id_tipo_ampliacion_horario=" + lst_comeval_ampliacion_horario.get(i).getId_tipo_ampliacion_horario() + ", "
                         + "id_plaza_temporal=" + lst_comeval_ampliacion_horario.get(i).getId_plaza_temporal() + ", "
                         + "id_plaza_indefinido=" + lst_comeval_ampliacion_horario.get(i).getId_plaza_indefinido() + ", "
-                        + "nota_ref='" + nota_ref_temp + "', "
-                        + "fecha_nota_ref='" + fecha_nota_ref_temp + "', "
+                        + "nota_ref=" + nota_ref_temp + ", "
+                        + "fecha_nota_ref=" + fecha_nota_ref_temp + ", "
                         + "usuario='" + lst_comeval_ampliacion_horario.get(i).getUsuario() + "', "
                         + "rechazado=" + lst_comeval_ampliacion_horario.get(i).getRechazado() + ", "
                         + "id_estado_solicitud_rechazado=" + id_estado_solicitud_rechazado_temp + ", "
@@ -980,7 +980,7 @@ public class Ctrl_Comeval_Ampliacion_Horario implements Serializable {
         return resultado;
     }
     
-    public String ampliacion_horario_enviar_notificacion_secretario(String jsonString) {
+    public String ampliacion_horario_enviar_notificacion_secretaria(String jsonString) {
         String resultado = "";
 
         try {
@@ -1191,11 +1191,11 @@ public class Ctrl_Comeval_Ampliacion_Horario implements Serializable {
             try {
                 this.conn.rollback();
 
-                System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString());
-                resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario):" + ex.toString();
+                System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria):" + ex.toString());
+                resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria):" + ex.toString();
             } catch (Exception ex1) {
-                System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario-1):" + ex.toString());
-                resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretario-1):" + ex.toString();
+                System.out.println("1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria-1):" + ex.toString());
+                resultado = "1,ERROR (" + this.getClass().getName() + " - ampliacion_horario_enviar_notificacion_secretaria-1):" + ex.toString();
             }
         } finally {
             this.Cerrar_Conexion();

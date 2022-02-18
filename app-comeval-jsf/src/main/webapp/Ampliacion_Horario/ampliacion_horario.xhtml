@@ -8,10 +8,6 @@
         <h:panelGrid columns="6">
             <p:commandButton id="btnCrear" disabled="#{Bean_Lst_Comeval_Ampliacion_Horario.btnCrear}" value="Crear" actionListener="#{Bean_Comeval_Ampliacion_Horario.mostrar_crear_ampliacion_horario(Bean_Lst_Comeval_Ampliacion_Horario.usuario, Bean_Lst_Comeval_Ampliacion_Horario.id_estado_solicitud, Bean_Lst_Comeval_Ampliacion_Horario.id_tipo_solicitud)}" icon="ui-icon-plus" update="ComevalAmpliacionHorarioDialog,:ComevalAmpliacionHorarioForm,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;"/>
 
-            <p:commandButton id="btnRechazar" value="Rechazar" actionListener="#{Bean_Lst_Comeval_Ampliacion_Horario.rechazar_ampliacion_horario}" icon="ui-icon-close" update="tblComevalAmpliacionHorario,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
-                <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
-            </p:commandButton>
-
             <p:commandButton id="btnEnviar" value="Enviar" actionListener="#{Bean_Lst_Comeval_Ampliacion_Horario.siguiente_estado_solicitud}" icon="ui-icon-check" update="tblComevalAmpliacionHorario,:formMensaje:mensaje2" style="font-size:10px; font-weight:bold;">
                 <p:confirm header="Confirmación" message="Esta seguro desea realizar esta acción?" icon="ui-icon-alert"/>
             </p:commandButton>

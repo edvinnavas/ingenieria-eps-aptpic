@@ -55,6 +55,7 @@ public class Bean_Lst_Comeval_Ampliacion_Horario implements Serializable {
                     + "cah.id_tipo_solicitud=" + this.id_tipo_solicitud + " "
                     + "order by "
                     + "cah.id_comeval_ampliacion_horario";
+            
             this.lst_comeval_ampliacion_horario = new ArrayList<>();
             servicio.cliente.Cliente_Api_Comeval_Rest cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
             String jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
@@ -73,6 +74,7 @@ public class Bean_Lst_Comeval_Ampliacion_Horario implements Serializable {
             } else {
                 this.btnCrear = true;
             }
+            
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: cargar_datos ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
@@ -80,25 +82,94 @@ public class Bean_Lst_Comeval_Ampliacion_Horario implements Serializable {
     }
     
     public void siguiente_estado_solicitud() {
-        /* try {
+        try {
             if (this.sel_comeval_ampliacion_horario != null) {
+                List<entidad.Comeval_Ampliacion_Horario> lst_comeval_ampliacion_horario_temp = new ArrayList<>();
+
+                String cadenasql = "select "
+                        + "t.id_comeval_ampliacion_horario, "
+                        + "t.personal, "
+                        + "t.id_tipo_ampliacion_horario, "
+                        + "t.id_plaza_temporal, "
+                        + "t.id_plaza_indefinido, "
+                        + "t.nota_ref, "
+                        + "t.fecha_nota_ref, "
+                        + "t.fecha_ingreso, "
+                        + "t.id_estado_solicitud, "
+                        + "t.id_tipo_solicitud, "
+                        + "t.rechazado, "
+                        + "coalesce(t.id_estado_solicitud_rechazado,1) id_estado_solicitud_rechazado, "
+                        + "coalesce(t.id_tipo_solicitud_rechazado,1) id_tipo_solicitud_rechazado, "
+                        + "t.visto_bueno_director_escuela, "
+                        + "t.visto_bueno_secretario_academico. "
+                        + "t.notificacion_tesoreria "
+                        + "from "
+                        + "comeval_ampliacion_horario t "
+                        + "where "
+                        + "t.id_comeval_ampliacion_horario=" + this.sel_comeval_ampliacion_horario.getId_comeval_ampliacion_horario();
                 servicio.cliente.Cliente_Api_Comeval_Rest cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
-                String resultado = cliente_api_comeval_rest.siguiente_estado_solicitud(this.sel_comeval_ampliacion_horario.getId_comeval_ampliacion_horario(), this.id_estado_solicitud, this.id_tipo_solicitud);
+                String jsonString = cliente_api_comeval_rest.driver_comeval_personal2(cadenasql);
+                Type listType = new TypeToken<ArrayList<String>>() {
+                }.getType();
+                List<String> lista_drive = new Gson().fromJson(jsonString, listType);
+                for (Integer i = 1; i < lista_drive.size(); i++) {
+                    String[] col = lista_drive.get(i).split("♣");
+                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+                    entidad.Comeval_Ampliacion_Horario comeval_ampliacion_horario = new entidad.Comeval_Ampliacion_Horario(
+                            Long.parseLong(col[0]),
+                            col[1],
+                            Long.parseLong(col[2]),
+                            Long.parseLong(col[3]),
+                            Long.parseLong(col[4]),
+                            col[5],
+                            dateFormat2.format(dateFormat1.parse(col[6])),
+                            this.usuario.getUsuario(),
+                            dateFormat2.format(dateFormat1.parse(col[7])),
+                            Long.parseLong(col[8]),
+                            Long.parseLong(col[9]),
+                            Long.parseLong(col[10]),
+                            Long.parseLong(col[11]),
+                            Long.parseLong(col[12]),
+                            Long.parseLong(col[13]),
+                            Long.parseLong(col[14]),
+                            Long.parseLong(col[15]),
+                            null,
+                            null,
+                            null);
+                    lst_comeval_ampliacion_horario_temp.add(comeval_ampliacion_horario);
+                }
+
+                cliente_api_comeval_rest = new servicio.cliente.Cliente_Api_Comeval_Rest("admin", "@dm1n");
+                String resultado = "";
+                if (this.id_estado_solicitud == Long.parseLong("1")) {
+                    resultado = cliente_api_comeval_rest.ampliacion_horario_enviar_ingreso_docente(lst_comeval_ampliacion_horario_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("2")) {
+                    resultado = cliente_api_comeval_rest.ampliacion_horario_enviar_visto_bueno_escuela(lst_comeval_ampliacion_horario_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("3")) {
+                    resultado = cliente_api_comeval_rest.ampliacion_horario_enviar_visto_bueno_secretario(lst_comeval_ampliacion_horario_temp);
+                }
+                if (this.id_estado_solicitud == Long.parseLong("5")) {
+                    resultado = cliente_api_comeval_rest.ampliacion_horario_enviar_notificacion_secretaria(lst_comeval_ampliacion_horario_temp);
+                }
+
                 this.cargar_datos(this.usuario, this.id_estado_solicitud, this.id_tipo_solicitud);
 
                 String[] mensaje = resultado.split(",");
                 if (mensaje[0].equals("0")) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje del sistema...", mensaje[1]));
                 } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", mensaje[1]));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", mensaje[1]));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", "Debe seleccionar una solicitud."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Mensaje del sistema...", "Debe seleccionar una solicitud."));
             }
         } catch (Exception ex) {
             System.out.println("CLASE: " + this.getClass().getName() + " METODO: siguiente_estado_solicitud ERROR: " + ex.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje del sistema...", ex.toString()));
-        } */
+        }
     }
 
     public entidad.Usuario getUsuario() {
